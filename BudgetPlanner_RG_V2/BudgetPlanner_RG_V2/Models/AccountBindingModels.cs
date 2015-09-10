@@ -48,6 +48,9 @@ namespace BudgetPlanner_RG_V2.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public string invitedCode { get; set; }
+        public string invitedEmail { get; set; }
     }
 
     public class RegisterExternalBindingModel

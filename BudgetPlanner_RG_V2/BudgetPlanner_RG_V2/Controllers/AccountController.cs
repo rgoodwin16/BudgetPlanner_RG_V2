@@ -16,6 +16,9 @@ using Microsoft.Owin.Security.OAuth;
 using BudgetPlanner_RG_V2.Models;
 using BudgetPlanner_RG_V2.Providers;
 using BudgetPlanner_RG_V2.Results;
+using System.Web.Http.Description;
+using System.Linq;
+using BudgetPlanner_RG_V2;
 
 namespace BudgetPlanner_RG_V2.Controllers
 {
@@ -25,6 +28,7 @@ namespace BudgetPlanner_RG_V2.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -337,7 +341,26 @@ namespace BudgetPlanner_RG_V2.Controllers
                 return GetErrorResult(result);
             }
 
-            return Ok();
+            if (model.invitedEmail != null && model.invitedCode != null)
+            {
+                var newUser = db.Users.Where(u => u.Email == model.Email).FirstOrDefault();
+                var invite = db.Invitations.Where(i => i.Code == model.invitedCode && i.InvitedEmail == model.invitedEmail).FirstOrDefault();
+
+                if (invite == null)
+                {
+                    return NotFound();
+                }
+
+                else
+                {
+                    newUser.HouseHoldId = invite.HouseHoldId;
+                    db.Invitations.Remove(invite);
+                    await db.SaveChangesAsync();
+                }
+            }
+
+
+            return Ok(model);
         }
 
         // POST api/Account/RegisterExternal
@@ -372,6 +395,187 @@ namespace BudgetPlanner_RG_V2.Controllers
             }
             return Ok();
         }
+
+        //HOUSEHOLD - GET | CREATE | JOIN | LEAVE
+
+
+        // GET: api/HouseHolds/5 - GET USER'S HOUSEHOLD
+
+        [HttpPost, Route("HouseHold")]
+        [ResponseType(typeof(HouseHold))]
+        public IHttpActionResult GetHouseHold()
+        {
+            var user = db.Users.Find(User.Identity.GetUserId());
+            var houseHold = user.HouseHold;
+
+            if (houseHold == null)
+            {
+                return Ok("User is not currently a memeber of a household.");
+            }
+
+            else
+            {
+                var returnHouse = new HouseHoldVM()
+                {
+                    Name = user.HouseHold.Name,
+                    Accounts = houseHold.HouseHoldAccounts.Where(a => a.isArchived == false).ToList(),
+                    BudgetItems = houseHold.BudgetItems.ToList(),
+                    Users = houseHold.Users.ToList()
+
+                };
+
+                return Ok(returnHouse);
+            }
+
+
+        }
+
+        // POST: api/Account/HouseHolds - CREATE NEW HOUSEHOLD
+        
+        [ResponseType(typeof(HouseHold))]
+        [HttpPost, Route("CreateHouseHold")]
+        public async Task<IHttpActionResult> PostHouseHold(string name)
+        {
+            var user = db.Users.Find(User.Identity.GetUserId());
+
+            if (user.HouseHoldId != null)
+            {
+                var message = "You must leave your current household before you can create a new household";
+                return BadRequest(message);
+            }
+
+            else
+            {
+                var houseHold = new HouseHold()
+                {
+                    Name = name
+                };
+
+                user.HouseHoldId = houseHold.id;
+                houseHold.Categories.Add(new Category
+                {
+                    HouseHoldId = houseHold.id,
+                    Name = "New Account Created"
+                });
+                houseHold.Categories.Add(new Category
+                {
+                    HouseHoldId = houseHold.id,
+                    Name = "User Adjusted Balance"
+                });
+                db.HouseHolds.Add(houseHold);
+                await db.SaveChangesAsync();
+
+                var returnHouse = new HouseHoldVM()
+                {
+                    Accounts = houseHold.HouseHoldAccounts.Where(a => a.isArchived == false).ToList(),
+                    BudgetItems = houseHold.BudgetItems.ToList(),
+                    Users = houseHold.Users.ToList()
+
+                };
+
+                return Ok(returnHouse);
+            }            
+        }
+
+        //POST: api/Account/CreateInvite - CREATE NEW INVITE
+
+        [ResponseType(typeof(Invitation))]
+        [HttpPost, Route("CreateInvite")]
+        public async Task<IHttpActionResult> PostInvite(string inviteEmail)
+        {
+            var user = db.Users.Find(User.Identity.GetUserId());
+            var code = new InviteCode();
+
+            var inviteExists = db.Invitations.Any(i => i.InvitedEmail == inviteEmail);
+            
+            var invite = new Invitation();
+            
+            if (inviteExists)
+            {
+                invite = db.Invitations.Where(i=> i.InvitedEmail == inviteEmail).FirstOrDefault();
+            }
+            
+            else 
+            {
+                invite = new Invitation() 
+                {
+                    Code = code.MakeCode(),
+                    HouseHoldId = user.HouseHoldId,
+                    InvitedEmail = inviteEmail
+                };
+
+                db.Invitations.Add(invite);
+
+            }
+            
+            var invitedUserExists = db.Users.Any(u=> u.Email == inviteEmail);
+
+            //var url = invitedUserExists ? Url.Link("JoinHouseHoldEU", "") : Url.Link("JoinHouseHoldNU", "");
+            
+            var mailer = new EmailService();
+            var message = new IdentityMessage() 
+            {
+                Subject = "New Invitation from rgoodwin-budget.azurewebsites.net",
+                Destination = inviteEmail,
+                Body = "You have been invited to join " + user.UserName + "'s HouseHold. To join please follow this <a href=\'" + "\'>link </a> and use this code: " + invite.Code
+            };
+
+            await db.SaveChangesAsync();
+            await mailer.SendAsync(message);
+
+            return Ok(invite);
+
+        }
+
+        //POST: api/Account/JoinHouseHold - JOIN HOUSEHOLD
+
+        [ResponseType(typeof(HouseHold))]
+        [HttpPost, Route("JoinHouseHold")]
+        public async Task<IHttpActionResult> PostJoinHouseHold(JoinHouseVM model)
+        {
+          
+          var user = db.Users.Find(User.Identity.GetUserId());
+          var invite = db.Invitations.Where(i => i.Code == model.inviteCode && i.InvitedEmail == model.inviteEmail).FirstOrDefault();
+          
+          if (invite == null)
+          {
+            return NotFound();
+          }
+          
+          else
+          {
+            user.HouseHoldId = invite.HouseHoldId;
+            db.Invitations.Remove(invite);
+          }
+
+         await db.SaveChangesAsync();
+
+         var houseHold = user.HouseHold;
+
+         var returnHouse = new HouseHoldVM()
+         {
+             Accounts = houseHold.HouseHoldAccounts.Where(a => a.isArchived == false).ToList(),
+             BudgetItems = houseHold.BudgetItems.ToList(),
+             Users = houseHold.Users.ToList()
+
+         };
+
+         return Ok(returnHouse);
+        }
+
+        //POST: api/Account/LeaveHouseHold - LEAVE HOUSEHOLD
+        [ResponseType(typeof(HouseHold))]
+        [HttpPost, Route("LeaveHouseHold")]
+        public async Task<IHttpActionResult> PostLeaveHouseHold()
+        {
+            var user = db.Users.Find(User.Identity.GetUserId());
+
+            user.HouseHoldId = null;
+            await db.SaveChangesAsync();
+            
+            return Ok(user + " has been successfully removed.");
+        }
+
 
         protected override void Dispose(bool disposing)
         {
@@ -486,6 +690,17 @@ namespace BudgetPlanner_RG_V2.Controllers
                 byte[] data = new byte[strengthInBytes];
                 _random.GetBytes(data);
                 return HttpServerUtility.UrlTokenEncode(data);
+            }
+        }
+
+
+        public class InviteCode
+        {
+            public string MakeCode()
+            {
+                var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                var random = new Random();
+                return new string (Enumerable.Range(0,8).Select(n=>chars[random.Next(chars.Length)]).ToArray());
             }
         }
 
