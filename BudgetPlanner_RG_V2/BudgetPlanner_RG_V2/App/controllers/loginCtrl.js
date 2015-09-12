@@ -5,9 +5,10 @@ angular.module('budget_planner').controller('loginCtrl', ['authSvc', '$state', f
     self.username = '';
     self.password = '';
 
+
     self.errors = null;
 
-    self.submit = function () {
+    self.login= function () {
         authSvc.login(self.username, self.password).then(function (success) {
             $state.go('household.details');
         }, function (error) {

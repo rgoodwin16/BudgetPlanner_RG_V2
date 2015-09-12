@@ -1,4 +1,4 @@
-﻿var app = angular.module('budget_planner', ['ui.router', 'LocalStorageModule']);
+﻿var app = angular.module('budget_planner', ['ui.router','ui.bootstrap', 'LocalStorageModule']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     //
@@ -7,14 +7,40 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     //
     // Now set up the states
     $stateProvider
+
+        //LOGIN STATES
+
       .state('login', {
           url: "/login",
           templateUrl: "/app/templates/login.html",
-          controller: "loginCtrl as login"
+          abstract:true,
+          controller: "loginCtrl as user"
       })
+
+      .state('login.signin', {
+          url: "",
+          templateUrl: "/app/templates/login/login.signin.html",
+          controller: "loginCtrl as user"
+      })
+
+      .state('login.register', {
+          url: "/register",
+          templateUrl: "/app/templates/login/login.register.html",
+          controller: "loginCtrl as user"
+      })
+
+      .state('login.forgot', {
+          url: "/forgot_password",
+          templateUrl: "/app/templates/login/login.forgot.html",
+          controller: "loginCtrl as user"
+      })
+
+
+        //HOME STATES
       .state('home', {
           url: "/home",
           templateUrl: "/app/templates/home.html",
+          abstract:true,
           controller: "homeCtrl as home"
       })
 
@@ -83,9 +109,21 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       })
       .state('accounts.details.transactions', {
           url: "/transactions",
-          templateUrl: "/app/templates/accounts/accounts.details.html",
+          templateUrl: "/app/templates/accounts/accounts.details.transactions.html",
           controller: "accountTransactionsCtrl as accountTransaction"
       })
+
+      .state('accounts.details.transactions.categories', {
+          url: "/categories",
+          templateUrl: "/app/templates/accounts/accounts.details.transactions.categories.html",
+          resolve: {
+              category: function (categorySvc) {
+                  return categorySvc.list();
+              }
+          },
+          controller: "transactionCategoryCtrl as category"
+      })
+
      //BUDGET STATES
       .state('budget', {
           url: "/budget",
@@ -97,6 +135,17 @@ app.config(function ($stateProvider, $urlRouterProvider) {
           },
           controller: "budgetCtrl as budget"
       })
+      .state('budget.categories', {
+          url: "/categories",
+          templateUrl: "/app/templates/budget/budget.categories.html",
+          resolve: {
+              category: function (categorySvc) {
+                  return categorySvc.list();
+              }
+          },
+          controller: "budgetCategoryCtrl as category"
+      })
+     
 
 
 });

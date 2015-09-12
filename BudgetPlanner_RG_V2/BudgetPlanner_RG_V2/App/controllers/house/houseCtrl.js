@@ -25,4 +25,7 @@ angular.module('budget_planner').controller('houseCtrl', ['houseSvc', '$state', 
         })
     }
 
+
+   
+
 }])
