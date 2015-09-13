@@ -1,19 +1,36 @@
-﻿<h1>Join</h1>
+﻿<div class="row">
 
-<div class="row">
+    <div class="login-cover">
+        <div class="login-cover-image"><img src="/Theme_Template/img/login_bg.jpg" data-id="login-cover-image" alt="" /></div>
+        <div class="login-cover-bg"></div>
+    </div>
 
-    <div class="col-md-8">
-        Join
-    </div><!-- /left column -->
+    <div class="login login-v2" data-pageload-addclass="animated fadeIn">
+        <!-- begin brand -->
+        <div class="login-header">
+            <div class="brand move_you_2">
+                <span class="fa fa-home"></span> Join House
 
-    <div class="col-md-4">
-        <form novalidate class="simple-form">
-            <div class="form-group">
-                <input type="checkbox" /> Join HouseHold
-                <br />
-                <input type="checkbox" /> Create HouseHold
             </div>
-        </form>
-    </div><!-- /right column -->
+        </div>
+        <!-- end brand -->
+        <div class="login-content">
+            <div class="margin-bottom-0">
+                <div class="form-group m-b-20">
+                    <input type="text" class="form-control input-lg" placeholder="Invite Email Address" ng-model="user.username" />
+                </div>
+                <div class="m-t-20">
+                </div>
+                <div class="form-group m-b-20">
+                    <input type="text" class="form-control input-lg" placeholder="Invite Code" ng-model="user.username" />
+                </div>
+                <div class="m-t-20">
+                </div>
+                <div class="login-buttons">
+                    <button type="button" class="btn btn-success btn-block btn-lg" ng-click="user.login()">Join</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div><!-- /row -->

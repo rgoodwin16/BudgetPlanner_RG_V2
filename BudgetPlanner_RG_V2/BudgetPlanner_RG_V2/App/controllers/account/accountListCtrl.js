@@ -7,6 +7,7 @@ angular.module('budget_planner').controller('accountListCtrl', ['houseAccountSvc
     console.log(account)
     this.id = "";
 
+    
 
 
 }])

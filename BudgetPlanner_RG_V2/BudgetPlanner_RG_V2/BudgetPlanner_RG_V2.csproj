@@ -1122,8 +1122,13 @@
     <Content Include="Theme_Template\css\animate.css" />
     <Content Include="Theme_Template\css\app.css" />
     <Content Include="Theme_Template\css\app.min.css" />
+    <Content Include="Theme_Template\css\color_admin.css" />
+    <Content Include="Theme_Template\css\color_admin_default.css" />
+    <Content Include="Theme_Template\css\color_admin_responsive.css" />
     <Content Include="Theme_Template\css\oneui.css" />
     <Content Include="Theme_Template\css\simple-line-icons.css" />
+    <Content Include="Theme_Template\img\login_bg.jpg" />
+    <Content Include="Theme_Template\img\user_ava.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

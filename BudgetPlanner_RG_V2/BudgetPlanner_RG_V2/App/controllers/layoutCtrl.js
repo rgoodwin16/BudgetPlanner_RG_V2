@@ -3,8 +3,12 @@ angular.module('budget_planner').controller('layoutCtrl', ['$state', function ($
     var self = this;
 
     self.$state = $state;
+    console.log(self.$state)
 
-    //this.current = $state.current;
-    //this.display = self.current;
+    this.isCollapsed = false;
+    
+    this.collaspe = function () {
+        self.isCollapsed = true;
+    }
 
 }])

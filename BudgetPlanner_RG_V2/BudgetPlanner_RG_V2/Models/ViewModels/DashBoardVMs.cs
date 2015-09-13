@@ -15,7 +15,9 @@ namespace BudgetPlanner_RG_V2.Models
 
     public class HouseHoldAccountVM
     {
-        public List<Transaction> Transactions { get; set; }
+        
+        public List<HouseHoldAccount> Accounts { get; set; }
+        
     }
 
     public class TransactionsVM

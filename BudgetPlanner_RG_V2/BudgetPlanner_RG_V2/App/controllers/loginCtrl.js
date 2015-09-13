@@ -5,6 +5,8 @@ angular.module('budget_planner').controller('loginCtrl', ['authSvc', '$state', f
     self.username = '';
     self.password = '';
 
+    //self.$state = $state;
+    //console.log($state)
 
     self.errors = null;
 
@@ -14,6 +16,14 @@ angular.module('budget_planner').controller('loginCtrl', ['authSvc', '$state', f
         }, function (error) {
             self.errors = error.data;
         });
+    }
+
+    self.goSignIn = function () {
+        $state.go('login.signin');
+    }
+
+    self.goRegister = function () {
+        $state.go('login.register');
     }
 
 }])

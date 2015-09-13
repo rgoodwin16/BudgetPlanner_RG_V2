@@ -16,8 +16,11 @@
     
     @Styles.Render("~/Content/css")
     <link href="~/css/font-awesome.css" rel="stylesheet" />
-    <link href="~/Theme_Template/css/oneui.css" rel="stylesheet" />
     <link href="~/Theme_Template/css/animate.css" rel="stylesheet" />
+    <link href="~/Theme_Template/css/color_admin.css" rel="stylesheet" />
+    <link href="~/Theme_Template/css/color_admin_responsive.css" rel="stylesheet" />
+    <link href="~/Theme_Template/css/color_admin_default.css" rel="stylesheet" />
+    @*<link href="~/Theme_Template/css/oneui.css" rel="stylesheet" />*@
     @*<link href="~/Theme_Template/css/app.css" rel="stylesheet" />*@
 
 
@@ -27,12 +30,78 @@
 <body>
 
     <div ng-app="budget_planner">
+
         <div ng-controller="layoutCtrl as layout">
+            
+        <div ng-hide="layout.$state.includes('login')">
+            <!-- begin #sidebar -->
+            <div id="sidebar" class="sidebar">
+                <!-- begin sidebar scrollbar -->
+                <div data-scrollbar="true" data-height="100%">
+                    <!-- begin sidebar user -->
+                    <ul class="nav">
+                        <li class="nav-profile">
+                            <div class="image">
+                                <img src="~/Theme_Template/img/user_ava.png" alt="" />
+                            </div>
+                            <div class="info" ng-controller="houseCtrl as house">
+                                <small>Welcome</small>
+                                {{house.userDisplayName}}
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- end sidebar user -->
+                    <!-- begin sidebar nav -->
+                    <ul class="nav">
+                        
+                        <li class="has-sub active">
+                            <a >
+                                <i class="fa fa-laptop"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="has-sub">
+                            <a ui-sref="household.details" class="auto" >
+                                <b class="caret pull-right"></b>
+                                <i class="fa fa-home"></i>
+                                <span>HouseHold</span>
+                            </a>
+                            <ul class=" nav nav-sub dk">
+                                <li><a ui-sref="household.details">Details</a></li>
+                                <li><a ui-sref="household.create">Create</a></li>
+                                <li><a ui-sref="household.join">Join</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-sub">
+                            <a ui-sref="accounts.list">
+                                <i class="fa fa-university"></i>
+                                <span>Accounts</span>
+                            </a>
+                        </li>
+                        <li class="has-sub">
+                            <a ui-sref="budget">
+                                <i class="fa fa-pie-chart"></i>
+                                <span>Budget</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                    <!-- end sidebar nav -->
+                </div>
+                <!-- end sidebar scrollbar -->
+            </div>
+            <div class="sidebar-bg"></div>
+            <!-- end #sidebar -->
+        </div>
+
+        
 
             <div ui-view></div><!-- main ui-view -->
 
 
-        </div><!-- /layoutCtrl -->
+
+            </div><!-- /layoutCtrl -->
+
     </div><!-- / ng-app -->
 
 

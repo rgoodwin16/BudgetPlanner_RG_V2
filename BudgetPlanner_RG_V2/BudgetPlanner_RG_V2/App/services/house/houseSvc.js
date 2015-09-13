@@ -3,6 +3,12 @@
     .factory('houseSvc', ['$http', function ($http) {
         var f = {};
 
+        f.getUser = function () {
+            return $http.post('api/account/household/user').then(function (response) {
+                return response.data
+            })
+        }
+
         f.details = function () {
             return $http.post('/api/account/household').then(function (response) {
                 return response.data

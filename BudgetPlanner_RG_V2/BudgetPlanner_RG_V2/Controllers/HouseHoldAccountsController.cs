@@ -29,9 +29,22 @@ namespace BudgetPlanner_RG_V2.Controllers
         {
             var user = db.Users.Find(User.Identity.GetUserId());
             var accounts = user.HouseHold.HouseHoldAccounts.Where(a => a.isArchived == false).ToList();
-            
-            return Ok(accounts);
-            
+
+            if (accounts == null)
+            {
+                return BadRequest("No Accounts Found");
+            }
+
+            else
+            {
+                var returnAccount = new HouseHoldAccountVM()
+                {
+                    Accounts = user.HouseHold.HouseHoldAccounts.Where(a => a.isArchived == false).ToList(),
+                    
+                };
+                return Ok(returnAccount);
+            }
+
         }
 
         // POST: api/HouseHoldAccounts - CREATE ACCOUNT

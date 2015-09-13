@@ -1,3 +1,38 @@
-﻿<h2>Accounts List</h2>
+﻿
+<div class="row">
 
-<h4>{{accountList.display}}</h4>
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            
+            <div class="panel-heading-btn">
+                <button class="btn btn-success pull-right">New Account</button>
+            </div>
+            <h4 style="color:white">Accounts </h4>
+        </div>
+        <div class="panel-body bg-silver">
+            <table class="table table-responsive table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Balance</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="account in accountList.display.Accounts">
+                        <td>{{account.Name}}</td>
+                        <td>{{account.Balance | currency}}</td>
+                        <td>
+                            <div class="btn-group">
+                                <label type="button" class="btn btn-default">View</label>
+                                <label type="button" class="btn btn-primary">Edit</label>
+                                <label type="button" class="btn btn-warning">Archive</label>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

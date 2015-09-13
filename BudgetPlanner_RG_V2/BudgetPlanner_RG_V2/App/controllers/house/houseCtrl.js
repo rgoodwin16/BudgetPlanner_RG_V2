@@ -2,6 +2,14 @@
 angular.module('budget_planner').controller('houseCtrl', ['houseSvc', '$state',  function (houseSvc, $state) {
 
     var self = this;
+    this.userDisplayName = "";
+
+
+    this.getUser = function (name) {
+        houseSvc.getUser().then(function (data){
+            self.userDisplayName = data;
+        })
+    }
 
     this.createHouse = function (name) {
         houseSvc.create(name).then(function (data) {
@@ -25,7 +33,7 @@ angular.module('budget_planner').controller('houseCtrl', ['houseSvc', '$state', 
         })
     }
 
-
+    this.getUser();
    
 
 }])

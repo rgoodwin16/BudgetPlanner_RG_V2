@@ -398,6 +398,15 @@ namespace BudgetPlanner_RG_V2.Controllers
 
         //HOUSEHOLD - GET | CREATE | JOIN | LEAVE
 
+        //GET: api/account/ - GET CURRENT USER
+        [HttpPost,Route("HouseHold/User")]
+        [ResponseType(typeof(ApplicationUser))]
+        public IHttpActionResult GetUser()
+        {
+            var user = db.Users.Find(User.Identity.GetUserId());
+            return Ok(user.DisplayName);
+        }
+
 
         // GET: api/HouseHolds/5 - GET USER'S HOUSEHOLD
 
@@ -410,7 +419,7 @@ namespace BudgetPlanner_RG_V2.Controllers
 
             if (houseHold == null)
             {
-                return Ok("User is not currently a memeber of a household.");
+                return BadRequest("User is not currently a memeber of a household.");
             }
 
             else
