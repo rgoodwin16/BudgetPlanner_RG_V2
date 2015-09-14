@@ -1,37 +1,20 @@
 ﻿
-
 <div class="invoice">
-
+   
     <div class="invoice-company">
         <span class="pull-right hidden-print">
-            <a href="javascript:;" class="btn btn-sm btn-primary m-b-10"><i class="fa fa-edit m-r-5"></i> Edit</a>
-            <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-warning m-b-10"><i class="fa fa-archive m-r-5"></i> Archive</a>
+            <a href class="btn btn-sm btn-primary m-b-10"><i class="fa fa-edit m-r-5"></i> Edit</a>
+            <a href class="btn btn-sm btn-warning m-b-10"><i class="fa fa-archive m-r-5"></i> Archive</a>
         </span>    
-        Nora's Savings
+        {{accountDetails.account.Name}}
     </div><!-- account name -->
-    <div class="invoice-price">
-        <div class="invoice-price-left">
-            <!--<div class="invoice-price-row">
-                <div class="sub-price">
-                    <div class="invoice-date">
-                        <button type="button" class="btn btn-success"><i class="fa fa-plus"></i> New Transaction</button>
-                    </div>
-                </div>
-                <div class="sub-price">
-                    <small>Total Transactions</small>
-                    1
-                </div>
-            </div>-->
-        </div>
-        <div class="invoice-price-right">
-            <small>Balance</small>
-            $50,0000.00
-        </div>
-    </div>
+
 
 
     <div class="invoice-content">
         <div class="table-responsive">
+            <h4>Transactions</h4>
+            <hr />
             <table class="table-invoice table table-striped">
                 <thead>
                     <tr>
@@ -42,10 +25,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>New Account Created</td>
-                        <td>$50,000.00</td>
-                        <td>New Account Created</td>
+                    <tr ng-repeat="trans in accountDetails.account.Transactions">
+                        <td>{{trans.Description}}</td>
+                        <td>{{trans.Amount | currency}}</td>
+                        <td>{{trans.Categories.Name}}</td>
                         <td>
                             <div class="btn-group">
                                 <label type="button" class="btn btn-primary"><i class="fa fa-edit m-r-5"></i> Edit</label>
@@ -57,6 +40,17 @@
             </table>
         </div>
     </div><!-- /transactions -->
+
+    <div class="invoice-price">
+        <div class="invoice-price-left">
+
+        </div>
+        <div class="invoice-price-right">
+            <small>Balance</small>
+            {{accountDetails.account.Balance | currency}}
+        </div>
+    </div>
+
     <div class="sub-price">
         <div class="invoice-date">
             <button type="button" class="btn btn-success"><i class="fa fa-plus"></i> New Transaction</button>

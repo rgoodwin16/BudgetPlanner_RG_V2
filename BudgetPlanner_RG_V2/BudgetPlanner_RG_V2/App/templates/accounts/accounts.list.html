@@ -1,38 +1,64 @@
 ﻿
 <div class="row">
 
-    <div class="panel panel-inverse">
-        <div class="panel-heading">
-            
-            <div class="panel-heading-btn">
-                <button class="btn btn-success pull-right">New Account</button>
+    <div class="col-md-8">
+
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <h4 class="panel-title">Accounts </h4>
             </div>
-            <h4 style="color:white">Accounts </h4>
+            <div class="panel-body bg-silver">
+                <table class="table table-responsive table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Balance</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="account in accountList.display.Accounts">
+                            <td>{{account.Name}}</td>
+                            <td>{{account.Balance | currency}}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <div type="button" class="btn btn-default" href ui-sref="accounts.details({id: account.id})"><i class="fa fa-eye"></i> View</div>
+                                    <div type="button" class="btn btn-primary" ng-click="accountList.beginEdit(account.id)"><i class="fa fa-edit"></i> Edit</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="panel-body bg-silver">
-            <table class="table table-responsive table-striped">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Balance</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="account in accountList.display.Accounts">
-                        <td>{{account.Name}}</td>
-                        <td>{{account.Balance | currency}}</td>
-                        <td>
-                            <div class="btn-group">
-                                <label type="button" class="btn btn-default">View</label>
-                                <label type="button" class="btn btn-primary">Edit</label>
-                                <label type="button" class="btn btn-warning">Archive</label>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+
+    </div><!-- /left column -->
+
+    <div class="col-md-4">
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <h4 class="panel-title" ng-if="accountList.sidepanel == 'c'">New Account</h4>
+                <h4 class="panel-title" ng-if="accountList.sidepanel == 'e'">Edit Account</h4>
+            </div>
+            <div class="panel-body bg-silver">
+                <div class="login-content">
+                    <div class="margin-bottom-0">
+                        <div class="form-group m-b-20">
+                            <input type="text" class="form-control input-lg" placeholder="Name" ng-model="accountList.model.Name" />
+                        </div>
+                        <div class="form-group m-b-20">
+                            <input type="text" class="form-control input-lg" placeholder="Balance" ng-model="accountList.model.Balance" />
+                        </div>
+                        
+                        <div class="m-t-20">
+                        </div>
+                        <div class="login-buttons">
+                            <button type="button" class="btn btn-success btn-block btn-lg" ng-click="accountList.sidepanel == 'c' ? account.createAccount(accountList.model) : account.editAccount(accountList.model)">{{accountList.sidepanel == 'c' ? "Create" : "Edit"}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </div><!-- /right column -->
 
 </div>

@@ -1,0 +1,86 @@
+﻿<div class="row">
+
+    <div class="col-md-8">
+
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <h4 class="panel-title">Income</h4>
+            </div><!-- /income heading -->
+            <div class="panl-body bg-silver">
+                <table class="table table-responsive table-striped">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Frequency</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="b in budgetList.display | filter:{ isExpense:false }">
+                            <td>{{b.Name}}</td>
+                            <td>{{b.Category.Name}}</td>
+                            <td>{{b.Amount | currency}}</td>
+                            <td>{{b.Frequency}}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <label type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</label>
+                                    <label type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><!-- /income body -->
+        </div><!-- /income -->
+
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <h4 class="panel-title">Expenses</h4>
+            </div><!-- /expense heading -->
+            <div class="panl-body bg-silver">
+                <table class="table table-responsive table-striped">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Frequency</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="b in budgetList.display | filter:{ isExpense:true }">
+                            <td>{{b.Name}}</td>
+                            <td>{{b.Category.Name}}</td>
+                            <td>{{b.Amount | currency}}</td>
+                            <td>{{b.Frequency}}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <label type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</label>
+                                    <label type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><!-- /expense body -->
+        </div><!-- /expenses -->
+
+    </div><!-- left column -->
+
+    <div class="col-md-4">
+
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <h4 class="panel-title"><i class="fa fa-plus btn btn-xs btn-icon btn-circle btn-default"></i> Add Income/Expenses</h4>
+            </div><!-- /add|remove heading-->
+            <div class="panel-body bg-silver">
+
+            </div>
+        </div><!-- /add | remove budget item-->
+
+    </div><!-- /right column -->
+
+</div>

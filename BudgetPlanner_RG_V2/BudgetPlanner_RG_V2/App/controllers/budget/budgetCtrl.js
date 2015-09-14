@@ -1,8 +1,8 @@
 ﻿'use strict';
-angular.module('budget_planner').controller('budgetCtrl', ['budgetItemSvc', '$state','budget', function (budgetItemSvc, $state, budget) {
+angular.module('budget_planner').controller('budgetCtrl', ['budgetItemSvc', '$state', function (budgetItemSvc, $state) {
     var self = this;
-
-    this.display = budget;
+    this.display = {};
+    this.id = "";
 
     this.createItem = function () {
         budgetItemSvc.create()

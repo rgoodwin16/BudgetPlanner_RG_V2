@@ -66,6 +66,7 @@ namespace BudgetPlanner_RG_V2.Controllers
                     Amount = model.Amount,
                     HouseHoldId = (int)user.HouseHoldId,
                     CategoryId = model.CategoryId,
+                    isExpense = model.isExpense,
                     Frequency = model.Frequency
                 };
 

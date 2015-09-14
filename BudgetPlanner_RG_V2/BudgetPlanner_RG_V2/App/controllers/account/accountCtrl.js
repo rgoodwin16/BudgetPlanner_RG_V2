@@ -6,25 +6,21 @@ angular.module('budget_planner').controller('accountCtrl', ['houseAccountSvc', '
     this.display = {};
     this.id = "";
 
-
-    this.getAccount = function () {
-        houseAccountSvc.details().then(function (data) {
-            self.display = data;
+    this.createAccount = function (newAccount) {
+        houseAccountSvc.create(newAccount).then(function (result) {
+            //need to reload page, sir
+            console.log('hi')
         })
     }
 
-    this.createAccount = function () {
-        houseAccountSvc.create()
-    }
-
-    this.editAccount = function () {
-        houseAccountSvc.edit()
+    this.editAccount = function (model) {
+        houseAccountSvc.edit(model).then(function (result) {
+            //need to reload page, sir!
+        })
     }
 
     this.archiveAccount = function () {
         houseAccountSvc.archive()
     }
-
-
 
 }])

@@ -15,60 +15,7 @@
 
         <div class="panel panel-inverse">
             <div class="panel-heading">
-                <div class="panel-heading-btn">
-                    <button class="btn btn-success pull-right">New Account</button>
-                </div>
-                <h4 style="color:white">Accounts</h4>
-            </div>
-            <div class="panel-body bg-silver">
-                <table class="table table-responsive table-striped">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Balance</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="account in houseDetails.display.Accounts">
-                            <td>{{account.Name}}</td>
-                            <td>{{account.Balance | currency}}</td>
-                            <td>
-                                <div class="btn-group">
-                                    <label type="button" class="btn btn-default">View</label>
-                                    <label type="button" class="btn btn-primary">Edit</label>
-                                    <label type="button" class="btn btn-warning">Archive</label>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
- 
-        <div class="panel panel-inverse">
-            <div class="panel-heading">
-                <h4 style="color:white">Leave</h4>
-            </div>
-            <div class="panel-body bg-silver">
-                <p>Leave this household and start a new one.</p>
-
-                <form novalidate class="simple-form">
-                    <input type="checkbox" /> I understand that by leaving this household, I will no longer have access to this household's accounts.
-                    <br />
-                    <br />
-                    <input type="submit" class="btn btn-warning" value="Leave This HouseHold" ng-click="house.leaveHousse()" />
-                </form>
-            </div>
-        </div>    
-
-    </div><!-- /left column -->
-
-    <div class="col-md-4">
-
-        <div class="panel panel-inverse">
-            <div class="panel-heading">
-                <h4 style="color:white">Members</h4>
+                <h4 class="panel-title">Members</h4>
             </div>
             <div class="panel-body bg-silver">
                 <table class="table table-responsive table-striped">
@@ -87,10 +34,32 @@
                 </table>
             </div>
         </div><!-- /member table -->
+ 
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <h4 class="panel-title">Leave</h4>
+            </div>
+            <div class="panel-body bg-silver">
+                <p>Leave this household and start a new one.</p>
+
+                <form novalidate class="simple-form">
+                    <input type="checkbox" /> I understand that by leaving this household, I will no longer have access to this household's accounts.
+                    <br />
+                    <br />
+                    <input type="submit" class="btn btn-warning" value="Leave This HouseHold" ng-click="house.leaveHousse()" />
+                </form>
+            </div>
+        </div>    
+
+    </div><!-- /left column -->
+
+    <div class="col-md-4">
+
+   
 
         <div class="panel panel-inverse">
             <div class="panel-heading">
-                <h4 style="color:white">Invite</h4>
+                <h4 class="panel-title">Invite</h4>
             </div>
             <div class="panel-body bg-silver">
                 <p>Invite someone to join your household.</p>

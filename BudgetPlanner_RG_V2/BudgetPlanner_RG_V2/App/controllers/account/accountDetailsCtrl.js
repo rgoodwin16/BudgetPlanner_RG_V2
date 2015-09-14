@@ -1,32 +1,12 @@
 ﻿'use strict';
-angular.module('budget_planner').controller('accountDetailsCtrl', ['houseAccountSvc', '$state', function (houseAccountSvc, $state) {
+angular.module('budget_planner').controller('accountDetailsCtrl', ['houseAccountSvc', '$stateParams', 'account', function (houseAccountSvc, $stateParams, account) {
 
     var self = this;
 
-    this.display = {};
-    this.id = "";
+    this.account = account;
 
+    this.id = $stateParams.id;
 
-    this.getAccount = function () {
-        houseAccountSvc.details().then(function (data) {
-            self.display = data;
-        })
-    }
-
-    this.createAccount = function () {
-        houseAccountSvc.create().then(function (data) {
-            self.display = data;
-        })
-    }
-
-    this.editAccount = function () {
-        houseAccountSvc.edit()
-    }
-
-    this.archiveAccount = function () {
-        houseAccountSvc.archive()
-    }
-
-
+    console.log(this.account)
 
 }])

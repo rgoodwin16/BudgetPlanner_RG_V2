@@ -102,10 +102,22 @@ app.config(function ($stateProvider, $urlRouterProvider) {
           },
           controller: "accountListCtrl as accountList",
       })
+
+      .state('accounts.list.create', {
+          url: "",
+          templateUrl: "/app/templates/accounts/accounts.list.create.html",
+          controller: "accountListCtrl as accountList",
+      })
       .state('accounts.details', {
-          url: "/details",
+          url: "/details/:id",
           templateUrl: "/app/templates/accounts/accounts.details.html",
-          controller: "accountDetailsCtrl as accountDetails"
+          controller: "accountDetailsCtrl as accountDetails",
+          resolve: {
+              account: ['houseAccountSvc', '$stateParams', function (houseAccountSvc, $stateParams) {
+                  console.log($stateParams)
+                  return houseAccountSvc.details($stateParams.id)
+              }]
+          }
       })
       .state('accounts.details.transactions', {
           url: "/transactions",
@@ -128,13 +140,21 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       .state('budget', {
           url: "/budget",
           templateUrl: "/app/templates/budget/budget.html",
+          abstract: true,
+          controller: "budgetCtrl as budget"
+      })
+
+      .state('budget.list', {
+          url: "",
+          templateUrl: "/app/templates/budget/budget.list.html",
           resolve: {
               budget: function (budgetItemSvc) {
                   return budgetItemSvc.list();
               }
           },
-          controller: "budgetCtrl as budget"
+          controller: "budgetListCtrl as budgetList"
       })
+
       .state('budget.categories', {
           url: "/categories",
           templateUrl: "/app/templates/budget/budget.categories.html",

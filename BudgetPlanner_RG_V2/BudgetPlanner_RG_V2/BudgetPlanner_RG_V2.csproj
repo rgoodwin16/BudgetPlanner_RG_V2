@@ -248,6 +248,7 @@
     <Content Include="App\controllers\account\accountDetailsCtrl.js" />
     <Content Include="App\controllers\account\accountListCtrl.js" />
     <Content Include="App\controllers\account\accountTransactionsCtrl.js" />
+    <Content Include="App\controllers\budget\budgetListCtrl.js" />
     <Content Include="App\controllers\budget\budgetCtrl.js" />
     <Content Include="App\controllers\category\budgetCategoryCtrl.js" />
     <Content Include="App\controllers\category\transactionCategoryCtrl.js" />
@@ -269,8 +270,10 @@
     <Content Include="App\templates\accounts\accounts.details.html" />
     <Content Include="App\templates\accounts\accounts.details.transactions.html" />
     <Content Include="App\templates\accounts\accounts.html" />
+    <Content Include="App\templates\accounts\accounts.list.edit.html" />
     <Content Include="App\templates\accounts\accounts.list.html" />
     <Content Include="App\templates\accounts\accounts.details.transactions.categories.html" />
+    <Content Include="App\templates\budget\budget.list.html" />
     <Content Include="App\templates\budget\budget.html" />
     <Content Include="App\templates\home.html" />
     <Content Include="App\templates\household\household.create.html" />
@@ -364,6 +367,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="App\templates\accounts\accounts.list.create.html" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />

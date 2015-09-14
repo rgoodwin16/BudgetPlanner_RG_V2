@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,7 +18,9 @@ namespace BudgetPlanner_RG_V2.Models
         public string Name { get; set; }
         public int? HouseHoldId { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<BudgetItem> BudgetItems { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Transaction> Transactions { get; set; }
 
         public virtual HouseHold HouseHold { get; set; }

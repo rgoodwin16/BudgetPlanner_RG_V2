@@ -9,26 +9,26 @@
             })
         }
 
-        f.create = function (name, balance, householdid) {
-            return $http.post('api/HouseHoldAccounts/Create', new { Name:name, Balance:balance, HouseHoldId:householdid }).then(function (response) {
+        f.create = function (account) {
+            return $http.post('api/HouseHoldAccounts/Create', account).then(function (response) {
                 return response.data
             })
         }
 
-        f.details = function () {
-            return $http.post('api/HouseHoldAccounts/Details?id=' ).then(function (response) {
+        f.details = function (id) {
+            return $http.post('api/HouseHoldAccounts/Details?id='+ id ).then(function (response) {
                 return response.data
             })
         }
 
-        f.edit = function (name, balance, isarchived) {
-            return $http.post('api/HouseHoldAccounts/Edit', new { Name:name, Balance:balance, isArchived:isarchived }).then(function (response) {
+        f.edit = function (account) {
+            return $http.post('api/HouseHoldAccounts/Edit', account).then(function (response) {
                 return response.data
             })
         }
 
         f.archive = function (id) {
-            return $http.post('api/HouseHoldAccounts/Archive', new { HouseHoldAccountId:id }).then(function (response) {
+            return $http.post('api/HouseHoldAccounts/Archive?id=' + id).then(function (response) {
                 return response.data
             })
         }
