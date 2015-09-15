@@ -1,4 +1,5 @@
-﻿<div class="row">
+﻿<!-- houseJoinCtrl as houseJoin -->
+<div class="row">
 
     <div class="login-cover">
         <div class="login-cover-image"><img src="/Theme_Template/img/login_bg.jpg" data-id="login-cover-image" alt="" /></div>
@@ -27,7 +28,12 @@
                 <div class="m-t-20">
                 </div>
                 <div class="login-buttons">
-                    <button type="button" class="btn btn-success btn-block btn-lg" ng-click="user.login()">Join</button>
+                    <button type="button" class="btn btn-success btn-block btn-lg" ng-click="houseJoin.join(model)">Join</button>
+                </div>
+                <div class="m-t-20">
+                </div>
+                <div class="login-buttons">
+                    <button type="button" class="btn btn-white btn-block btn-lg" ng-click="houseJoin.goCreate()">Create New House</button>
                 </div>
             </div>
         </div>

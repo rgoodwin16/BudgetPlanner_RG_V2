@@ -9,7 +9,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
 
         //LOGIN STATES
-
       .state('login', {
           url: "/login",
           templateUrl: "/app/templates/login.html",
@@ -34,15 +33,15 @@ app.config(function ($stateProvider, $urlRouterProvider) {
           templateUrl: "/app/templates/login/login.forgot.html",
           controller: "loginCtrl as user"
       })
+//=================================================================================//
 
-
-        //HOME STATES
-      .state('home', {
-          url: "/home",
-          templateUrl: "/app/templates/home.html",
-          abstract:true,
-          controller: "homeCtrl as home"
+        //DASHBOARD STATES
+      .state('dashboard', {
+          url: "/dashboard",
+          templateUrl: "/app/templates/dashboard.html",
+          controller: "dashboardCtrl as dashboard"
       })
+//=================================================================================//
 
         //HOUSEHOLD STATES
       .state('household', {
@@ -64,26 +63,15 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       .state('household.create', {
           url: "/create",
           templateUrl: "/app/templates/household/household.create.html",
-          controller: "houseCtrl as house",
-          resolve: {
-              household: ['houseSvc', function (houseSvc) {
-                  return houseSvc.details();
-              }]
-          },
           controller: "houseCreateCtrl as houseCreate",
       })
 
       .state('household.join', {
           url: "/join",
           templateUrl: "/app/templates/household/household.join.html",
-          controller: "houseCtrl as house",
-          resolve: {
-              household: ['houseSvc', function (houseSvc) {
-                  return houseSvc.details();
-              }]
-          },
           controller: "houseJoinCtrl as houseJoin",
       })
+//=================================================================================//
 
       //ACCOUNT STATES
       .state('accounts', {
@@ -100,12 +88,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 return houseAccountSvc.list();
             }
           },
-          controller: "accountListCtrl as accountList",
-      })
-
-      .state('accounts.list.create', {
-          url: "",
-          templateUrl: "/app/templates/accounts/accounts.list.create.html",
           controller: "accountListCtrl as accountList",
       })
       .state('accounts.details', {
@@ -135,6 +117,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
           },
           controller: "transactionCategoryCtrl as category"
       })
+//=================================================================================//
 
      //BUDGET STATES
       .state('budget', {

@@ -16,7 +16,7 @@
         }
 
         f.create = function (name) {
-            return $http.post('api/Account/CreateHouseHold', new { Name: name }).then(function (response) {
+            return $http.post('api/Account/createhousehold?name=' + name).then(function (response) {
                 return response.data
             })
         }

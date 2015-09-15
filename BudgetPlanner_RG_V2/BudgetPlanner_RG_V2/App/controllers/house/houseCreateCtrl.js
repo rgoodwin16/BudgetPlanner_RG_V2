@@ -1,7 +1,15 @@
 ﻿'use strict';
-angular.module('budget_planner').controller('houseCreateCtrl', ['houseSvc', '$state', 'household', function (houseSvc, $state, household) {
+angular.module('budget_planner').controller('houseCreateCtrl', ['houseSvc', '$state', function (houseSvc, $state) {
     var self = this;
 
-    this.display = household;
-    this.inviteEmail = '';
+    this.create = function (name) {
+        houseSvc.create(name).then(function (data) {
+            $state.go('household.details');
+        })
+    }
+
+    this.goJoin = function () {
+        $state.go('household.join');
+    }
+
 }])

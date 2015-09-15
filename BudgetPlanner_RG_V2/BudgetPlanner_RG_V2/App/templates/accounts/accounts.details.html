@@ -1,60 +1,90 @@
-﻿
-<div class="invoice">
-   
-    <div class="invoice-company">
-        <span class="pull-right hidden-print">
-            <a href class="btn btn-sm btn-primary m-b-10"><i class="fa fa-edit m-r-5"></i> Edit</a>
-            <a href class="btn btn-sm btn-warning m-b-10"><i class="fa fa-archive m-r-5"></i> Archive</a>
-        </span>    
-        {{accountDetails.account.Name}}
-    </div><!-- account name -->
+﻿<!-- accountDetailsCtrl as accountDetails -->
+<div class="row">
+    <div class="col-md-8">
+        <div class="invoice">
 
+            <div class="invoice-company">
+                <span class="pull-right hidden-print">
+                    <!--<a class="btn btn-sm btn-primary m-b-10" ng-click="accountDetails.beginEdit()"><i class="fa fa-edit m-r-5"></i> Edit</a>-->
+                    
+                </span>
+                {{accountDetails.account.Name}} - Transactions
+            </div><!-- account name -->
 
-
-    <div class="invoice-content">
-        <div class="table-responsive">
-            <h4>Transactions</h4>
+            <div class="invoice-content">
             <hr />
-            <table class="table-invoice table table-striped">
-                <thead>
-                    <tr>
-                        <th>Description</th>
-                        <th>Amount</th>
-                        <th>Category</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="trans in accountDetails.account.Transactions">
-                        <td>{{trans.Description}}</td>
-                        <td>{{trans.Amount | currency}}</td>
-                        <td>{{trans.Categories.Name}}</td>
-                        <td>
-                            <div class="btn-group">
-                                <label type="button" class="btn btn-primary"><i class="fa fa-edit m-r-5"></i> Edit</label>
-                                <label type="button" class="btn btn-danger"><i class="fa fa-trash m-r-5"></i> Delete</label>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div><!-- /transactions -->
+                <div class="table-responsive">
+                    <table class="table-invoice table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Category</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="trans in accountDetails.account.Transactions">
+                                <td>{{trans.Description}}</td>
+                                <td>{{trans.Amount | currency}}</td>
+                                <td>{{trans.Categories.Name}}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <label type="button" class="btn btn-primary"><i class="fa fa-edit m-r-5"></i> Edit</label>
+                                        <label type="button" class="btn btn-danger"><i class="fa fa-trash m-r-5"></i> Delete</label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- /transactions -->
 
-    <div class="invoice-price">
-        <div class="invoice-price-left">
+            <div class="invoice-price">
+                <div class="invoice-price-left">
+
+                </div>
+                <div class="invoice-price-right">
+                    <small>Balance</small>
+                    {{accountDetails.account.Balance | currency}}
+                </div>
+            </div>
 
         </div>
-        <div class="invoice-price-right">
-            <small>Balance</small>
-            {{accountDetails.account.Balance | currency}}
+    </div><!-- /left column -->
+    <div class="col-md-4">
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <h4 class="panel-title" ng-if="accountDetails.sidepanel == 'c'">Create Transaction</h4>
+                <h4 class="panel-title" ng-if="accountDetails.sidepanel == 'e'">Edit Transaction</h4>
+            </div>
+            <div class="panel-body bg-silver">
+                <div class="login-content">
+                    <div class="margin-bottom-0">
+                        <div class="form-group m-b-20">
+                            <input type="text" class="form-control input-lg" placeholder="Description" ng-model="accountDetails.model.Description" />
+                        </div>
+                        <div class="form-group m-b-20">
+                            <input type="text" class="form-control input-lg" placeholder="Amount" ng-model="accountDetails.model.Amount" />
+                        </div>
+                        <div>
+                            <select class="form-control">
+                                <option>
+                                    1
+                                </option>
+                                <option>
+                                    2
+                                </option>
+                            </select>
+                        </div>
+                        <div class="m-t-20">
+                        </div>
+                        <div class="login-buttons">
+                            <button type="button" class="btn btn-success btn-block btn-lg" ng-click="accountList.sidepanel == 'c' ? accountList.createAccount(accountList.model) : accountList.editAccount()">{{accountDetails.sidepanel == 'c' ? "Create" : "Edit"}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div class="sub-price">
-        <div class="invoice-date">
-            <button type="button" class="btn btn-success"><i class="fa fa-plus"></i> New Transaction</button>
-        </div>
-    </div>
-
+    </div><!-- /right column -->
 </div>

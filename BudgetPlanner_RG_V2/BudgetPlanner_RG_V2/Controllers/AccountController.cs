@@ -404,7 +404,7 @@ namespace BudgetPlanner_RG_V2.Controllers
         public IHttpActionResult GetUser()
         {
             var user = db.Users.Find(User.Identity.GetUserId());
-            return Ok(user.DisplayName);
+            return Ok(user);
         }
 
 

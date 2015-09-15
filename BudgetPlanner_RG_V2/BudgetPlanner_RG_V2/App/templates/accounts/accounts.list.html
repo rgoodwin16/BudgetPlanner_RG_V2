@@ -24,6 +24,7 @@
                                 <div class="btn-group">
                                     <div type="button" class="btn btn-default" href ui-sref="accounts.details({id: account.id})"><i class="fa fa-eye"></i> View</div>
                                     <div type="button" class="btn btn-primary" ng-click="accountList.beginEdit(account.id)"><i class="fa fa-edit"></i> Edit</div>
+                                    <div type="button" class="btn btn-warning" ng-click="accountList.beginArchive(account.id)"><i class="fa fa-archive"></i> Archive</div>
                                 </div>
                             </td>
                         </tr>
@@ -44,6 +45,7 @@
                 <div class="login-content">
                     <div class="margin-bottom-0">
                         <div class="form-group m-b-20">
+                            
                             <input type="text" class="form-control input-lg" placeholder="Name" ng-model="accountList.model.Name" />
                         </div>
                         <div class="form-group m-b-20">
@@ -53,7 +55,7 @@
                         <div class="m-t-20">
                         </div>
                         <div class="login-buttons">
-                            <button type="button" class="btn btn-success btn-block btn-lg" ng-click="accountList.sidepanel == 'c' ? account.createAccount(accountList.model) : account.editAccount(accountList.model)">{{accountList.sidepanel == 'c' ? "Create" : "Edit"}}</button>
+                            <button type="button" class="btn btn-success btn-block btn-lg" ng-click="accountList.sidepanel == 'c' ? accountList.createAccount(accountList.model) : accountList.editAccount()">{{accountList.sidepanel == 'c' ? "Create" : "Edit"}}</button>
                         </div>
                     </div>
                 </div>

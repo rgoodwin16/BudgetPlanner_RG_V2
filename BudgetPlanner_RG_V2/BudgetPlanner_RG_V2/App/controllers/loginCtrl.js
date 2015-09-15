@@ -4,10 +4,11 @@ angular.module('budget_planner').controller('loginCtrl', ['authSvc', '$state', f
 
     self.username = '';
     self.password = '';
-    self.confirmPassword = '';
-    self.displayName = '';
-    self.inviteCode = '';
-    self.inviteEmail = '';
+    //self.Email = '';
+    //self.ConfirmPassword = '';
+    //self.DisplayName = '';
+    //self.inviteCode = '';
+    //self.inviteEmail = '';
 
     self.errors = null;
     
@@ -24,7 +25,7 @@ angular.module('budget_planner').controller('loginCtrl', ['authSvc', '$state', f
     //LOGIN FORM SUBMIT
     self.login = function () {
         authSvc.login(self.username, self.password).then(function (success) {
-            $state.go('household.details');
+            $state.go('dashboard');
         }, function (error) {
             self.errors = error.data;
         });
@@ -32,7 +33,7 @@ angular.module('budget_planner').controller('loginCtrl', ['authSvc', '$state', f
 
     ////REGISTER FORM SUBMIT - NO CODE
     //.self.register_noCode = function () {
-    //    authSvc.register(self.displayName,self.username, self.password, self.confirmPassword).then(function (success) {
+    //    authSvc.register(self.displayName,self.email, self.password, self.confirmPassword).then(function (success) {
     //        $state.go('household.create');
     //    }, function (error) {
     //        self.errors = error.data;

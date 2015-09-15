@@ -1,5 +1,5 @@
 ﻿
-
+<!-- controller houseCreateCtrl as houseCreate -->
 <div class="row">
         
 
@@ -20,12 +20,17 @@
         <div class="login-content">
             <div class="margin-bottom-0">
                 <div class="form-group m-b-20">
-                    <input type="text" class="form-control input-lg" placeholder="HouseHold Name" ng-model="user.username" />
+                    <input type="text" class="form-control input-lg" placeholder="HouseHold Name" ng-model="houseCreate.name" />
                 </div>
                 <div class="m-t-20">
                 </div>
                 <div class="login-buttons">
-                    <button type="button" class="btn btn-success btn-block btn-lg" ng-click="user.login()">Create</button>
+                    <button type="button" class="btn btn-success btn-block btn-lg" ng-click="houseCreate.create(houseCreate.name)">Create</button>
+                </div>
+                <div class="m-t-20">
+                </div>
+                <div class="login-buttons">
+                    <button type="button" class="btn btn-white btn-block btn-lg" ng-click="houseCreate.goJoin()">Join House</button>
                 </div>
             </div>
         </div>

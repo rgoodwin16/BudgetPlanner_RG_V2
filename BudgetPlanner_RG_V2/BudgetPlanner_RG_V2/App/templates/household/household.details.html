@@ -1,15 +1,10 @@
-﻿
+﻿<!-- houseDetailsCtrl as houseDetails -->
 
 <div class="row">
 
     <div class="panel-heading">
         <h3 >{{houseDetails.display.Name}} HouseHold</h3>
     </div>
-
-    <!--<div class="login-cover">
-        <div class="login-cover-image"><img src="/Theme_Template/img/login_bg.jpg" data-id="login-cover-image" alt="" /></div>
-        <div class="login-cover-bg"></div>
-    </div>-->
 
     <div class="col-md-8">
 
@@ -41,13 +36,9 @@
             </div>
             <div class="panel-body bg-silver">
                 <p>Leave this household and start a new one.</p>
-
-                <form novalidate class="simple-form">
-                    <input type="checkbox" /> I understand that by leaving this household, I will no longer have access to this household's accounts.
-                    <br />
-                    <br />
-                    <input type="submit" class="btn btn-warning" value="Leave This HouseHold" ng-click="house.leaveHousse()" />
-                </form>
+                    <div>
+                        <button type="button" class="btn btn-warning" ng-click="houseDetails.confirmLeave()">Leave This HouseHold</button>
+                    </div>
             </div>
         </div>    
 
@@ -55,21 +46,22 @@
 
     <div class="col-md-4">
 
-   
-
         <div class="panel panel-inverse">
             <div class="panel-heading">
                 <h4 class="panel-title">Invite</h4>
             </div>
             <div class="panel-body bg-silver">
                 <p>Invite someone to join your household.</p>
-
-                <form novalidate class="form-inline">
-                    <div class="form-group">
-                        <input type="email" ng-model="houseDetails.inviteEmail" class="form-control" placeholder="Email" />
+                <div class="form-group">
+                    <input type="email" ng-model="houseDetails.inviteEmail" class="form-control" placeholder="Email" />
+                </div>
+                <button type="submit" class="btn btn-success" ng-click="houseDetails.createInvite()">Send Invitation</button>
+                <div class="m-t-20">
+                </div>
+                    <div class="alert alert-info fade in m-b-15" ng-hide="houseDetails.inviteToggle == 0">
+                        <strong>Invitation Sent</strong>
+                        <span class="close" ng-click="houseDetails.inviteToggle = 0">×</span>
                     </div>
-                    <input type="submit" class="btn btn-success" value="Send Invitation" ng-click="house.createInvite(houseDetails.inviteEmail)" />
-                </form>
             </div>
         </div>
 

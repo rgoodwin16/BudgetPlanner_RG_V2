@@ -20,6 +20,12 @@ angular.module('budget_planner')
 
     };
 
+    //var _register_noCode = function (displayName, emailAddress, password, confirmPassword) {
+
+
+
+    //}
+
     var _login = function (username, password) {
 
         var data = "grant_type=password&username=" + username + "&password=" + password;

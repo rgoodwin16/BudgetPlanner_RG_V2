@@ -121,8 +121,14 @@ namespace BudgetPlanner_RG_V2.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             var user = db.Users.Find(User.Identity.GetUserId());
-            var oldAccount = db.HouseHoldAccounts.AsNoTracking().FirstOrDefault(a => a.id == model.id);
+            var oldAccount = db.HouseHoldAccounts.FirstOrDefault(a => a.id == model.id);
+
+            if (oldAccount.Name != model.Name)
+            {
+                oldAccount.Name = model.Name;
+            }
 
             //check balance
             if (oldAccount.Balance != model.Balance)
@@ -139,12 +145,9 @@ namespace BudgetPlanner_RG_V2.Controllers
                 });
 
                 oldAccount.Balance -= adjBal;
-                    
             }
-
-            db.Update<HouseHoldAccount>(model, "Name", "Balance");
-
-            await db.SaveChangesAsync(); 
+      
+            await db.SaveChangesAsync();
             return Ok(oldAccount);
         
         }
