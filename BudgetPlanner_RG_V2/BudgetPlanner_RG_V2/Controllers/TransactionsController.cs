@@ -110,18 +110,22 @@ namespace BudgetPlanner_RG_V2.Controllers
             //check if amount has changed
             if (oldTrans.Amount != model.Amount)
             {
-                var account = db.HouseHoldAccounts.Find(model.HouseHoldAccountId);
+                var account = db.HouseHoldAccounts.FirstOrDefault( a => a.id == model.HouseHoldAccountId);
                 account.Balance -= oldTrans.Amount;
                 account.Balance += model.Amount;
             }
 
+            model.CategoryId = model.Categories.id;
+
             model.Updated = DateTimeOffset.Now;
-            
-            db.Update<Transaction>(model, "Amount", "Reconcile", "CategoryId", "Description", "isDebit");
+
+            var arr = new List<string>(){"Amount", "Reconcile", "CategoryId", "Description", "isDebit"};
+
+            db.Update<Transaction>(model, arr.ToArray());
 
             await db.SaveChangesAsync();
 
-            return Ok(model);
+            return Ok(oldTrans);
         }
 
         // DELETE: api/Transactions/5 - DELETE TRANSACTION

@@ -1,8 +1,9 @@
 ﻿'use strict';
-angular.module('budget_planner').controller('modalCtrl', ['houseSvc', '$state', '$modal', '$modalInstance', 'houseAccountSvc', 'account1', function (houseSvc, $state, $modal, $modalInstance, houseAccountSvc, account1) {
+angular.module('budget_planner').controller('modalCtrl', ['houseSvc', '$state', '$modal', '$modalInstance', 'houseAccountSvc', 'account1','transactionSvc','transaction', function (houseSvc, $state, $modal, $modalInstance, houseAccountSvc, account1,transactionSvc,transaction) {
 
     var self = this;
     this.model = account1;
+    this.trans = transaction;
     //this.model.id = $stateParams.id;
     
     //GENERIC CANCEL - DISMISSES MODAL
@@ -29,6 +30,14 @@ angular.module('budget_planner').controller('modalCtrl', ['houseSvc', '$state', 
         houseAccountSvc.edit(self.model).then(function (result) {
             self.ok();
             $state.go($state.current, null, { reload: true })
+        })
+    }
+    
+    //CONFIRM MODAL - DELETE TRANSACTION / REFRESH STATE
+    this.deleteTransaction = function () {
+        transactionSvc.delete(self.trans).then(function (result) {
+            self.ok();
+            $state.go($state.current,null, { reload:true })
         })
     }
 

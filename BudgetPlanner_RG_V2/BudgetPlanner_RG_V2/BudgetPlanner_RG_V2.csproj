@@ -285,6 +285,7 @@
     <Content Include="App\templates\login\login.forgot.html" />
     <Content Include="App\templates\login\login.register.html" />
     <Content Include="App\templates\login\login.signin.html" />
+    <Content Include="App\templates\modals\delete.transaction.html" />
     <Content Include="App\templates\modals\edit.account.html" />
     <Content Include="App\templates\modals\leave.house.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -323,6 +324,8 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />
+    <Content Include="Scripts\angular-ui-switch\angular-ui-switch.css" />
+    <Content Include="Scripts\angular-ui-switch\angular-ui-switch.min.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap.js" />

@@ -9,26 +9,26 @@
             })
         }
 
-        f.create = function () {
-            return $http.post('api/HouseHoldAccounts/Transactions/Create').then(function (response) {
+        f.create = function (transaction) {
+            return $http.post('api/HouseHoldAccounts/Transactions/Create',transaction).then(function (response) {
                 return response.data
             })
         }
 
-        f.details = function () {
-            return $http.post('api/HouseHoldAccounts/Transactions/Details').then(function (response) {
+        f.details = function (id) {
+            return $http.post('api/HouseHoldAccounts/Transactions/Details?id=' + id).then(function (response) {
                 return response.data
             })
         }
 
-        f.edit = function () {
-            return $http.post('api/HouseHoldAccounts/Transactions/Edit').then(function (resposne) {
+        f.edit = function (transaction) {
+            return $http.post('api/HouseHoldAccounts/Transactions/Edit',transaction).then(function (response) {
                 return response.data
             })
         }
 
-        f.delete = function () {
-            return $http.post('api/HouseHoldAccounts/Transactions/Delete').then(function (response) {
+        f.delete = function (id) {
+            return $http.post('api/HouseHoldAccounts/Transactions/Delete?id=' + id).then(function (response) {
                 return response.data
             })
         }

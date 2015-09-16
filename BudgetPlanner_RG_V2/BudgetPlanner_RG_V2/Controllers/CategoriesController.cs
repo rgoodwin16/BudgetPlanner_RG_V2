@@ -16,12 +16,12 @@ using BudgetPlanner_RG_V2.Libraries;
 namespace BudgetPlanner_RG_V2.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/Accounts/Categories")]
+    [RoutePrefix("api/HouseHold/Categories")]
     public class CategoriesController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-         //POST: api/BudgetItems - GET ALL CATEGORIES FOR THIS HOUSEHOLD
+        //POST: api/HouseHold/Categories - GET ALL CATEGORIES FOR THIS HOUSEHOLD
         [HttpPost, Route("Index")]
         public IHttpActionResult Index()
         {
@@ -35,12 +35,12 @@ namespace BudgetPlanner_RG_V2.Controllers
 
             catch (NullReferenceException)
             {
-                return BadRequest("No Budget Items found.");
+                return BadRequest("No Categories found.");
             }
 
         }
 
-        // POST: api/BudgetItems - CREATE CATEGORY
+        // POST: api/HouseHold/Categories - CREATE CATEGORY
         [ResponseType(typeof(Category))]
         [HttpPost, Route("Create")]
         public async Task<IHttpActionResult> Create(Category model)
@@ -74,7 +74,7 @@ namespace BudgetPlanner_RG_V2.Controllers
 
         }
 
-        // GET: api/Categories/5 - GET CATEGORY
+        // GET: api/HouseHold/Categories/5 - GET CATEGORY
         [ResponseType(typeof(Category))]
         [HttpPost, Route("Details")]
         public IHttpActionResult Details(int id)
@@ -90,7 +90,7 @@ namespace BudgetPlanner_RG_V2.Controllers
             return Ok(category);
         }
 
-        // PUT: api/Categories/5
+        // PUT: api/HouseHold/Categories/5
         [ResponseType(typeof(void))]
         [HttpPost, Route("Edit")]
         public async Task<IHttpActionResult> Edit(int id, Category model)
@@ -131,7 +131,7 @@ namespace BudgetPlanner_RG_V2.Controllers
 
 
 
-        // DELETE: api/Categories/5
+        // DELETE: api/HouseHold/Categories/5
         [ResponseType(typeof(Category))]
         public async Task<IHttpActionResult> DeleteCategory(int id)
         {

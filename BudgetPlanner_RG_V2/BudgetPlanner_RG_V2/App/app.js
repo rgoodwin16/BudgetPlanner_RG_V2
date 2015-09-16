@@ -1,4 +1,4 @@
-﻿var app = angular.module('budget_planner', ['ui.router','ui.bootstrap', 'LocalStorageModule']);
+﻿var app = angular.module('budget_planner', ['ui.router', 'ui.bootstrap', 'LocalStorageModule', 'uiSwitch']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     //
@@ -86,7 +86,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
           resolve: {
               account: function (houseAccountSvc) {
                 return houseAccountSvc.list();
-            }
+              }
           },
           controller: "accountListCtrl as accountList",
       })
@@ -98,7 +98,10 @@ app.config(function ($stateProvider, $urlRouterProvider) {
               account: ['houseAccountSvc', '$stateParams', function (houseAccountSvc, $stateParams) {
                   console.log($stateParams)
                   return houseAccountSvc.details($stateParams.id)
-              }]
+              }],
+              categories: function (categorySvc) {
+                  return categorySvc.list();
+              }
           }
       })
       .state('accounts.details.transactions', {
