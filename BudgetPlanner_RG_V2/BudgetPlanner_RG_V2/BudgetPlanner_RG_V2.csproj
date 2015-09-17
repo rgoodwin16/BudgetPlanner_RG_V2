@@ -286,7 +286,6 @@
     <Content Include="App\templates\login\login.register.html" />
     <Content Include="App\templates\login\login.signin.html" />
     <Content Include="App\templates\modals\archive.account.html" />
-    <Content Include="App\templates\modals\delete.transaction.html" />
     <Content Include="App\templates\modals\edit.account.html" />
     <Content Include="App\templates\modals\leave.house.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />

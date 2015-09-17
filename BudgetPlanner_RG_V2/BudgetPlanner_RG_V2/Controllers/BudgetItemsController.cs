@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using BudgetPlanner_RG_V2.Models;
 using Microsoft.AspNet.Identity;
+using BudgetPlanner_RG_V2.Libraries;
 
 namespace BudgetPlanner_RG_V2.Controllers
 {
@@ -60,20 +61,13 @@ namespace BudgetPlanner_RG_V2.Controllers
 
             else
             {
-                var budgetItem = new BudgetItem()
-                {
-                    Name = model.Name,
-                    Amount = model.Amount,
-                    HouseHoldId = (int)user.HouseHoldId,
-                    CategoryId = model.CategoryId,
-                    isExpense = model.isExpense,
-                    Frequency = model.Frequency
-                };
 
-                db.BudgetItems.Add(budgetItem);
+                model.HouseHoldId = (int)user.HouseHoldId;
+
+                db.BudgetItems.Add(model);
                 await db.SaveChangesAsync();
 
-                return Ok(budgetItem);
+                return Ok();
             }
 
         }
@@ -97,37 +91,17 @@ namespace BudgetPlanner_RG_V2.Controllers
         // PUT: api/BudgetItems/5 - EDIT BUDGET ITEM
         [ResponseType(typeof(void))]
         [HttpPost,Route("Edit")]
-        public async Task<IHttpActionResult> Edit(int id, BudgetItem model)
+        public async Task<IHttpActionResult> Edit(BudgetItem model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var oldBudgetItem = db.BudgetItems.AsNoTracking().FirstOrDefault(bi => bi.id == model.id);
+            db.Update<BudgetItem>(model, "Amount", "Name", "Frequency", "isExpense");
+            await db.SaveChangesAsync();
 
-            //check if name changed
-            if (oldBudgetItem.Name != model.Name)
-            {
-                oldBudgetItem.Name = model.Name;
-                await db.SaveChangesAsync();
-            }
-
-            //check if amount changed
-            if (oldBudgetItem.Amount != oldBudgetItem.Amount)
-            {
-                oldBudgetItem.Amount = model.Amount;
-                await db.SaveChangesAsync();
-            }
-
-            //check if frquency changed
-            if (oldBudgetItem.Frequency != model.Frequency)
-            {
-                oldBudgetItem.Frequency = model.Frequency;
-                await db.SaveChangesAsync();
-            }
-
-            return Ok(oldBudgetItem);
+            return Ok();
 
         }
 

@@ -9,20 +9,26 @@
             })
         }
 
-        f.create = function () {
-            return $http.post('api/BudgetItems/Create').then(function (response) {
+        f.details = function (id) {
+            return $http.post('api/BudgetItems/Details?id=' + id).then(function (response) {
                 return response.data
             })
         }
 
-        f.edit = function () {
-            return $http.post('api/BudgetItems/Edit').then(function (response) {
+        f.create = function (model) {
+            return $http.post('api/BudgetItems/Create',model).then(function (response) {
                 return response.data
             })
         }
 
-        f.delete = function () {
-            return $http.post('api/BudgetItems/Delete').then(function (response) {
+        f.edit = function (model) {
+            return $http.post('api/BudgetItems/Edit',model).then(function (response) {
+                return response.data
+            })
+        }
+
+        f.delete = function (id) {
+            return $http.post('api/BudgetItems/Delete?id=' + id).then(function (response) {
                 return response.data
             })
         }

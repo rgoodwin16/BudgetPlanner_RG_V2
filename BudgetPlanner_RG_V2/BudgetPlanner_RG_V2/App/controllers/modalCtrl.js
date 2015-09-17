@@ -1,8 +1,8 @@
 ﻿'use strict';
-angular.module('budget_planner').controller('modalCtrl', ['houseSvc', '$state', '$modal', '$modalInstance', 'houseAccountSvc','acc',  function (houseSvc, $state, $modal, $modalInstance, houseAccountSvc,acc) {
+angular.module('budget_planner').controller('modalCtrl', ['houseSvc', '$state', '$modal', '$modalInstance', 'houseAccountSvc',  function (houseSvc, $state, $modal, $modalInstance, houseAccountSvc) {
 
     var self = this;
-    this.account = acc;
+    //this.account = acc;
 
 
     //this.trans = transaction;

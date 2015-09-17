@@ -136,6 +136,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
           resolve: {
               budget: function (budgetItemSvc) {
                   return budgetItemSvc.list();
+              },
+              categories: function (categorySvc) {
+                  return categorySvc.list();
               }
           },
           controller: "budgetListCtrl as budgetList"
