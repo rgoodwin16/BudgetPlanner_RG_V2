@@ -15,6 +15,7 @@ angular.module('budget_planner').controller('budgetListCtrl', ['budgetItemSvc', 
         $state.go($state.current, null, { reload: true })
     }
 
+
     //CREATE BUDGET ITEM
     this.createItem = function () {
         budgetItemSvc.create(self.model).then(function (result) {

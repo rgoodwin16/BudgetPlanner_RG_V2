@@ -4,16 +4,6 @@ angular.module('budget_planner').controller('budgetCtrl', ['budgetItemSvc', '$st
     this.display = {};
     this.id = "";
 
-    this.createItem = function () {
-        budgetItemSvc.create()
-    }
 
-    this.editItem = function () {
-        budgetItemSvc.edit()
-    }
-
-    this.delete = function () {
-        budgetItemSvc.delete()
-    }
 
 }])

@@ -46,6 +46,20 @@ namespace BudgetPlanner_RG_V2.Controllers
         public async Task<IHttpActionResult> Create(BudgetItem model)
         {
             var user = db.Users.Find(User.Identity.GetUserId());
+            var cats = user.HouseHold.Categories;
+
+            if (!cats.Any(c => c.Name == model.Categories.Name))
+            {
+                var newCat = new Category()
+                {
+                    HouseHoldId = user.HouseHoldId,
+                    Name = model.Categories.Name
+                };
+
+                db.Categories.Add(newCat);
+                await db.SaveChangesAsync();
+                model.Categories.id = newCat.id;
+            }
 
             if (!ModelState.IsValid)
             {
@@ -61,9 +75,9 @@ namespace BudgetPlanner_RG_V2.Controllers
 
             else
             {
-
                 model.HouseHoldId = (int)user.HouseHoldId;
-
+                model.CategoryId = model.Categories.id;
+                model.Categories = null;
                 db.BudgetItems.Add(model);
                 await db.SaveChangesAsync();
 
@@ -93,12 +107,33 @@ namespace BudgetPlanner_RG_V2.Controllers
         [HttpPost,Route("Edit")]
         public async Task<IHttpActionResult> Edit(BudgetItem model)
         {
+            var user = db.Users.Find(User.Identity.GetUserId());
+            var cats = user.HouseHold.Categories;
+
+            if (!cats.Any(c => c.Name == model.Categories.Name))
+            {
+                var newCat = new Category()
+                {
+                    HouseHoldId = user.HouseHoldId,
+                    Name = model.Categories.Name
+                };
+
+                db.Categories.Add(newCat);
+                await db.SaveChangesAsync();
+                model.CategoryId = newCat.id;
+            }
+            else
+            {
+                model.CategoryId = model.Categories.id;
+                model.Categories = null;
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Update<BudgetItem>(model, "Amount", "Name", "Frequency", "isExpense");
+            db.Update<BudgetItem>(model, "Amount", "Name", "Frequency", "isExpense","CategoryId");
             await db.SaveChangesAsync();
 
             return Ok();

@@ -4,6 +4,9 @@
 
         <div class="panel panel-inverse">
             <div class="panel-heading">
+                <span class="panel-heading-btn">
+                    <a class="btn btn-sm btn-success m-b-10 btn-xs" ng-click="budgetList.clear()"><i class="fa fa-plus"></i> New Income / Expense</a>
+                </span>
                 <h4 class="panel-title">Income</h4>
             </div><!-- /income heading -->
             <div class="panl-body bg-silver">
@@ -54,7 +57,7 @@
                         <tr ng-repeat="b in budgetList.display | filter:{ isExpense:true }">
                             <td>{{b.Name}}</td>
                             <td>{{b.Categories.Name}}</td>
-                            <td>{{b.Amount | currency}}</td>
+                            <td>-{{b.Amount | currency}}</td>
                             <td>{{b.Frequency}}</td>
                             <td>
                                 <div class="btn-group">
@@ -89,9 +92,20 @@
                         </div>
 
                         <div class="form-group" ng-hide="budgetList.sidepanel == 'd'">
-                            <label for="cat">Category</label>
+                            <label style="color:#707478">Category</label>
+                            <tabset justified="true">
+                                <tab heading="Existing" class="panel-inverse">
+                                    <select ng-options="category as category.Name for category in budgetList.categories track by category.id" ng-model="budgetList.model.Categories" class="form-control" id="cat"></select>
+                                </tab>
+                                <tab heading="New" class="panel-inverse">
+                                    <input type="text" class="form-control" ng-model="budgetList.model.Categories.Name"/>
+                                </tab>
+                            </tabset>
+
+
+                            <!--<label for="cat">Category</label>
                             <select ng-options="category as category.Name for category in budgetList.categories track by category.id" ng-model="budgetList.model.Categories" class="form-control" id="cat"></select>
-                            {{budgetList.model.Categories}}
+                            {{budgetList.model.Categories}}-->
                         </div>
 
                         <div class="form-inline" ng-hide="budgetList.sidepanel == 'd'">

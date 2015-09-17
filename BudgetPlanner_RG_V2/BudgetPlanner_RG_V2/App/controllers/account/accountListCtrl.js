@@ -5,8 +5,7 @@ angular.module('budget_planner').controller('accountListCtrl',['houseAccountSvc'
 
     this.display = account;
     console.log(account)
-    
-    
+
     this.model = {};
 
     this.sidepanel = 'c';
@@ -26,7 +25,7 @@ angular.module('budget_planner').controller('accountListCtrl',['houseAccountSvc'
         })
     }
 
-    //EDIT ACCOUNT - EDIT ACCOUNT / REFRESH STATE
+    //EDIT ACCOUNT - CONFIRM EDIT
     this.editAccount = function () {
         houseAccountSvc.edit(self.model).then(function (result) {
             $state.go($state.current, null, { reload: true })

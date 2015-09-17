@@ -69,7 +69,7 @@ namespace BudgetPlanner_RG_V2.Controllers
                 db.Categories.Add(category);
                 await db.SaveChangesAsync();
 
-                return Ok(category);
+                return Ok();
             }
 
         }

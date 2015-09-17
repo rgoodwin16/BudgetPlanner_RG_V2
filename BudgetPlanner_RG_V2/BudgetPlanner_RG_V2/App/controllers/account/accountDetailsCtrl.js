@@ -62,7 +62,7 @@ angular.module('budget_planner').controller('accountDetailsCtrl', ['houseAccount
         })
     }
 
-    //EDIT TRANSACTION
+    //EDIT TRANSACTION - CONFRIM EDIT
     this.editTrans = function () {
         transactionSvc.edit(self.model).then(function (result) {
             $state.go($state.current,null,{ reload: true })
@@ -77,7 +77,7 @@ angular.module('budget_planner').controller('accountDetailsCtrl', ['houseAccount
         })
     }
 
-    //DELETE TRANSACTION - DELETE
+    //DELETE TRANSACTION - CONFIRM DELETE
     this.deleteTrans = function () {
         transactionSvc.delete(self.model.id).then(function (result) {
             $state.go($state.current, null, { reload: true })
