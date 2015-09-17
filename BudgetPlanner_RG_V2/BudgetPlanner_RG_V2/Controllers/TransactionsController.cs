@@ -43,31 +43,45 @@ namespace BudgetPlanner_RG_V2.Controllers
         // POST: api/HouseHoldAccounts/Transactions - CREATE TRANSACTION
         [ResponseType(typeof(Transaction))]
         [HttpPost, Route("Create")]
-        public async Task<IHttpActionResult> Create(Transaction trans)
+        public async Task<IHttpActionResult> Create(Transaction model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            trans.Created = DateTimeOffset.Now;
-
-            var account = db.HouseHoldAccounts.Find(trans.HouseHoldAccountId);
-
-            if (trans.isDebit)
+            if (model.isDebit)
             {
-                account.Balance = account.Balance - trans.Amount;
+                if (model.Amount > 0)
+                {
+                    model.Amount *= -1;
+                }
+
+            }
+            else
+                if (model.Amount < 0)
+                {
+                    model.Amount *= -1;
+                }
+
+            var account = db.HouseHoldAccounts.Find(model.HouseHoldAccountId);
+
+            if (model.isDebit)
+            {
+                account.Balance = account.Balance + model.Amount;
             }
 
             else
             {
-                account.Balance = account.Balance + trans.Amount;
+                account.Balance = account.Balance - model.Amount;
             }
 
-            db.Transactions.Add(trans);
+            model.Created = DateTimeOffset.Now;
+
+            db.Transactions.Add(model);
             await db.SaveChangesAsync();
 
-            return Ok(trans);
+            return Ok();
         }
 
         // GET: api/HouseHoldAccounts/Transactions/5 - GET TRANSACTION
@@ -101,31 +115,65 @@ namespace BudgetPlanner_RG_V2.Controllers
             if (model.isDebit)
             {
                 if (model.Amount > 0)
+                {
                     model.Amount *= -1;
+                }
+                   
             }
             else
                 if (model.Amount < 0)
+                {
                     model.Amount *= -1;
+                }
+                   
+
+            var account = db.HouseHoldAccounts.FirstOrDefault(a => a.id == model.HouseHoldAccountId);
 
             //check if amount has changed
             if (oldTrans.Amount != model.Amount)
             {
-                var account = db.HouseHoldAccounts.FirstOrDefault( a => a.id == model.HouseHoldAccountId);
-                account.Balance -= oldTrans.Amount;
-                account.Balance += model.Amount;
+
+                if (model.isDebit)
+                {
+                    account.Balance = account.Balance - oldTrans.Amount;
+                    account.Balance = account.Balance + model.Amount;
+                }
+
+                else
+                {
+                    account.Balance = account.Balance + oldTrans.Amount;
+                    account.Balance = account.Balance + model.Amount;
+                }
+
+            }
+
+            //check if trans isDebit has changed
+            if (oldTrans.isDebit != model.isDebit)
+            {
+                if (model.isDebit)
+                {
+                    //account.Balance = account.Balance + oldTrans.Amount;
+                    account.Balance = account.Balance - model.Amount;
+                }
+
+                else
+                {
+                    account.Balance = account.Balance - oldTrans.Amount;
+                    account.Balance = account.Balance + model.Amount;
+                }
             }
 
             model.CategoryId = model.Categories.id;
 
-            model.Updated = DateTimeOffset.Now;
 
             var arr = new List<string>(){"Amount", "Reconcile", "CategoryId", "Description", "isDebit"};
 
             db.Update<Transaction>(model, arr.ToArray());
 
+            model.Updated = DateTimeOffset.Now;
             await db.SaveChangesAsync();
 
-            return Ok(oldTrans);
+            return Ok();
         }
 
         // DELETE: api/Transactions/5 - DELETE TRANSACTION
@@ -137,27 +185,18 @@ namespace BudgetPlanner_RG_V2.Controllers
             
             if (transaction == null)
             {
-                return Ok("No transaction found.");
+                return BadRequest("No transaction found.");
             }
 
             var user = db.Users.Find(User.Identity.GetUserId());
             var account = user.HouseHold.HouseHoldAccounts.FirstOrDefault(a => a.id == transaction.HouseHoldAccountId);
 
-
-            if (transaction.isDebit)
-            {
-                account.Balance += transaction.Amount;
-            }
-
-            else 
-            {
-                account.Balance -= transaction.Amount;
-            }
+            account.Balance = account.Balance - transaction.Amount;
             
             db.Transactions.Remove(transaction);
             await db.SaveChangesAsync();
 
-            return Ok(account);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

@@ -32,8 +32,8 @@
                                 <td>{{trans.Updated | date:'medium'}}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <label type="button" class="btn btn-primary" ng-click="accountDetails.beginEdit(trans.id)"><i class="fa fa-edit m-r-5"></i> Edit</label>
-                                        <label type="button" class="btn btn-danger" ng-click="accountDetails.beginDelete(trans.id)"><i class="fa fa-trash m-r-5"></i> Delete</label>
+                                        <label type="button" class="btn btn-primary" ng-click="accountDetails.beginEdit(trans.id)" ng-hide="trans.Categories.Name == 'New Account Created'"><i class="fa fa-edit m-r-5"></i> Edit</label>
+                                        <label type="button" class="btn btn-danger" ng-click="accountDetails.beginDelete(trans.id)" ng-hide="trans.Categories.Name == 'New Account Created'"><i class="fa fa-trash m-r-5"></i> Delete</label>
                                     </div>
                                 </td>
                             </tr>

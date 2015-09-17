@@ -20,11 +20,5 @@ angular.module('budget_planner').controller('houseDetailsCtrl', ['houseSvc', '$s
         self.inviteToggle = 1;
     }
 
-    //GENERIC CANCEL - CLOSES MODAL
-    //this.cancel = function () {
-    //    $modalInstance.dismiss('cancel');
-    //    console.log($modalInstance)
-    //}
-
 }])
 

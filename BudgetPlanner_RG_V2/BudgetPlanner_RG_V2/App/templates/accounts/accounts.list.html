@@ -13,6 +13,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Balance</th>
+                            <th># of Transactions</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -20,6 +21,7 @@
                         <tr ng-repeat="account in accountList.display.Accounts">
                             <td>{{account.Name}}</td>
                             <td>{{account.Balance | currency}}</td>
+                            <td>{{account.Transactions.length}}</td>
                             <td>
                                 <div class="btn-group">
                                     <div type="button" class="btn btn-default" href ui-sref="accounts.details({id: account.id})"><i class="fa fa-eye"></i> View</div>

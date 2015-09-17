@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('budget_planner').controller('accountListCtrl',['houseAccountSvc','$state','account',function (houseAccountSvc,$state,account) {
+angular.module('budget_planner').controller('accountListCtrl',['houseAccountSvc','$state','account','$modal',function (houseAccountSvc,$state,account,$modal) {
 
     var self = this;
 
@@ -33,5 +33,25 @@ angular.module('budget_planner').controller('accountListCtrl',['houseAccountSvc'
         })
     }
 
+    //ARCHIVE ACCOUNT - OPEN MODAL
+    this.beginArchive = function (id) {
+        $modal.open({
+            templateUrl: 'App/templates/modals/archive.account.html',
+            controller: 'modalCtrl as modal',
+            size: 'small',
+            resolve: {
+                acc: function (houseAccountSvc) {
+                    return houseAccountSvc.details(id);
+                }
+            }
+        });
+    }
+
+    //ARCHIVE ACCOUNT - CONFIRM MODAL
+    //this.archiveAccount = function () {
+    //    houseAccountSvc.archive(id).then(function (data) {
+    //        $state.go($state.current, null, { reload: true })
+    //    })
+    //}
 
 }])
