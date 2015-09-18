@@ -4,7 +4,7 @@
         <div class="invoice">
             <div class="invoice-company">
                 <span class="pull-right hidden-print">
-                    <a class="btn btn-sm btn-success m-b-10" ng-click="accountDetails.beginNew()"><i class="fa fa-plus"></i> New Transaction</a>
+                    <a class="btn btn-sm btn-success m-b-10" ng-click="accountDetails.clear()"><i class="fa fa-plus"></i> New Transaction</a>
                 </span>
                 {{accountDetails.account.Name}} - Transactions
             </div><!-- account name -->
@@ -27,11 +27,11 @@
                             <tr ng-repeat="trans in accountDetails.account.Transactions">
                                 <td>{{trans.Description}}</td>
                                 <td>{{trans.Amount | currency}}</td>
-                                <td>{{trans.Categories.Name}}</td>
+                                <td>{{trans.Category.Name}}</td>
                                 <td>{{trans.Created | date:'medium'}}</td>
                                 <td>{{trans.Updated | date:'medium'}}</td>
                                 <td>
-                                    <div class="btn-group" ng-hide="trans.Categories.Name == 'New Account Created' || trans.Categories.Name == 'User Adjusted Balance'">
+                                    <div class="btn-group" ng-hide="trans.Category.Name == 'New Account Created' || trans.Category.Name == 'User Adjusted Balance'">
                                         <label type=" button" class="btn btn-primary btn-sm" ng-click="accountDetails.beginEdit(trans.id)"><i class="fa fa-edit m-r-5"></i> Edit</label>
                                         <label type="button" class="btn btn-danger btn-sm" ng-click="accountDetails.beginDelete(trans.id)"><i class="fa fa-trash m-r-5"></i> Delete</label>
                                     </div>
@@ -55,57 +55,53 @@
         </div>
     </div><!-- /left column -->
     <div class="col-md-4">
-        <div class="panel panel-warning">
-            <div class="panel-heading">
-                <h4 class="panel-title" ng-if="accountDetails.sidepanel == 'c'">Create Transaction</h4>
-                <h4 class="panel-title" ng-if="accountDetails.sidepanel == 'e'">Edit Transaction</h4>
-                <h4 class="panel-title" ng-if="accountDetails.sidepanel == 'd'">Delete Transaction</h4>
+
+        <div class="invoice">
+            <div class="invoice-company">
+                <span ng-show="accountDetails.sidepanel == 'c'">New Transaction</span>
+                <span ng-show="accountDetails.sidepanel == 'e'">Edit Transaction</span>
+                <span ng-show="accountDetails.sidepanel == 'd'">Delete Transaction?</span>
             </div>
-            <div class="panel-body bg-silver">
-                <div class="login-content">
-                    <div class="margin-bottom-0">
-                        <div class="form-group m-b-20" ng-hide="accountDetails.sidepanel == 'd'">
-                            <input type="text" class="form-control input-lg" placeholder="Description" ng-model="accountDetails.model.Description" />
-                        </div>
-                        <div class="form-group m-b-20" ng-hide="accountDetails.sidepanel == 'd'">
-                            <input type="text" class="form-control input-lg" placeholder="Amount" ng-model="accountDetails.model.Amount" />
-                        </div>
-
-                        <div class="form-group" ng-hide="accountDetails.sidepanel == 'd'">
-                            <label for="cat">Category</label>
-                            <select ng-options="category as category.Name for category in accountDetails.categories track by category.id" ng-model="accountDetails.model.Categories" class="form-control" id="cat"></select>
-                            {{accountDetails.model.Categories}}
-                        </div>
-
-                        <div class="form-inline" ng-hide="accountDetails.sidepanel == 'd'">
-                            Credit
-                            <div class="form-group">
-                                <switch id="enabled" name="enabled" ng-model="accountDetails.model.isDebit" class="green"></switch>
+            <div class="invoice-content">
+                <hr />
+                <div class="panel-body">
+                    <div class="login-content">
+                        <div class="margin-bottom-0">
+                            <div class="form-group m-b-20" ng-hide="accountDetails.sidepanel == 'd'">
+                                <input type="text" class="form-control input-lg" placeholder="Description" ng-model="accountDetails.model.Description" />
                             </div>
-                            Debit
-                            <!--<br>{{ enabled }}-->
-                        </div>
-
-                        <div ng-show="accountDetails.sidepanel == 'd'">
-                            <h4>Are you sure you want to delete this transaction?</h4>
-                        </div>
-
-                        <div class="m-t-20">
-                        </div>
-                        <div class="login-buttons">
-                            <button type="button" class="btn btn-success btn-block btn-lg" ng-click="accountDetails.createTrans(accountDetails.model)" ng-show="accountDetails.sidepanel == 'c'">Create</button>
-                            <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="accountDetails.editTrans(accountDetails.model)" ng-show="accountDetails.sidepanel == 'e'">Edit</button>
-                            
-                            <button type="button" class="btn btn-white btn-block btn-lg" ng-click="accountDetails.clear()" ng-show="accountDetails.sidepanel == 'd'">Cancel</button>
-
-                            <div class="m-t-20" ng-show="accountDetails.sidepanel == 'd'">
+                            <div class="form-group m-b-20" ng-hide="accountDetails.sidepanel == 'd'">
+                                <input type="text" class="form-control input-lg" placeholder="Amount" ng-model="accountDetails.model.Amount" />
                             </div>
-                            
-                            <button type="button" class="btn btn-danger btn-block btn-lg" ng-click="accountDetails.deleteTrans(accountDetails.model)" ng-show="accountDetails.sidepanel == 'd'">Delete</button>
+
+                            <div class="form-group" ng-hide="accountDetails.sidepanel == 'd'">
+                                <label for="cat">Category</label>
+                                <select ng-options="category as category.Name for category in accountDetails.categories track by category.id" ng-model="accountDetails.model.Category" class="form-control" id="cat"></select>
+                                {{accountDetails.model.Categories}}
+                            </div>
+
+                            <div class="form-inline" ng-hide="accountDetails.sidepanel == 'd'">
+                                Credit
+                                <div class="form-group">
+                                    <switch id="enabled" name="enabled" ng-model="accountDetails.model.isDebit" class="green"></switch>
+                                </div>
+                                Debit
+                                <!--<br>{{ enabled }}-->
+                            </div>
+
+                            <div class="m-t-20">
+                            </div>
+                            <div class="login-buttons">
+                                <button type="button" class="btn btn-white btn-block btn-lg" ng-click="accountDetails.clear()">Cancel</button>
+                                <button type="button" class="btn btn-success btn-block btn-lg" ng-click="accountDetails.createTrans(accountDetails.model)" ng-show="accountDetails.sidepanel == 'c'">Create</button>
+                                <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="accountDetails.editTrans(accountDetails.model)" ng-show="accountDetails.sidepanel == 'e'">Edit</button>
+                                <button type="button" class="btn btn-danger btn-block btn-lg" ng-click="accountDetails.deleteTrans(accountDetails.model)" ng-show="accountDetails.sidepanel == 'd'">Delete</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div><!-- /right column -->
 </div>

@@ -48,17 +48,17 @@ namespace BudgetPlanner_RG_V2.Controllers
             var user = db.Users.Find(User.Identity.GetUserId());
             var cats = user.HouseHold.Categories;
 
-            if (!cats.Any(c => c.Name == model.Categories.Name))
+            if (!cats.Any(c => c.Name == model.Category.Name))
             {
                 var newCat = new Category()
                 {
                     HouseHoldId = user.HouseHoldId,
-                    Name = model.Categories.Name
+                    Name = model.Category.Name
                 };
 
                 db.Categories.Add(newCat);
                 await db.SaveChangesAsync();
-                model.Categories.id = newCat.id;
+                model.Category.id = newCat.id;
             }
 
             if (!ModelState.IsValid)
@@ -76,8 +76,8 @@ namespace BudgetPlanner_RG_V2.Controllers
             else
             {
                 model.HouseHoldId = (int)user.HouseHoldId;
-                model.CategoryId = model.Categories.id;
-                model.Categories = null;
+                model.CategoryId = model.Category.id;
+                model.Category = null;
                 db.BudgetItems.Add(model);
                 await db.SaveChangesAsync();
 
@@ -110,12 +110,12 @@ namespace BudgetPlanner_RG_V2.Controllers
             var user = db.Users.Find(User.Identity.GetUserId());
             var cats = user.HouseHold.Categories;
 
-            if (!cats.Any(c => c.Name == model.Categories.Name))
+            if (!cats.Any(c => c.Name == model.Category.Name))
             {
                 var newCat = new Category()
                 {
                     HouseHoldId = user.HouseHoldId,
-                    Name = model.Categories.Name
+                    Name = model.Category.Name
                 };
 
                 db.Categories.Add(newCat);
@@ -124,8 +124,8 @@ namespace BudgetPlanner_RG_V2.Controllers
             }
             else
             {
-                model.CategoryId = model.Categories.id;
-                model.Categories = null;
+                model.CategoryId = model.Category.id;
+                model.Category = null;
             }
 
             if (!ModelState.IsValid)

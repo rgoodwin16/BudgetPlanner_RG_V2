@@ -35718,17 +35718,17 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
  * These rules are bundled with angular.js, but can be overridden
  * (see {@link guide/i18n Angular i18n} dev guide). You configure ngPluralize directive
  * by specifying the mappings between
- * [plural categories](http://unicode.org/repos/cldr-tmp/trunk/diff/supplemental/language_plural_rules.html)
+ * [plural ](http://unicode.org/repos/cldr-tmp/trunk/diff/supplemental/language_plural_rules.html)
  * and the strings to be displayed.
  *
- * # Plural categories and explicit number rules
+ * # Plural  and explicit number rules
  * There are two
- * [plural categories](http://unicode.org/repos/cldr-tmp/trunk/diff/supplemental/language_plural_rules.html)
+ * [plural ](http://unicode.org/repos/cldr-tmp/trunk/diff/supplemental/language_plural_rules.html)
  * in Angular's default en-US locale: "one" and "other".
  *
  * While a plural category may match many numbers (for example, in en-US locale, "other" can match
  * any number that is not 1), an explicit number rule can only match one number. For example, the
- * explicit number rule for "3" matches the number 3. There are examples of plural categories
+ * explicit number rule for "3" matches the number 3. There are examples of plural 
  * and explicit number rules throughout the rest of this documentation.
  *
  * # Configuring ngPluralize
@@ -35738,7 +35738,7 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
  * The value of the `count` attribute can be either a string or an {@link guide/expression
  * Angular expression}; these are evaluated on the current scope for its bound value.
  *
- * The `when` attribute specifies the mappings between plural categories and the actual
+ * The `when` attribute specifies the mappings between plural  and the actual
  * string to be displayed. The value of the attribute should be a JSON object.
  *
  * The following example shows how to configure ngPluralize:
@@ -35763,7 +35763,7 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
  * for <span ng-non-bindable>{{numberExpression}}</span>.
  *
  * If no rule is defined for a category, then an empty string is displayed and a warning is generated.
- * Note that some locales define more categories than `one` and `other`. For example, fr-fr defines `few` and `many`.
+ * Note that some locales define more  than `one` and `other`. For example, fr-fr defines `few` and `many`.
  *
  * # Configuring ngPluralize with offset
  * The `offset` attribute allows further customization of pluralized text, which can result in
@@ -35782,7 +35782,7 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
  * </ng-pluralize>
  * ```
  *
- * Notice that we are still using two plural categories(one, other), but we added
+ * Notice that we are still using two plural (one, other), but we added
  * three explicit number rules 0, 1 and 2.
  * When one person, perhaps John, views the document, "John is viewing" will be shown.
  * When three people view the document, no explicit number rule is found, so
@@ -35793,7 +35793,7 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
  * Note that when you specify offsets, you must provide explicit number rules for
  * numbers from 0 up to and including the offset. If you use an offset of 3, for example,
  * you must provide explicit number rules for 0, 1, 2 and 3. You must also provide plural strings for
- * plural categories "one" and "other".
+ * plural  "one" and "other".
  *
  * @param {string|expression} count The variable to be bound to.
  * @param {string} when The mapping between plural category to its corresponding strings.

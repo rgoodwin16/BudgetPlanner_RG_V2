@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('budget_planner').controller('accountListCtrl',['houseAccountSvc','$state','account','$modal',function (houseAccountSvc,$state,account,$modal) {
+angular.module('budget_planner').controller('accountListCtrl',['houseAccountSvc','$state','account',function (houseAccountSvc,$state,account) {
 
     var self = this;
 
@@ -9,6 +9,11 @@ angular.module('budget_planner').controller('accountListCtrl',['houseAccountSvc'
     this.model = {};
 
     this.sidepanel = 'c';
+
+    //CLEAR FORM
+    this.clear = function () {
+        $state.go($state.current, null, { reload: true })
+    }
 
     //CREATE ACCOUNT / REFRESH STATE
     this.createAccount = function () {
@@ -32,25 +37,20 @@ angular.module('budget_planner').controller('accountListCtrl',['houseAccountSvc'
         })
     }
 
-    //ARCHIVE ACCOUNT - OPEN MODAL
+
+    //ARCHIVE ACCOUNT - SEND INFO TO FORM
     this.beginArchive = function (id) {
-        $modal.open({
-            templateUrl: 'App/templates/modals/archive.account.html',
-            controller: 'modalCtrl as modal',
-            size: 'small',
-            resolve: {
-                acc: function (houseAccountSvc) {
-                    return houseAccountSvc.details(id);
-                }
-            }
-        });
+        houseAccountSvc.details(id).then(function (result) {
+            self.model = result;
+            self.sidepanel = 'a';
+        })
     }
 
-    //ARCHIVE ACCOUNT - CONFIRM MODAL
-    //this.archiveAccount = function () {
-    //    houseAccountSvc.archive(id).then(function (data) {
-    //        $state.go($state.current, null, { reload: true })
-    //    })
-    //}
+    //ARCHIVE ACCOUNT - CONFIRM ARCHIVE
+    this.archiveAccount = function () {
+        houseAccountSvc.archive(self.model.id).then(function (result) {
+            $state.go($state.current, null, { reload: true })
+        })
+    }
 
 }])

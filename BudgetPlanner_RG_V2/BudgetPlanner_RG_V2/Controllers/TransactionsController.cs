@@ -78,6 +78,9 @@ namespace BudgetPlanner_RG_V2.Controllers
 
             model.Created = DateTimeOffset.Now;
 
+            model.CategoryId = model.Category.id;
+            model.Category = null;
+
             db.Transactions.Add(model);
             await db.SaveChangesAsync();
 
@@ -163,8 +166,8 @@ namespace BudgetPlanner_RG_V2.Controllers
                 }
             }
 
-            model.CategoryId = model.Categories.id;
-
+            model.CategoryId = model.Category.id;
+            model.Category = null;
 
             var arr = new List<string>(){"Amount", "Reconcile", "CategoryId", "Description", "isDebit"};
 

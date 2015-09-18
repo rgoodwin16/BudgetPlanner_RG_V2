@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('budget_planner').controller('accountDetailsCtrl', ['houseAccountSvc', '$stateParams', 'account','$modal','categories','transactionSvc','$state', function (houseAccountSvc, $stateParams,account,$modal,categories,transactionSvc,$state) {
+angular.module('budget_planner').controller('accountDetailsCtrl', ['houseAccountSvc', '$stateParams', 'account','categories','transactionSvc','$state', function (houseAccountSvc, $stateParams,account,categories,transactionSvc,$state) {
 
     var self = this;
 
@@ -18,33 +18,11 @@ angular.module('budget_planner').controller('accountDetailsCtrl', ['houseAccount
     console.log(this.account)
     console.log(this.categories)
 
-    //EDIT ACCOUNT - MODAL
-    //this.beginEdit = function (id) {
-    //    $modal.open({
-    //        templateUrl: 'App/templates/modals/edit.account.html',
-    //        controller: 'modalCtrl as modal',
-    //        size: 'small',
-    //        resolve: {
-    //            account1: function () {
-    //             return houseAccountSvc.details(self.id)
-    //            },
-               
-    //        }
-    //    });
-    //    console.log(account);
-    //}
 
     //CLEAR FORM
     this.clear = function () {
         $state.go($state.current, null, { reload: true })
     }
-
-
-    //CREATE TRANSACTION - CLEAR FORM
-    this.beginNew = function () {
-        $state.go($state.current, null, { reload: true })
-    }
-
 
     //CREATE TRANSACTION
     this.createTrans = function () {

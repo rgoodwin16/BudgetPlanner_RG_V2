@@ -23,7 +23,7 @@ namespace BudgetPlanner_RG_V2.Models
         public bool isArchived { get; set; }
 
         
-        public virtual Category Categories { get; set; }
+        public virtual Category Category { get; set; }
         [JsonIgnore]
         public virtual HouseHoldAccount HouseHoldAccount { get; set; }
 

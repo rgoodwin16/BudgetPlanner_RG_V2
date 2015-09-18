@@ -6,7 +6,8 @@ Website: http://www.seantheme.com/color-admin-v1.8/admin/
 */
 
 body {
-    background: #2c2c2d;
+    /*background: #2c2c2d;*/
+    background-image:url(../img/login_bg.jpg);
     font-size: 12px;
     font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #707478
@@ -1193,7 +1194,7 @@ legend {
 .nav-tabs>li.active>a:focus,
 .nav-tabs>li.active>a:hover,
 .nav-tabs>li>a {
-    border: none!important
+    /*border: none!important*/
 }
 .nav-tabs.nav-justified>.active>a,
 .nav-tabs.nav-justified>.active>a:focus,
@@ -1260,6 +1261,9 @@ legend {
     padding: 15px;
     margin-bottom: 20px;
     background: #fff;
+    border-left:solid 1px #ddd;
+    border-bottom:solid 1px #ddd;
+    border-right:solid 1px #ddd;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px

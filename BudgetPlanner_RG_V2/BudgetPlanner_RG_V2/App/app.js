@@ -1,4 +1,4 @@
-﻿var app = angular.module('budget_planner', ['ui.router', 'ui.bootstrap', 'LocalStorageModule', 'uiSwitch']);
+﻿var app = angular.module('budget_planner', ['ui.router', 'ui.bootstrap', 'LocalStorageModule', 'uiSwitch', 'trNgGrid']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     //

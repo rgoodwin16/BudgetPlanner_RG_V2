@@ -262,6 +262,7 @@
     <Content Include="App\controllers\registerCtrl.js" />
     <Content Include="App\services\auth\authInterceptorSvc.js" />
     <Content Include="App\services\auth\authSvc.js" />
+    <Content Include="App\services\validationSvc.js" />
     <Content Include="App\services\house\budgetItemSvc.js" />
     <Content Include="App\services\house\categorySvc.js" />
     <Content Include="App\services\house\dashBoardSvc.js" />
@@ -1123,6 +1124,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\trNgGrid.min.js" />
     <Content Include="Theme_Template\css\animate.css" />
     <Content Include="Theme_Template\css\app.css" />
     <Content Include="Theme_Template\css\app.min.css" />
@@ -1131,6 +1133,7 @@
     <Content Include="Theme_Template\css\color_admin_responsive.css" />
     <Content Include="Theme_Template\css\oneui.css" />
     <Content Include="Theme_Template\css\simple-line-icons.css" />
+    <Content Include="Theme_Template\css\trNgGrid.min.css" />
     <Content Include="Theme_Template\img\login_bg.jpg" />
     <Content Include="Theme_Template\img\user_ava.png" />
     <Content Include="Web.config" />
