@@ -29,7 +29,7 @@
 
         <div ng-controller="layoutCtrl as layout">
             
-            <div ng-hide="layout.$state.includes('login') || layout.$state.includes('household.create') || layout.$state.includes('household.join')">
+            <div ng-hide="layout.$state.includes('login') || layout.$state.includes('household.create') || layout.$state.includes('household.join') || layout.$state.includes('household.begin')">
                 <!-- begin #sidebar -->
                 <div id="sidebar" class="sidebar">
                     <!-- begin sidebar scrollbar -->
@@ -51,7 +51,7 @@
                         <!-- begin sidebar nav -->
                         <ul class="nav" ng-controller="houseCtrl as house">
 
-                            <li class="has-sub active">
+                            <li class="has-sub">
                                 <a ui-sref="dashboard">
                                     <i class="fa fa-laptop"></i>
                                     <span>Dashboard</span>
@@ -59,7 +59,7 @@
                             </li>
                             <li class="has-sub">
                                 <a class="auto" ui-sref="household.details">
-                                    
+
                                     <i class="fa fa-home"></i>
                                     <span>HouseHold</span>
                                 </a>
@@ -121,8 +121,9 @@
     <script src="~/app/controllers/loginCtrl.js"></script><!-- login -->
     <script src="~/App/controllers/registerCtrl.js"></script><!-- register -->
     <script src="~/App/controllers/layoutCtrl.js"></script><!-- layout -->
+    <script src="~/App/controllers/householdBeginCtrl.js"></script><!-- home -->
     <script src="~/app/controllers/dashboardCtrl.js"></script><!-- dashboard -->
-    <script src="~/App/controllers/modalCtrl.js"></script><!-- modal -->
+
 
     <!-- HouseHold -->
     <script src="~/App/controllers/house/houseCtrl.js"></script><!-- house -->
@@ -138,9 +139,6 @@
     <!-- Budget -->
     <script src="~/App/controllers/budget/budgetCtrl.js"></script><!-- budget -->
     <script src="~/App/controllers/budget/budgetListCtrl.js"></script><!-- budget.list -->
-
-
-
 
 
 </body>

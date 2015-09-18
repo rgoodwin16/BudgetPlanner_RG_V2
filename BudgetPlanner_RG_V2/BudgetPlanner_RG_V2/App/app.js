@@ -17,6 +17,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       })
 
       .state('login.signin', {
+          params: {'isNew' : false},
           url: "",
           templateUrl: "/app/templates/login/login.signin.html",
           controller: "loginCtrl as user"
@@ -33,6 +34,22 @@ app.config(function ($stateProvider, $urlRouterProvider) {
           templateUrl: "/app/templates/login/login.forgot.html",
           controller: "loginCtrl as user"
       })
+
+        //NEW USER STATE
+      .state('login.newuser', {
+          url: "/newuser",
+          templateUrl: "/app/templates/login/login.newuser.html",
+          controller: "loginCtrl as user"
+      })
+//=================================================================================//
+
+        //LANDING PAGE STATES
+        .state('home', {
+            url: "/home",
+            templateUrl: "/app/templates/home/home.html",
+            controller: "homeCtrl as home"
+        })
+
 //=================================================================================//
 
         //DASHBOARD STATES
@@ -60,13 +77,21 @@ app.config(function ($stateProvider, $urlRouterProvider) {
           },
           controller: "houseDetailsCtrl as houseDetails",
       })
-      .state('household.create', {
+
+      .state('household.begin', {
+          url: "/begin",
+          templateUrl: "/app/templates/household/household.begin.html",
+          controller: "householdBeginCtrl as houseBegin",
+          
+      })
+
+      .state('household.begin.create', {
           url: "/create",
           templateUrl: "/app/templates/household/household.create.html",
           controller: "houseCreateCtrl as houseCreate",
       })
 
-      .state('household.join', {
+      .state('household.begin.join', {
           url: "/join",
           templateUrl: "/app/templates/household/household.join.html",
           controller: "houseJoinCtrl as houseJoin",

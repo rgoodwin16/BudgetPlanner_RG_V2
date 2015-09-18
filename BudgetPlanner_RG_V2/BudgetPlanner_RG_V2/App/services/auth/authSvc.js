@@ -20,11 +20,11 @@ angular.module('budget_planner')
 
     };
 
-    //var _register_noCode = function (displayName, emailAddress, password, confirmPassword) {
-
-
-
-    //}
+    var _register = function (model) {
+        return $http.post(serviceBase + 'api/account/register', model).then(function (response) {
+            return response;
+        });
+    };
 
     var _login = function (username, password) {
 
@@ -101,6 +101,7 @@ angular.module('budget_planner')
     authServiceFactory.fillAuthData = _fillAuthData;
     authServiceFactory.authentication = _authentication;
     authServiceFactory.refresh = _refreshToken;
+    authServiceFactory.register = _register;
 
     return authServiceFactory;
 }]);

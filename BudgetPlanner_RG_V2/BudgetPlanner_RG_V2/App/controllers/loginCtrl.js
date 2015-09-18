@@ -1,17 +1,15 @@
 ﻿'use strict';
-angular.module('budget_planner').controller('loginCtrl', ['authSvc', '$state', function (authSvc, $state) {
+angular.module('budget_planner').controller('loginCtrl', ['authSvc', '$state', '$stateParams',  function (authSvc, $state, $stateParams) {
     var self = this;
 
     self.username = '';
     self.password = '';
-    //self.Email = '';
-    //self.ConfirmPassword = '';
-    //self.DisplayName = '';
-    //self.inviteCode = '';
-    //self.inviteEmail = '';
 
+    console.log($stateParams)
+
+    self.isNew = $stateParams.isNew === true;
     self.errors = null;
-    
+
     //USE EXISTING ACCOUNT BUTTON
     self.goSignIn = function () {
         $state.go('login.signin');
@@ -21,8 +19,7 @@ angular.module('budget_planner').controller('loginCtrl', ['authSvc', '$state', f
         $state.go('login.register');
     }
 
-
-    //LOGIN FORM SUBMIT
+    //LOGIN FORM SUBMIT - EXISTING USER
     self.login = function () {
         authSvc.login(self.username, self.password).then(function (success) {
             $state.go('dashboard');
@@ -31,22 +28,14 @@ angular.module('budget_planner').controller('loginCtrl', ['authSvc', '$state', f
         });
     }
 
-    ////REGISTER FORM SUBMIT - NO CODE
-    //.self.register_noCode = function () {
-    //    authSvc.register(self.displayName,self.email, self.password, self.confirmPassword).then(function (success) {
-    //        $state.go('household.create');
-    //    }, function (error) {
-    //        self.errors = error.data;
-    //    });
-    //}
-
-        //REGISTER FORM SUBMIT - WITH CODE
-    //.self.register_withCode = function () {
-    //    authSvc.register(self.displayName, self.username, self.password, self.confirmPassword, self.inviteCode, self.inviteEmail).then(function (success) {
-    //        $state.go('household.details');
-    //    }, function (error) {
-    //        self.errors = error.data;
-    //    });
-    //}
+    //LOGIN FORM SUBMIT - NEWLY REGISTERED USER
+    this.newUserLogin = function () {
+        authSvc.login(self.username, self.password).then(function (success) {
+            $state.go('household.begin');
+        }, function (error) {
+            self.errors = error.data;
+        });
+    }
+    
 
 }])
