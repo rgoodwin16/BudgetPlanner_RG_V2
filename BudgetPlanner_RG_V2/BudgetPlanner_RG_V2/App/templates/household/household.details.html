@@ -14,7 +14,7 @@
             </div>
             <div class="invoice-content">
                 <hr />
-                <div class="panel-body bg-silver">
+                <div class="panel-body">
                     <table class="table table-responsive table-striped">
                         <thead>
                             <tr>
@@ -53,9 +53,9 @@
                         <input type="email" class="form-control input-group-lg" placeholder="Email" ng-model="houseDetails.inviteEmail" />
                     </div>
                     <div class="login-buttons">
-                        <button type="button" class="btn btn-white btn-block btn-lg" ng-click="houseDetails.clear()" ng-show="houseDetails.sidepanel == 'l'">Cancel</button>
                         <button type="button" class="btn btn-success btn-block btn-lg" ng-click="houseDetails.createInvite()" ng-disabled="!houseDetails.isValidEmail()" ng-show="houseDetails.sidepanel == 'i'">Send Invite</button>
                         <button type="button" class="btn btn-warning btn-block btn-lg" ng-click="houseDetails.leaveHouse()" ng-show="houseDetails.sidepanel == 'l'">Leave Household</button>
+                        <button type="button" class="btn btn-white btn-block btn-lg" ng-click="houseDetails.clear()" ng-show="houseDetails.sidepanel == 'l'">Cancel</button>
                     </div>
                     <div class="m-t-20">
                     </div>

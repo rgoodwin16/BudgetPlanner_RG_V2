@@ -12,18 +12,6 @@ angular.module('budget_planner').controller('houseCtrl', ['houseSvc', '$state', 
         })
     }
 
-    this.joinHouse = function () {
-        houseSvc.join().then(function (data) {
-            $state.go('household.details');
-        })
-    }
-
-    this.leaveHouse = function () {
-        houseSvc.leave().then(function (data) {
-            $state.go('household.create');
-        })
-    }
-
     this.getUser();
    
 

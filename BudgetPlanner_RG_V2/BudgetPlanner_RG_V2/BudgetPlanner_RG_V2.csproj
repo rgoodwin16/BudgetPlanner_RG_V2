@@ -252,10 +252,8 @@
     <Content Include="App\controllers\category\budgetCategoryCtrl.js" />
     <Content Include="App\controllers\category\transactionCategoryCtrl.js" />
     <Content Include="App\controllers\dashboardCtrl.js" />
-    <Content Include="App\controllers\house\houseCreateCtrl.js" />
     <Content Include="App\controllers\house\houseCtrl.js" />
     <Content Include="App\controllers\house\houseDetailsCtrl.js" />
-    <Content Include="App\controllers\house\houseJoinCtrl.js" />
     <Content Include="App\controllers\householdBeginCtrl.js" />
     <Content Include="App\controllers\layoutCtrl.js" />
     <Content Include="App\controllers\loginCtrl.js" />
@@ -278,13 +276,10 @@
     <Content Include="App\templates\dashboard.html" />
     <Content Include="App\templates\home\home.html" />
     <Content Include="App\templates\household\household.begin.html" />
-    <Content Include="App\templates\household\household.create.html" />
     <Content Include="App\templates\household\household.details.html" />
     <Content Include="App\templates\household\household.html" />
-    <Content Include="App\templates\household\household.join.html" />
     <Content Include="App\templates\login.html" />
     <Content Include="App\templates\login\login.forgot.html" />
-    <Content Include="App\templates\login\login.newuser.html" />
     <Content Include="App\templates\login\login.register.html" />
     <Content Include="App\templates\login\login.signin.html" />
     <Content Include="App\templates\modals\archive.account.html" />

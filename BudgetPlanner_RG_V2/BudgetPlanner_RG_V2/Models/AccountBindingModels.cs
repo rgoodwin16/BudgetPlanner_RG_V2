@@ -51,6 +51,7 @@ namespace BudgetPlanner_RG_V2.Models
 
         public string invitedCode { get; set; }
         public string invitedEmail { get; set; }
+        public string DisplayName { get; set; }
     }
 
     public class RegisterExternalBindingModel

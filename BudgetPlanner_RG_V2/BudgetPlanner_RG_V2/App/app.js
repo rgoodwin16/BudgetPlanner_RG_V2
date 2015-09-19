@@ -35,12 +35,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
           controller: "loginCtrl as user"
       })
 
-        //NEW USER STATE
-      .state('login.newuser', {
-          url: "/newuser",
-          templateUrl: "/app/templates/login/login.newuser.html",
-          controller: "loginCtrl as user"
-      })
+
+
 //=================================================================================//
 
         //LANDING PAGE STATES
@@ -78,24 +74,15 @@ app.config(function ($stateProvider, $urlRouterProvider) {
           controller: "houseDetailsCtrl as houseDetails",
       })
 
-      .state('household.begin', {
-          url: "/begin",
-          templateUrl: "/app/templates/household/household.begin.html",
-          controller: "householdBeginCtrl as houseBegin",
-          
-      })
+//=================================================================================//
 
-      .state('household.begin.create', {
-          url: "/create",
-          templateUrl: "/app/templates/household/household.create.html",
-          controller: "houseCreateCtrl as houseCreate",
-      })
+        //HOUSEHOLD BEGIN
+        .state('household_begin', {
+            url: "/household_begin",
+            templateUrl: "/app/templates/household/household.begin.html",
+            controller: "householdBeginCtrl as houseBegin",
+        })
 
-      .state('household.begin.join', {
-          url: "/join",
-          templateUrl: "/app/templates/household/household.join.html",
-          controller: "houseJoinCtrl as houseJoin",
-      })
 //=================================================================================//
 
       //ACCOUNT STATES

@@ -29,7 +29,7 @@
 
         <div ng-controller="layoutCtrl as layout">
             
-            <div ng-hide="layout.$state.includes('login') || layout.$state.includes('household.create') || layout.$state.includes('household.join') || layout.$state.includes('household.begin')">
+            <div ng-hide="layout.$state.includes('login') || layout.$state.includes('household_begin')">
                 <!-- begin #sidebar -->
                 <div id="sidebar" class="sidebar">
                     <!-- begin sidebar scrollbar -->
@@ -61,7 +61,7 @@
                                 <a class="auto" ui-sref="household.details">
 
                                     <i class="fa fa-home"></i>
-                                    <span>HouseHold</span>
+                                    <span>Household</span>
                                 </a>
                             </li>
                             <li class="has-sub">
@@ -128,8 +128,6 @@
     <!-- HouseHold -->
     <script src="~/App/controllers/house/houseCtrl.js"></script><!-- house -->
     <script src="~/App/controllers/house/houseDetailsCtrl.js"></script><!-- house.details -->
-    <script src="~/App/controllers/house/houseCreateCtrl.js"></script><!-- house.create -->
-    <script src="~/App/controllers/house/houseJoinCtrl.js"></script><!-- house.join -->
 
     <!-- Accounts -->
     <script src="~/App/controllers/account/accountCtrl.js"></script><!-- account -->

@@ -27,8 +27,8 @@
             })
         }
 
-        f.join = function (inviteCode, inviteEmail) {
-            return $http.post('api/Account/JoinHouseHold', new { inviteCode: inviteCode, inviteEmail: inviteEmail }).then(function (response) {
+        f.join = function (model) {
+            return $http.post('api/Account/JoinHouse', model).then(function (response) {
                 return response.data
             })
         }

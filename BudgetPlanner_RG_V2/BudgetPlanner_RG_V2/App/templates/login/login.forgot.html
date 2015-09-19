@@ -9,7 +9,6 @@
     <div class="login-header">
         <div class="brand move_you_2">
             <span class="fa fa-bar-chart-o"></span> BudgetPlanner
-
         </div>
     </div>
     <!-- end brand -->
@@ -26,12 +25,12 @@
             <div class="m-t-20">
             </div>
             <div class="login-buttons">
-                <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="user.goSignIn()">Use Existing Account</button>
+                <a class="btn btn-primary btn-block btn-lg" ui-sref="login.signin">Use Existing Account</a>
             </div>
             <div class="m-t-20">
             </div>
             <div class="login-buttons">
-                <button type="button" class="btn btn-white btn-block btn-lg " ng-click="user.goRegister()">Create Account</button>
+                <a class="btn btn-white btn-block btn-lg " ui-sref="login.register"><span style="color:black">Create Account</span></a>
             </div>
         </div>
     </div>

@@ -28,14 +28,5 @@ angular.module('budget_planner').controller('loginCtrl', ['authSvc', '$state', '
         });
     }
 
-    //LOGIN FORM SUBMIT - NEWLY REGISTERED USER
-    this.newUserLogin = function () {
-        authSvc.login(self.username, self.password).then(function (success) {
-            $state.go('household.begin');
-        }, function (error) {
-            self.errors = error.data;
-        });
-    }
-    
 
 }])

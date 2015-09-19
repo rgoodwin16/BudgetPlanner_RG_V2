@@ -332,7 +332,7 @@ namespace BudgetPlanner_RG_V2.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email ,DisplayName = model.DisplayName};
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -539,7 +539,7 @@ namespace BudgetPlanner_RG_V2.Controllers
         //POST: api/Account/JoinHouseHold - JOIN HOUSEHOLD
 
         [ResponseType(typeof(HouseHold))]
-        [HttpPost, Route("JoinHouseHold")]
+        [HttpPost, Route("JoinHouse")]
         public async Task<IHttpActionResult> PostJoinHouseHold(JoinHouseVM model)
         {
           
@@ -558,18 +558,7 @@ namespace BudgetPlanner_RG_V2.Controllers
           }
 
          await db.SaveChangesAsync();
-
-         var houseHold = user.HouseHold;
-
-         var returnHouse = new HouseHoldVM()
-         {
-             Accounts = houseHold.HouseHoldAccounts.Where(a => a.isArchived == false).ToList(),
-             BudgetItems = houseHold.BudgetItems.ToList(),
-             Users = houseHold.Users.ToList()
-
-         };
-
-         return Ok(returnHouse);
+         return Ok();
         }
 
         //POST: api/Account/LeaveHouseHold - LEAVE HOUSEHOLD

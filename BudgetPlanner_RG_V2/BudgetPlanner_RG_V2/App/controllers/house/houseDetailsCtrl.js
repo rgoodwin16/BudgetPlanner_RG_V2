@@ -34,7 +34,7 @@ angular.module('budget_planner').controller('houseDetailsCtrl', ['houseSvc', '$s
     //LEAVE HOUSEHOLD - CONFIRM LEAVE
     this.leaveHouse = function () {
         houseSvc.leave().then(function (result) {
-            $state.go('household.create');
+            $state.go('household_begin');
         })
     }
 

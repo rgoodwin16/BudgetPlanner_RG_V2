@@ -12,7 +12,7 @@
             <div class="invoice-content">
                 <hr />
                 <h5 style="color:#707478">Income</h5>
-                <div class="panl-body bg-silver">
+                <div class="panl-body">
                     <table class="table table-responsive table-striped">
                         <thead>
                             <tr>
@@ -41,7 +41,7 @@
                 </div><!-- /income body -->
                 <hr />
                 <h5 style="color:#707478">Expense</h5>
-                <div class="panl-body bg-silver">
+                <div class="panl-body">
                     <table class="table table-responsive table-striped">
                         <thead>
                             <tr>
@@ -135,10 +135,10 @@
                             <div class="m-t-20">
                             </div>
                             <div class="login-buttons">
-                                <button type="button" class="btn btn-white btn-block btn-lg" ng-click="budgetList.clear()">Cancel</button>
                                 <button type="button" class="btn btn-success btn-block btn-lg" ng-click="budgetList.createItem(budgetList.model)" ng-show="budgetList.sidepanel == 'c'">Create</button>
                                 <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="budgetList.editItem(budgetList.model)" ng-show="budgetList.sidepanel == 'e'">Edit</button>
                                 <button type="button" class="btn btn-danger btn-block btn-lg" ng-click="budgetList.deleteItem(budgetList.model)" ng-show="budgetList.sidepanel == 'd'">Delete</button>
+                                <button type="button" class="btn btn-white btn-block btn-lg" ng-click="budgetList.clear()">Cancel</button>
                             </div>
                         </div>
                     </div>
