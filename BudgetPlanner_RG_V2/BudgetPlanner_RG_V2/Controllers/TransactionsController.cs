@@ -66,16 +66,7 @@ namespace BudgetPlanner_RG_V2.Controllers
 
             var account = db.HouseHoldAccounts.Find(model.HouseHoldAccountId);
 
-            if (model.isDebit)
-            {
-                account.Balance = account.Balance + model.Amount;
-            }
-
-            else
-            {
-                account.Balance = account.Balance - model.Amount;
-            }
-
+            account.Balance += model.Amount;
             model.Created = DateTimeOffset.Now;
 
             model.CategoryId = model.Category.id;
@@ -132,38 +123,11 @@ namespace BudgetPlanner_RG_V2.Controllers
 
             var account = db.HouseHoldAccounts.FirstOrDefault(a => a.id == model.HouseHoldAccountId);
 
-            //check if amount has changed
+            //check if the amount/isDebit has changed
             if (oldTrans.Amount != model.Amount)
             {
-
-                if (model.isDebit)
-                {
-                    account.Balance = account.Balance - oldTrans.Amount;
-                    account.Balance = account.Balance + model.Amount;
-                }
-
-                else
-                {
-                    account.Balance = account.Balance + oldTrans.Amount;
-                    account.Balance = account.Balance + model.Amount;
-                }
-
-            }
-
-            //check if trans isDebit has changed
-            if (oldTrans.isDebit != model.isDebit)
-            {
-                if (model.isDebit)
-                {
-                    //account.Balance = account.Balance + oldTrans.Amount;
-                    account.Balance = account.Balance - model.Amount;
-                }
-
-                else
-                {
-                    account.Balance = account.Balance - oldTrans.Amount;
-                    account.Balance = account.Balance + model.Amount;
-                }
+                account.Balance -= oldTrans.Amount;
+                account.Balance += model.Amount;
             }
 
             model.CategoryId = model.Category.id;

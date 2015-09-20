@@ -449,8 +449,7 @@ namespace BudgetPlanner_RG_V2.Controllers
 
             if (user.HouseHoldId != null)
             {
-                var message = "You must leave your current household before you can create a new household";
-                return BadRequest(message);
+                return BadRequest("You must leave your current household before you can create a new household");
             }
 
             else
@@ -548,7 +547,7 @@ namespace BudgetPlanner_RG_V2.Controllers
           
           if (invite == null)
           {
-            return NotFound();
+            return BadRequest("No invitation found");
           }
           
           else

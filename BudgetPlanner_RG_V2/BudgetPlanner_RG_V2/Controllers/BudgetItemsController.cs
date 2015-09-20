@@ -96,7 +96,7 @@ namespace BudgetPlanner_RG_V2.Controllers
 
             if (budgetItem == null)
             {
-                return NotFound();
+                return BadRequest("No Budget Item Found");
             }
 
             return Ok(budgetItem);
@@ -154,7 +154,7 @@ namespace BudgetPlanner_RG_V2.Controllers
             db.BudgetItems.Remove(budgetItem);
             await db.SaveChangesAsync();
 
-            return Ok(budgetItem);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

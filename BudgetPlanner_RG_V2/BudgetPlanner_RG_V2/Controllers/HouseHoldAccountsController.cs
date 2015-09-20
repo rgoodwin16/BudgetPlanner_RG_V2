@@ -106,7 +106,7 @@ namespace BudgetPlanner_RG_V2.Controllers
 
             if (account == null)
             {
-                return NotFound();
+                return BadRequest("No account found");
             }
 
             return Ok(account);
@@ -148,7 +148,7 @@ namespace BudgetPlanner_RG_V2.Controllers
             }
       
             await db.SaveChangesAsync();
-            return Ok(oldAccount);
+            return Ok();
         
         }
 
@@ -163,7 +163,7 @@ namespace BudgetPlanner_RG_V2.Controllers
 
             if (account == null)
             {
-                return NotFound();
+                return BadRequest("No account found");
             }
 
             account.isArchived = true;
