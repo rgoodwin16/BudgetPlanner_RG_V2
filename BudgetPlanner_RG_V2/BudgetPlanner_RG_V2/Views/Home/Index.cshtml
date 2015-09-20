@@ -29,20 +29,63 @@
 
         <div ng-controller="layoutCtrl as layout">
             
-            <div ng-hide="layout.$state.includes('login') || layout.$state.includes('household_begin')">
+            <div ng-hide="layout.$state.includes('login') || layout.$state.includes('household_begin') || layout.$state.includes('home')">
+
+                <nav id="header" class="header navbar navbar-fixed-top navbar-inverse" role="navigation">
+                    <!-- begin container-fluid -->
+                    <div class="container-fluid">
+                        <!-- begin mobile sidebar expand / collapse button -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle"
+                                    ng-init="navCollapsed = true"
+                                    ng-click="navCollapsed = !navCollapsed">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a ui-sref="dashboard" class="navbar-brand"><i class="fa fa-bar-chart-o"></i> BudgetPlanner</a>
+                        </div>
+                        <!-- end mobile sidebar expand / collapse button -->
+                        <!-- begin header navigation right -->
+                        <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a ui-sref="dashboard">Dashboard</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="household.details">Household</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="accounts.list">Accounts</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="budget.list">Budget</a>
+                                </li>
+                                <li>
+                                    <a href ng-click="layout.logout()">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- end header navigation right -->
+                    </div>
+                    <!-- end container-fluid -->
+
+                </nav><!-- /header -->
                 <!-- begin #sidebar -->
-                <div id="sidebar" class="sidebar">
+                <div id="sidebar" class="sidebar sidebar-grid">
                     <!-- begin sidebar scrollbar -->
-                    <div data-scrollbar="true" data-height="100%">
+                    <div>
                         <!-- begin sidebar user -->
                         <ul class="nav">
                             <li class="nav-profile">
                                 <div class="image">
-                                    <img src="~/Theme_Template/img/user_ava.png" alt="" />
+                                    <img src="~/Theme_Template/img/user_ava.jpg" alt="" />
                                 </div>
-                                <div class="info" ng-controller="houseCtrl as house">
+                                <div class="info" ng-controller="dashboardCtrl as dashboard">
                                     <small>Welcome</small>
-                                    {{house.user.DisplayName}}
+                                    {{dashboard.user.DisplayName}}
 
                                 </div>
                             </li>
@@ -50,7 +93,7 @@
                         <!-- end sidebar user -->
                         <!-- begin sidebar nav -->
                         <ul class="nav" ng-controller="houseCtrl as house">
-
+                            <li class="nav-header">Navigation</li>
                             <li class="has-sub">
                                 <a ui-sref="dashboard">
                                     <i class="fa fa-laptop"></i>
@@ -76,7 +119,25 @@
                                     <span>Budget</span>
                                 </a>
                             </li>
-
+                            <li class="nav-header">User</li>
+                            <li class="has-sub">
+                                <a href ng-click="layout.logout()">
+                                    <i class="fa fa-sign-out"></i>
+                                    <span>Log Out</span>
+                                </a>
+                            </li>
+                            <li class="nav-header">Developed by:</li>
+                            <li>
+                                <a href="https://rgoodwin.azurewebsites.net">
+                                    <img src="~/Theme_Template/img/ray_goodwin_lg.png" width="190" height="36"/>
+                                </a>
+                            </li>
+                            <li class="nav-header">Instructed by:</li>
+                            <li>
+                                <a href="http://coderfoundry.com">
+                                    <img src="~/Theme_Template/img/coder.png" />
+                                </a>
+                            </li>
                         </ul>
                         <!-- end sidebar nav -->
                     </div>
@@ -84,7 +145,8 @@
                 </div>
                 <div class="sidebar-bg"></div>
                 <!-- end #sidebar -->
-            </div>
+
+            </div><!-- /ng-hide (login | household_begin) -->
 
             <div ui-view></div><!-- main ui-view -->
 
@@ -122,7 +184,7 @@
     <script src="~/App/controllers/registerCtrl.js"></script><!-- register -->
     <script src="~/App/controllers/layoutCtrl.js"></script><!-- layout -->
     <script src="~/App/controllers/householdBeginCtrl.js"></script><!-- home -->
-    <script src="~/app/controllers/dashboardCtrl.js"></script><!-- dashboard -->
+    <script src="~/App/controllers/dashboardCtrl.js"></script><!-- dashboard -->
 
 
     <!-- HouseHold -->

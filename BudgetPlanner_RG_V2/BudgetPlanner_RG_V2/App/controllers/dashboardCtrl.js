@@ -1,22 +1,14 @@
 ﻿'use strict';
-angular.module('budget_planner').controller('dashboardCtrl', ['authSvc', '$state', '$http', function (authSvc, $state, $http) {
+angular.module('budget_planner').controller('dashboardCtrl', ['authSvc','houseSvc', '$state', '$http', function (authSvc, houseSvc ,$state, $http) {
 
     var self = this;
 
-    //self.values = [];
+    this.getUser = function () {
+        houseSvc.getUser().then(function (data) {
+            self.user = data;
+        })
+    }
 
-    //self.getValues = function () {
-    //    $http.get('/api/values').then(function (response) {
-    //        self.values = response.data;
-    //    });
-    //}
-
-    //self.getValue = function () {
-    //    $http.get('/api/values/5').then(function (response) {
-    //        self.value = response.data;
-    //    });
-    //}
-
-
+    this.getUser();
 
 }])

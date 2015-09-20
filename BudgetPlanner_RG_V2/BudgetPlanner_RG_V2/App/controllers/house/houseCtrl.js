@@ -6,13 +6,7 @@ angular.module('budget_planner').controller('houseCtrl', ['houseSvc', '$state', 
     this.user = '';
 
 
-    this.getUser = function () {
-        houseSvc.getUser().then(function (data){
-            self.user = data;
-        })
-    }
 
-    this.getUser();
    
 
 }])

@@ -317,6 +317,10 @@
     <Content Include="Scripts\angular-sanitize.js" />
     <Content Include="Scripts\angular-sanitize.min.js" />
     <Content Include="Scripts\angular-scenario.js" />
+    <Content Include="Scripts\angular-strap.js" />
+    <Content Include="Scripts\angular-strap.min.js" />
+    <Content Include="Scripts\angular-strap.tpl.js" />
+    <Content Include="Scripts\angular-strap.tpl.min.js" />
     <Content Include="Scripts\angular-touch.js" />
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular-ui-router.js" />
@@ -368,6 +372,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Scripts\angular-strap.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
@@ -1139,6 +1144,7 @@
     <Content Include="Theme_Template\img\carousel-2.jpg" />
     <Content Include="Theme_Template\img\carousel-3.jpg" />
     <Content Include="Theme_Template\img\client-bg.jpg" />
+    <Content Include="Theme_Template\img\coder.png" />
     <Content Include="Theme_Template\img\content-bg-cover.png" />
     <Content Include="Theme_Template\img\content-bg-cover2.png" />
     <Content Include="Theme_Template\img\home-bg.jpg" />
@@ -1146,9 +1152,11 @@
     <Content Include="Theme_Template\img\milestone-bg.jpg" />
     <Content Include="Theme_Template\img\quote-bg.jpg" />
     <Content Include="Theme_Template\img\quote.jpg" />
+    <Content Include="Theme_Template\img\ray_goodwin_lg.png" />
     <Content Include="Theme_Template\img\user-1.jpg" />
     <Content Include="Theme_Template\img\user-2.jpg" />
     <Content Include="Theme_Template\img\user-3.jpg" />
+    <Content Include="Theme_Template\img\user_ava.jpg" />
     <Content Include="Theme_Template\img\user_ava.png" />
     <Content Include="Theme_Template\img\work-1.jpg" />
     <Content Include="Theme_Template\img\work-2.jpg" />

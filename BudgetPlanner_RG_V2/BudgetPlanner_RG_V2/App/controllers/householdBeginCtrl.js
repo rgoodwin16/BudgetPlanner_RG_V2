@@ -16,6 +16,7 @@ angular.module('budget_planner').controller('householdBeginCtrl', ['$state','hou
     //JOIN HOUSE
     this.join = function () {
         houseSvc.join(self.model).then(function (result) {
+            console.log(self.model)
             $state.go('household.details')
         })
     }

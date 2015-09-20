@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('budget_planner').controller('layoutCtrl', ['$state', function ($state) {
+angular.module('budget_planner').controller('layoutCtrl', ['$state','authSvc', function ($state,authSvc) {
     var self = this;
 
     self.$state = $state;
@@ -10,5 +10,11 @@ angular.module('budget_planner').controller('layoutCtrl', ['$state', function ($
     this.collaspe = function () {
         self.isCollapsed = true;
     }
+
+    this.logout = function () {
+        authSvc.logout();
+        $state.go('login.signin');
+    }
+
 
 }])

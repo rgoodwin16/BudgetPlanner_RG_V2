@@ -19,7 +19,7 @@ Website: http://www.seantheme.com/color-admin-v1.8/admin/
 .page-sidebar-minified .sidebar .nav > li.has-sub.active > a,
 .label.label-theme,
 .btn.btn-scroll-to-top {
-    background: #00acac;
+    background: #FF931E;
 }
 .navbar.navbar-inverse .navbar-brand {
     color: #fff !important;
@@ -30,7 +30,7 @@ Website: http://www.seantheme.com/color-admin-v1.8/admin/
 }
 @media (max-width: 767px) {
     .navbar-inverse .navbar-header {
-        background: #00acac;
+        background: #2D353C;
     }
 }
 
