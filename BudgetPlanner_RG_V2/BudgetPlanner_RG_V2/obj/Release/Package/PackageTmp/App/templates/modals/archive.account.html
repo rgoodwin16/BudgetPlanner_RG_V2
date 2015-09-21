@@ -1,0 +1,12 @@
+﻿<!-- modalCtrl as modal -->
+<div class="modal-header"></div>
+<div class="modal-body">
+    <h3 class="modal-title">Are you sure you want to archive this account?</h3>
+    <p>Once you archive an account you will no longer be able to acces it, or any of the transactions associated with it.</p>
+</div>
+<div class="modal-footer">
+    <div class="btn-group">
+        <button type="button" class="btn btn-white" ng-click="modal.cancel()">Cancel</button>
+        <button type="button" class="btn btn-danger" ng-click="modal.archiveAccount(modal.account.id)">Confirm</button>
+    </div>
+</div>

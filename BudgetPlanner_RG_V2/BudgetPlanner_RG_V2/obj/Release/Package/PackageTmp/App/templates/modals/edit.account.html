@@ -1,0 +1,23 @@
+﻿<!-- modalCtrl as modal -->
+<div class="modal-header"></div>
+<div class="modal-body">
+    <h3 class="modal-title">Edit Account</h3>
+    <div class="m-t-20">
+    </div>
+    <div class="login-content">
+        <div class="margin-bottom-0">
+            <div class="form-group m-b-20">
+                <input type="text" class="form-control input-lg" placeholder="Name" ng-model="modal.model.Name" />
+            </div>
+            <div class="form-group m-b-20">
+                <input type="text" class="form-control input-lg" placeholder="Balance" ng-model="modal.model.Balance" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="btn-group">
+        <button type="button" class="btn btn-white" ng-click="modal.cancel()">Cancel</button>
+        <button type="button" class="btn btn-success" ng-click="modal.editAccount()">Save</button>
+    </div>
+</div>

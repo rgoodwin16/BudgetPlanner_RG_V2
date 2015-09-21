@@ -1,0 +1,207 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+    <title>BudgetPlanner - a WebApi powered, Angular application by Ray Goodwin</title>
+
+    <!-- Stylesheets -->
+    <!-- Web fonts -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+    
+    
+    @Styles.Render("~/Content/css")
+    <link href="~/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Theme_Template/css/animate.css" rel="stylesheet" />
+    <link href="~/Theme_Template/css/color_admin.css" rel="stylesheet" />
+    <link href="~/Theme_Template/css/color_admin_responsive.css" rel="stylesheet" />
+    <link href="~/Theme_Template/css/color_admin_default.css" rel="stylesheet" />
+    <link href="~/Scripts/angular-ui-switch/angular-ui-switch.css" rel="stylesheet" />
+    <link href="~/Theme_Template/css/trNgGrid.min.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div ng-app="budget_planner">
+
+        <div ng-controller="layoutCtrl as layout">
+            
+            <div ng-hide="layout.$state.includes('login') || layout.$state.includes('household_begin') || layout.$state.includes('home')">
+
+                <nav id="header" class="header navbar navbar-fixed-top navbar-inverse" role="navigation">
+                    <!-- begin container-fluid -->
+                    <div class="container-fluid">
+                        <!-- begin mobile sidebar expand / collapse button -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle"
+                                    ng-init="navCollapsed = true"
+                                    ng-click="navCollapsed = !navCollapsed">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a ui-sref="dashboard" class="navbar-brand"><i class="fa fa-bar-chart-o"></i> BudgetPlanner</a>
+                        </div>
+                        <!-- end mobile sidebar expand / collapse button -->
+                        <!-- begin header navigation right -->
+                        <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a ui-sref="dashboard">Dashboard</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="household.details">Household</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="accounts.list">Accounts</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="budget.list">Budget</a>
+                                </li>
+                                <li>
+                                    <a href ng-click="layout.logout()">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- end header navigation right -->
+                    </div>
+                    <!-- end container-fluid -->
+
+                </nav><!-- /header -->
+                <!-- begin #sidebar -->
+                <div id="sidebar" class="sidebar sidebar-grid">
+                    <!-- begin sidebar scrollbar -->
+                    <div>
+                        <!-- begin sidebar user -->
+                        <ul class="nav">
+                            <li class="nav-profile">
+                                <div class="image">
+                                    <img src="~/Theme_Template/img/user_ava.jpg" alt="" />
+                                </div>
+                                <div class="info" ng-controller="dashboardCtrl as dashboard">
+                                    <small>Welcome</small>
+                                    {{dashboard.user.DisplayName}}
+
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- end sidebar user -->
+                        <!-- begin sidebar nav -->
+                        <ul class="nav" ng-controller="houseCtrl as house">
+                            <li class="nav-header">Navigation</li>
+                            <li class="has-sub">
+                                <a ui-sref="dashboard">
+                                    <i class="fa fa-laptop"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="has-sub">
+                                <a class="auto" ui-sref="household.details">
+
+                                    <i class="fa fa-home"></i>
+                                    <span>Household</span>
+                                </a>
+                            </li>
+                            <li class="has-sub">
+                                <a ui-sref="accounts.list">
+                                    <i class="fa fa-university"></i>
+                                    <span>Accounts</span>
+                                </a>
+                            </li>
+                            <li class="has-sub">
+                                <a ui-sref="budget.list">
+                                    <i class="fa fa-pie-chart"></i>
+                                    <span>Budget</span>
+                                </a>
+                            </li>
+                            <li class="nav-header">User</li>
+                            <li class="has-sub">
+                                <a href ng-click="layout.logout()">
+                                    <i class="fa fa-sign-out"></i>
+                                    <span>Log Out</span>
+                                </a>
+                            </li>
+                            <li class="nav-header">Developed by:</li>
+                            <li>
+                                <a href="https://rgoodwin.azurewebsites.net">
+                                    <img src="~/Theme_Template/img/ray_goodwin_lg.png" width="190" height="36"/>
+                                </a>
+                            </li>
+                            <li class="nav-header">Instructed by:</li>
+                            <li>
+                                <a href="http://coderfoundry.com">
+                                    <img src="~/Theme_Template/img/coder.png" />
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- end sidebar nav -->
+                    </div>
+                    <!-- end sidebar scrollbar -->
+                </div>
+                <div class="sidebar-bg"></div>
+                <!-- end #sidebar -->
+
+            </div><!-- /ng-hide (login | household_begin) -->
+
+            <div ui-view></div><!-- main ui-view -->
+
+        </div><!-- /layoutCtrl -->
+
+    </div><!-- / ng-app -->
+
+
+    <!-- begin angular -->
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-ui-router.min.js"></script>
+    <script src="~/Scripts/angular-local-storage.min.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="~/Scripts/angular-ui-switch/angular-ui-switch.min.js"></script>
+    <script src="~/Scripts/trNgGrid.min.js"></script>
+
+
+    <!-- begin app | services -->
+    <script src="~/App/app.js"></script>
+    <script src="~/App/services/auth/authSvc.js"></script>
+    <script src="~/App/services/auth/authInterceptorSvc.js"></script>
+
+    <script src="~/App/services/house/houseSvc.js"></script><!-- household -->
+    <script src="~/App/services/house/houseAccountSvc.js"></script><!-- account -->
+    <script src="~/App/services/house/transactionSvc.js"></script><!-- transactions -->
+    <script src="~/App/services/house/budgetItemSvc.js"></script><!-- budget -->
+    <script src="~/App/services/house/categorySvc.js"></script><!-- category -->
+    <script src="~/App/services/validationSvc.js"></script>
+
+    <!-- begin controllers -->
+
+    <!-- Core -->
+    <script src="~/app/controllers/loginCtrl.js"></script><!-- login -->
+    <script src="~/App/controllers/registerCtrl.js"></script><!-- register -->
+    <script src="~/App/controllers/layoutCtrl.js"></script><!-- layout -->
+    <script src="~/App/controllers/householdBeginCtrl.js"></script><!-- home -->
+    <script src="~/App/controllers/dashboardCtrl.js"></script><!-- dashboard -->
+
+
+    <!-- HouseHold -->
+    <script src="~/App/controllers/house/houseCtrl.js"></script><!-- house -->
+    <script src="~/App/controllers/house/houseDetailsCtrl.js"></script><!-- house.details -->
+
+    <!-- Accounts -->
+    <script src="~/App/controllers/account/accountCtrl.js"></script><!-- account -->
+    <script src="~/App/controllers/account/accountListCtrl.js"></script><!-- account.list -->
+    <script src="~/App/controllers/account/accountDetailsCtrl.js"></script><!-- account.details -->
+
+    <!-- Budget -->
+    <script src="~/App/controllers/budget/budgetCtrl.js"></script><!-- budget -->
+    <script src="~/App/controllers/budget/budgetListCtrl.js"></script><!-- budget.list -->
+
+
+</body>
+</html>
+
+
