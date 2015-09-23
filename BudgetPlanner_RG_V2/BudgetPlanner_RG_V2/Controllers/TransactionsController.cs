@@ -40,6 +40,35 @@ namespace BudgetPlanner_RG_V2.Controllers
  
         }
 
+        //GET: api/HouseholdAccounts/Transactions - GET RECENT TRANSACTIONS FOR ALL HOUSEHOLD ACCOUNTS
+        [HttpPost, Route("Recent")]
+        public IHttpActionResult GetRecentTransactions()
+        {
+            var user = db.Users.Find(User.Identity.GetUserId());
+
+            var date = DateTimeOffset.Now;
+            var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
+            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+            var transactions = db.Transactions.Where(t => t.HouseHoldAccount.HouseHoldId == user.HouseHoldId).Take(10).OrderByDescending(c => c.Created <= lastDayOfMonth).ToArray();
+            var models = new List<object>();
+
+            foreach (var item in transactions)
+            {
+                models.Add(new
+                {
+                    AccountName = item.HouseHoldAccount.Name,
+                    TransactionCategory = item.Category.Name,
+                    TransactionDesc = item.Description,
+                    TransactionAmount = item.Amount,
+                    TransactionCreated = item.Created
+                });
+            }
+
+            return Ok(models);
+
+        }
+
         // POST: api/HouseHoldAccounts/Transactions - CREATE TRANSACTION
         [ResponseType(typeof(Transaction))]
         [HttpPost, Route("Create")]

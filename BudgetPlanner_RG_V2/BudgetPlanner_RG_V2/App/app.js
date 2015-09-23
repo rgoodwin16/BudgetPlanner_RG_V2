@@ -1,4 +1,4 @@
-﻿var app = angular.module('budget_planner', ['ui.router', 'ui.bootstrap', 'LocalStorageModule', 'uiSwitch', 'trNgGrid']);
+﻿var app = angular.module('budget_planner', ['ui.router', 'ui.bootstrap', 'LocalStorageModule', 'uiSwitch', 'trNgGrid','nvd3']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     //
@@ -52,7 +52,22 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       .state('dashboard', {
           url: "/dashboard",
           templateUrl: "/app/templates/dashboard.html",
-          controller: "dashboardCtrl as dashboard"
+          controller: "dashboardCtrl as dashboard",
+          resolve: {
+              currentMonth: function (dashboardSvc) {
+                  console.log('resolving')
+                  return dashboardSvc.dates();
+              },
+              currentValues: function (dashboardSvc) {
+                  return dashboardSvc.cValues();
+              },
+              account: function (houseAccountSvc) {
+                  return houseAccountSvc.list();
+              },
+              transactions: function (transactionSvc) {
+                  return transactionSvc.recent();
+              }
+          }
       })
 //=================================================================================//
 
@@ -171,7 +186,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 
 });
 
-var serviceBase = 'http://rgoodwin-budget.azurewebsites.net/';
+//var serviceBase = 'http://rgoodwin-budget.azurewebsites.net/';
+var serviceBase = 'http://localhost:60632/';
 
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase

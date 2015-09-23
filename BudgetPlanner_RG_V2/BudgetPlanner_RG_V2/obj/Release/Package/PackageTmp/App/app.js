@@ -172,6 +172,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 });
 
 var serviceBase = 'http://rgoodwin-budget.azurewebsites.net/';
+//var serviceBase = 'http://localhost:60632/';
 
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase

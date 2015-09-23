@@ -1,5 +1,107 @@
-﻿<div class="move_you_4">
+﻿<div>
+    <div class="move_you_4">
+    </div>
+    <div id="content" class="content">
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="invoice">
+                    <div class="invoice-company">
+                        Current Month Spending - {{dashboard.dates.Begin | date:'mediumDate'}} - {{dashboard.dates.End | date:'mediumDate'}}
+                    </div>
+                    <div class="invoice-content">
+                        <hr />
+                        <div class="col-md-10 col-md-offset-1">
+                            <nvd3 options="dashboard.currentOptions" data="dashboard.currentValues" style="width:100% !important"></nvd3>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="m-t-20">
+                        </div>
+                    </div>
+                </div><!-- /current month spending -->
+
+                <br />
+
+                <div class="invoice">
+                    <div class="invoice-company">
+                        Yearly Spending - {{dashboard.dates.Begin | date:'mediumDate'}} - {{dashboard.dates.End | date:'mediumDate'}}
+                    </div>
+                    <div class="invoice-content">
+                        <hr />
+                        <div class="col-md-10 col-md-offset-1">
+                            <nvd3 options="dashboard.currentOptions" data="dashboard.currentValues" style="width:100% !important"></nvd3>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="m-t-20">
+                        </div>
+                    </div>
+                </div><!-- /yearly spending -->
+
+            </div><!-- /left column -->
+
+            <br class="hidden-md hidden-lg" />
+
+            <div class="col-md-6">
+
+                <div class="invoice">
+                    <div class="invoice-company">
+                        Accounts
+                    </div>
+                    <div class="invoice-content">
+                        <hr />
+                        <table class="table table-responsive table-striped table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="account in dashboard.account.Accounts">
+                                    <td>{{account.Name}}</td>
+                                    <td>
+                                        {{account.Balance | currency}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!-- /account list -->
+
+                <br />
+
+                <div class="invoice">
+                    <div class="invoice-company">
+                        Recent Transactions
+                    </div>
+                    <div class="invoice-content">
+                        <hr />
+
+                        <table tr-ng-grid="" items="dashboard.transactions" page-items="10" class="table-striped">
+                            <thead>
+                                <tr>
+                                    <th field-name="TransactionDesc" enable-sorting="true" display-name="Description" display-align="center" enable-filtering="false"></th>
+                                    <th field-name="TransactionAmount" enable-sorting="true" display-name="Amount" display-align="center" enable-filtering="false" display-format="currency"></th>
+                                    <th field-name="TransactionCategory" enable-sorting="true" display-name="Category" display-align="center" enable-filtering="false"></th>
+                                    <th field-name="TransactionCreated" enable-sorting="true" display-name="Created" display-align="center" enable-filtering="false" display-format="date:'mediumDate'"></th>
+                                    <th field-name="AccountName" enable-sorting="true" display-name="Account Name" display-align="center" enable-filtering="false"></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div><!-- /recent transactions -->
+
+            </div><!-- /right column -->
+
+        </div><!-- /row -->
+
+
+
+
+    </div>
 </div>
-<div id="content" class="content">
-    <h1>DashBoard</h1>
-</div>
+<!-- /content -->

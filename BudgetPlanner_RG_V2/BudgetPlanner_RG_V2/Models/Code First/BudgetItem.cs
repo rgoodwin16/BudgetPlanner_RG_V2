@@ -20,8 +20,10 @@ namespace BudgetPlanner_RG_V2.Models
 
         [JsonIgnore]
         public virtual HouseHold HouseHold { get; set; }
-        
+
         public virtual Category Category { get; set; }
+
+
 
     }
 }

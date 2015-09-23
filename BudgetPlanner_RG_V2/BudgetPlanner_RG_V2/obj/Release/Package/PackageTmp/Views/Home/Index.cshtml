@@ -29,7 +29,7 @@
 
         <div ng-controller="layoutCtrl as layout">
             
-            <div ng-hide="layout.$state.includes('login') || layout.$state.includes('household_begin') || layout.$state.includes('home')">
+            <div ng-hide="layout.$state.includes('login') || layout.$state.includes('home')">
 
                 <nav id="header" class="header navbar navbar-fixed-top navbar-inverse" role="navigation">
                     <!-- begin container-fluid -->
@@ -49,7 +49,7 @@
                         <!-- end mobile sidebar expand / collapse button -->
                         <!-- begin header navigation right -->
                         <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
-                            <ul class="nav navbar-nav">
+                            <ul class="nav navbar-nav hidden-md hidden-lg hidden-sm">
                                 <li>
                                     <a ui-sref="dashboard">Dashboard</a>
                                 </li>

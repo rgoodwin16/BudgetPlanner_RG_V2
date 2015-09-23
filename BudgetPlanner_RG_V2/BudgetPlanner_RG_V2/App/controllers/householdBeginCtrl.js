@@ -9,7 +9,7 @@ angular.module('budget_planner').controller('householdBeginCtrl', ['$state','hou
     //CREATE HOUSE
     this.create = function () {
         houseSvc.create(self.name).then(function (result) {
-            $state.go('household.details')
+            $state.go('budget.list')
         })
     }
 

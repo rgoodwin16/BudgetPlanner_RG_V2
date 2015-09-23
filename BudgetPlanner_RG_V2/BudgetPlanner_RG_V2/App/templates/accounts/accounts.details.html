@@ -11,7 +11,31 @@
 
             <div class="invoice-content">
             <hr />
-                <div class="table-responsive">
+
+            <table tr-ng-grid="" items="accountDetails.account.Transactions" page-items="10" class="table-striped">
+                <thead>
+                    <tr>
+                        <th field-name="Description" enable-sorting="true" display-name="Description" display-align="center" enable-filtering="false"></th>
+                        <th field-name="Amount" enable-sorting="true" display-name="Amount" display-align="center" enable-filtering="false" display-format="currency"></th>
+                        <th field-name="Category.Name" enable-sorting="true" display-name="Category" display-align="center" enable-filtering="false"></th>
+                        <th field-name="Created" enable-sorting="true" display-name="Created" display-align="center" enable-filtering="false" display-format="date:'mediumDate'"></th>
+                        <th field-name="Updated" enable-sorting="true" display-name="Updated" display-align="center" enable-filtering="false" display-format="date:'mediumDate'"></th>
+                        <th enable-sorting="false" display-name="Action" display-align="center" enable-filtering="false"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="btn-group" ng-hide="trans.Category.Name == 'New Account Created' || trans.Category.Name == 'User Adjusted Balance'">
+                                <label type=" button" class="btn btn-primary btn-sm" ng-click="accountDetails.beginEdit(gridItem.id)"><i class="fa fa-edit m-r-5"></i></label>
+                                <label type="button" class="btn btn-danger btn-sm" ng-click="accountDetails.beginDelete(gridItem.id)"><i class="fa fa-trash m-r-5"></i></label>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+                <!--<div class="table-responsive">
                     <table class="table-invoice table table-striped">
                         <thead>
                             <tr>
@@ -32,14 +56,14 @@
                                 <td>{{trans.Updated | date:'medium'}}</td>
                                 <td>
                                     <div class="btn-group" ng-hide="trans.Category.Name == 'New Account Created' || trans.Category.Name == 'User Adjusted Balance'">
-                                        <label type=" button" class="btn btn-primary btn-sm" ng-click="accountDetails.beginEdit(trans.id)"><i class="fa fa-edit m-r-5"></i> Edit</label>
-                                        <label type="button" class="btn btn-danger btn-sm" ng-click="accountDetails.beginDelete(trans.id)"><i class="fa fa-trash m-r-5"></i> Delete</label>
+                                        <label type=" button" class="btn btn-primary btn-sm" ng-click="accountDetails.beginEdit(trans.id)"><i class="fa fa-edit m-r-5"></i></label>
+                                        <label type="button" class="btn btn-danger btn-sm" ng-click="accountDetails.beginDelete(trans.id)"><i class="fa fa-trash m-r-5"></i></label>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div>-->
             </div><!-- /transactions -->
 
             <div class="invoice-price">
@@ -54,6 +78,9 @@
 
         </div>
     </div><!-- /left column -->
+
+    <br class="hidden-md hidden-lg" />
+
     <div class="col-md-4">
 
         <div class="invoice">

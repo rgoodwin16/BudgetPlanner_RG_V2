@@ -460,16 +460,18 @@ namespace BudgetPlanner_RG_V2.Controllers
                 };
 
                 user.HouseHoldId = houseHold.id;
-                houseHold.Categories.Add(new Category
+
+                string[] defaultCategories = { "New Account Created", "User Adjusted Balance" ,"Job","Mortgage/Rent","Food","Utilites","Misc" };
+
+                foreach(var catName in defaultCategories) 
                 {
-                    HouseHoldId = houseHold.id,
-                    Name = "New Account Created"
-                });
-                houseHold.Categories.Add(new Category
-                {
-                    HouseHoldId = houseHold.id,
-                    Name = "User Adjusted Balance"
-                });
+                    houseHold.Categories.Add(new Category
+                    {
+                        HouseHoldId = houseHold.id,
+                        Name = catName
+                    });
+                }
+
                 db.HouseHolds.Add(houseHold);
                 await db.SaveChangesAsync();
 

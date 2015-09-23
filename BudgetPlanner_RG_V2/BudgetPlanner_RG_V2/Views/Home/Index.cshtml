@@ -21,6 +21,7 @@
     <link href="~/Theme_Template/css/color_admin_default.css" rel="stylesheet" />
     <link href="~/Scripts/angular-ui-switch/angular-ui-switch.css" rel="stylesheet" />
     <link href="~/Theme_Template/css/trNgGrid.min.css" rel="stylesheet" />
+    <link href="~/Content/nv.d3.min.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -29,7 +30,7 @@
 
         <div ng-controller="layoutCtrl as layout">
             
-            <div ng-hide="layout.$state.includes('login') || layout.$state.includes('household_begin') || layout.$state.includes('home')">
+            <div ng-hide="layout.$state.includes('login') || layout.$state.includes('home')">
 
                 <nav id="header" class="header navbar navbar-fixed-top navbar-inverse" role="navigation">
                     <!-- begin container-fluid -->
@@ -49,7 +50,7 @@
                         <!-- end mobile sidebar expand / collapse button -->
                         <!-- begin header navigation right -->
                         <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
-                            <ul class="nav navbar-nav">
+                            <ul class="nav navbar-nav hidden-md hidden-lg hidden-sm">
                                 <li>
                                     <a ui-sref="dashboard">Dashboard</a>
                                 </li>
@@ -83,9 +84,9 @@
                                 <div class="image">
                                     <img src="~/Theme_Template/img/user_ava.jpg" alt="" />
                                 </div>
-                                <div class="info" ng-controller="dashboardCtrl as dashboard">
+                                <div class="info">
                                     <small>Welcome</small>
-                                    {{dashboard.user.DisplayName}}
+                                    {{layout.user.DisplayName}}
 
                                 </div>
                             </li>
@@ -155,6 +156,10 @@
     </div><!-- / ng-app -->
 
 
+    <!-- graphs -->
+    <script src="~/Scripts/d3/d3.min.js"></script>
+    <script src="~/Scripts/nv.d3.min.js"></script>
+
     <!-- begin angular -->
     <script src="~/Scripts/angular.min.js"></script>
     <script src="~/Scripts/angular-ui-router.min.js"></script>
@@ -163,6 +168,7 @@
     <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
     <script src="~/Scripts/angular-ui-switch/angular-ui-switch.min.js"></script>
     <script src="~/Scripts/trNgGrid.min.js"></script>
+    <script src="~/Scripts/angular-nvd3.min.js"></script>
 
 
     <!-- begin app | services -->
@@ -175,8 +181,9 @@
     <script src="~/App/services/house/transactionSvc.js"></script><!-- transactions -->
     <script src="~/App/services/house/budgetItemSvc.js"></script><!-- budget -->
     <script src="~/App/services/house/categorySvc.js"></script><!-- category -->
-    <script src="~/App/services/validationSvc.js"></script>
-
+    <script src="~/App/services/validationSvc.js"></script><!-- email validation-->
+    <script src="~/App/services/dashboard/dashboardSvc.js"></script>
+    
     <!-- begin controllers -->
 
     <!-- Core -->
