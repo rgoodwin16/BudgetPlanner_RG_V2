@@ -15,6 +15,12 @@
             })
         }
 
+        f.yValues = function () {
+            return $http.post('api/Dashboard/Yearly').then(function (response) {
+                return response.data
+            })
+        }
+
         return f;
     }])
 })();

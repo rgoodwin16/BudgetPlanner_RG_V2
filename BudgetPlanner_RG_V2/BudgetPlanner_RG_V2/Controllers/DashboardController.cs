@@ -135,6 +135,47 @@ namespace BudgetPlanner_RG_V2.Controllers
             });
         }
 
+        [HttpPost, Route("Yearly")]
+        public IHttpActionResult Yearly()
+        {
+            var user = db.Users.Find(User.Identity.GetUserId());
+            var household = user.HouseHold;
+
+            var now = DateTimeOffset.Now;
+
+            return Ok(new dynamic[]
+            {
+                new
+                {
+                    key = "Actual",
+                    color = "#FF931E",
+                    values = from month in Enumerable.Range(1,12)
+                             .Select(m=> new DateTime(now.Year,m,1))
+
+                             select new 
+                             {
+                                x = month.ToString("MM"),
+                                y = Math.Abs(household.HouseHoldAccounts.SelectMany(t => t.Transactions).Where(t=> t.Created.Month == month.Month && t.Created.Year == now.Year).Select(t=> t.Amount).DefaultIfEmpty().Sum() ),
+                             }
+                },
+
+                new 
+                {
+                    key = "Budgeted",
+                    color = "#00acac",
+                    values = from month in Enumerable.Range(1,12)
+                             .Select(m=> new DateTime(now.Year,m,1))
+
+                             select new 
+                             {
+                                x = month.ToString("MM"),
+                                y = Math.Abs(household.HouseHoldAccounts.SelectMany(t => t.Transactions).Where(t=> t.Created.Month == month.Month && t.Created.Year == now.Year).Select(t=> t.Amount).DefaultIfEmpty().Sum() ),
+                             }
+                }
+            
+            });
+        }
+
         [HttpPost,Route("Dates")]
         public IHttpActionResult GetDates()
         {
@@ -142,7 +183,18 @@ namespace BudgetPlanner_RG_V2.Controllers
             var date = DateTimeOffset.Now;
             var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-            var dates = new { Begin = firstDayOfMonth, End = lastDayOfMonth };
+
+            var year = DateTimeOffset.Now.Year;
+
+            var firstDayOfYear = new DateTime(year, 1, 1);
+            var lastDayOfYear = new DateTime(year, 12, 31);
+
+            var dates = new { 
+                                BeginMonth = firstDayOfMonth, 
+                                EndMonth = lastDayOfMonth,
+                                BeginYear = firstDayOfYear,
+                                EndYear = lastDayOfYear
+                            };
 
             return Ok(dates);
         }

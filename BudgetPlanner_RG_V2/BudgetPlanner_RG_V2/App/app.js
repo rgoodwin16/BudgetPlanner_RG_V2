@@ -61,6 +61,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
               currentValues: function (dashboardSvc) {
                   return dashboardSvc.cValues();
               },
+              yearlyValues: function (dashboardSvc) {
+                  return dashboardSvc.yValues();
+              },
               account: function (houseAccountSvc) {
                   return houseAccountSvc.list();
               },

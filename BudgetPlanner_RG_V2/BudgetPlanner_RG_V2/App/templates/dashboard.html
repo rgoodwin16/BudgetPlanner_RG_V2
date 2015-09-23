@@ -9,7 +9,7 @@
 
                 <div class="invoice">
                     <div class="invoice-company">
-                        Current Month Spending - {{dashboard.dates.Begin | date:'mediumDate'}} - {{dashboard.dates.End | date:'mediumDate'}}
+                        Current Month Spending - {{dashboard.dates.BeginMonth | date:'mediumDate'}} - {{dashboard.dates.EndMonth | date:'mediumDate'}}
                     </div>
                     <div class="invoice-content">
                         <hr />
@@ -27,12 +27,12 @@
 
                 <div class="invoice">
                     <div class="invoice-company">
-                        Yearly Spending - {{dashboard.dates.Begin | date:'mediumDate'}} - {{dashboard.dates.End | date:'mediumDate'}}
+                        Yearly Spending - {{dashboard.dates.BeginYear | date:'mediumDate'}} - {{dashboard.dates.EndYear | date:'mediumDate'}}
                     </div>
                     <div class="invoice-content">
                         <hr />
                         <div class="col-md-10 col-md-offset-1">
-                            <nvd3 options="dashboard.currentOptions" data="dashboard.currentValues" style="width:100% !important"></nvd3>
+                            <nvd3 options="dashboard.yearlyOptions" data="dashboard.yearlyValues" style="width:100% !important"></nvd3>
                         </div>
                         <div class="clearfix"></div>
 
