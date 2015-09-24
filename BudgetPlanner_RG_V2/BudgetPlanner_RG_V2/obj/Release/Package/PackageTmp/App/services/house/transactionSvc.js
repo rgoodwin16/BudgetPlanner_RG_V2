@@ -9,6 +9,12 @@
             })
         }
 
+        f.recent = function () {
+            return $http.post('api/HouseHoldAccounts/Transactions/Recent').then(function (response) {
+                return response.data
+            })
+        }
+
         f.create = function (transaction) {
             return $http.post('api/HouseHoldAccounts/Transactions/Create',transaction).then(function (response) {
                 return response.data

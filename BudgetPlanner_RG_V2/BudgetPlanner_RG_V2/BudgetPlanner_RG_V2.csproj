@@ -257,6 +257,7 @@
     <Content Include="App\controllers\house\houseDetailsCtrl.js" />
     <Content Include="App\controllers\householdBeginCtrl.js" />
     <Content Include="App\controllers\layoutCtrl.js" />
+    <Content Include="App\controllers\forgotCtrl.js" />
     <Content Include="App\controllers\loginCtrl.js" />
     <Content Include="App\controllers\modalCtrl.js" />
     <Content Include="App\controllers\registerCtrl.js" />

@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('budget_planner').controller('houseDetailsCtrl', ['houseSvc', '$state', 'household', 'validationSvc', function (houseSvc, $state, household, validationSvc) {
+angular.module('budget_planner').controller('houseDetailsCtrl', ['authSvc','houseSvc', '$state', 'household', 'validationSvc', function (authSvc,houseSvc, $state, household, validationSvc) {
     var self = this;
 
     this.display = household;
@@ -34,7 +34,9 @@ angular.module('budget_planner').controller('houseDetailsCtrl', ['houseSvc', '$s
     //LEAVE HOUSEHOLD - CONFIRM LEAVE
     this.leaveHouse = function () {
         houseSvc.leave().then(function (result) {
-            $state.go('household_begin');
+            authSvc.refresh().then(function (success) {
+                $state.go('household_begin');
+            })
         })
     }
 

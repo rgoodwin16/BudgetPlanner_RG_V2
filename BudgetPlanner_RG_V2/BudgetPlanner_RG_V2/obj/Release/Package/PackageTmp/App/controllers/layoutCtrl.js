@@ -1,9 +1,9 @@
 ﻿'use strict';
-angular.module('budget_planner').controller('layoutCtrl', ['$state','authSvc', function ($state,authSvc) {
+angular.module('budget_planner').controller('layoutCtrl', ['$state','authSvc','houseSvc', function ($state,authSvc,houseSvc) {
     var self = this;
 
     self.$state = $state;
-    console.log(self.$state)
+    
 
     this.isCollapsed = false;
     
@@ -16,5 +16,12 @@ angular.module('budget_planner').controller('layoutCtrl', ['$state','authSvc', f
         $state.go('login.signin');
     }
 
+    //this.getUser = function () {
+    //    houseSvc.getUser().then(function (data) {
+    //        self.user = data;
+    //    })
+    //}
+
+    //this.getUser();
 
 }])

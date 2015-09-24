@@ -57,7 +57,7 @@ namespace BudgetPlanner_RG_V2.Controllers
             });
         }
 
-        [HttpPost,Route("Index")]
+        [HttpPost,Route("Selected")]
         public IHttpActionResult All(Chart model)
         {
             var user = db.Users.Find(User.Identity.GetUserId());
@@ -147,29 +147,29 @@ namespace BudgetPlanner_RG_V2.Controllers
             {
                 new
                 {
-                    key = "Actual",
+                    key = "Total Transactions",
                     color = "#FF931E",
                     values = from month in Enumerable.Range(1,12)
                              .Select(m=> new DateTime(now.Year,m,1))
 
                              select new 
                              {
-                                x = month.ToString("MM"),
-                                y = Math.Abs(household.HouseHoldAccounts.SelectMany(t => t.Transactions).Where(t=> t.Created.Month == month.Month && t.Created.Year == now.Year).Select(t=> t.Amount).DefaultIfEmpty().Sum() ),
+                                x = month.ToString("MMMM"),
+                                y = Math.Abs(household.HouseHoldAccounts.SelectMany(t => t.Transactions).Where(t=> t.Created.Month == month.Month && t.Created.Year == now.Year && t.isDebit == true).Select(t=> t.Amount).DefaultIfEmpty().Sum() ),
                              }
                 },
 
                 new 
                 {
-                    key = "Budgeted",
+                    key = "Budgeted Expenses",
                     color = "#00acac",
                     values = from month in Enumerable.Range(1,12)
                              .Select(m=> new DateTime(now.Year,m,1))
 
                              select new 
                              {
-                                x = month.ToString("MM"),
-                                y = Math.Abs(household.HouseHoldAccounts.SelectMany(t => t.Transactions).Where(t=> t.Created.Month == month.Month && t.Created.Year == now.Year).Select(t=> t.Amount).DefaultIfEmpty().Sum() ),
+                                x = month.ToString("MMMM"),
+                                y = Math.Abs(household.BudgetItems.Where(b=> b.isExpense == true).Select(b => b.Amount).DefaultIfEmpty().Sum() ),
                              }
                 }
             

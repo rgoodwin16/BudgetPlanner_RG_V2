@@ -3,7 +3,7 @@ angular.module('budget_planner').controller('layoutCtrl', ['$state','authSvc','h
     var self = this;
 
     self.$state = $state;
-    console.log(self.$state)
+    
 
     this.isCollapsed = false;
     
@@ -16,12 +16,12 @@ angular.module('budget_planner').controller('layoutCtrl', ['$state','authSvc','h
         $state.go('login.signin');
     }
 
-    this.getUser = function () {
-        houseSvc.getUser().then(function (data) {
-            self.user = data;
-        })
-    }
+    //this.getUser = function () {
+    //    houseSvc.getUser().then(function (data) {
+    //        self.user = data;
+    //    })
+    //}
 
-    this.getUser();
+    //this.getUser();
 
 }])

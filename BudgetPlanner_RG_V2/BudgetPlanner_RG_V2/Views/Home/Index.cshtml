@@ -52,19 +52,19 @@
                         <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
                             <ul class="nav navbar-nav hidden-md hidden-lg hidden-sm">
                                 <li>
-                                    <a ui-sref="dashboard">Dashboard</a>
+                                    <a ui-sref="dashboard"><i class="fa fa-laptop"></i> Dashboard</a>
                                 </li>
                                 <li>
-                                    <a ui-sref="household.details">Household</a>
+                                    <a ui-sref="household.details"><i class="fa fa-home"></i> Household</a>
                                 </li>
                                 <li>
-                                    <a ui-sref="accounts.list">Accounts</a>
+                                    <a ui-sref="accounts.list"><i class="fa fa-university"></i> Accounts</a>
                                 </li>
                                 <li>
-                                    <a ui-sref="budget.list">Budget</a>
+                                    <a ui-sref="budget.list"><i class="fa fa-pie-chart"></i> Budget</a>
                                 </li>
                                 <li>
-                                    <a href ng-click="layout.logout()">Logout</a>
+                                    <a href ng-click="layout.logout()"><i class="fa fa-sign-out"></i> Logout</a>
                                 </li>
                             </ul>
                         </div>
@@ -78,20 +78,7 @@
                 <div id="sidebar" class="sidebar sidebar-grid">
                     <!-- begin sidebar scrollbar -->
                     <div>
-                        <!-- begin sidebar user -->
-                        <ul class="nav">
-                            <li class="nav-profile">
-                                <div class="image">
-                                    <img src="~/Theme_Template/img/user_ava.jpg" alt="" />
-                                </div>
-                                <div class="info">
-                                    <small>Welcome</small>
-                                    {{layout.user.DisplayName}}
 
-                                </div>
-                            </li>
-                        </ul>
-                        <!-- end sidebar user -->
                         <!-- begin sidebar nav -->
                         <ul class="nav" ng-controller="houseCtrl as house">
                             <li class="nav-header">Navigation</li>
@@ -182,13 +169,14 @@
     <script src="~/App/services/house/budgetItemSvc.js"></script><!-- budget -->
     <script src="~/App/services/house/categorySvc.js"></script><!-- category -->
     <script src="~/App/services/validationSvc.js"></script><!-- email validation-->
-    <script src="~/App/services/dashboard/dashboardSvc.js"></script>
+    <script src="~/App/services/dashboard/dashboardSvc.js"></script><!-- dashboard -->
     
     <!-- begin controllers -->
 
     <!-- Core -->
     <script src="~/app/controllers/loginCtrl.js"></script><!-- login -->
     <script src="~/App/controllers/registerCtrl.js"></script><!-- register -->
+    <script src="~/App/controllers/forgotCtrl.js"></script><!-- forgot -->
     <script src="~/App/controllers/layoutCtrl.js"></script><!-- layout -->
     <script src="~/App/controllers/householdBeginCtrl.js"></script><!-- home -->
     <script src="~/App/controllers/dashboardCtrl.js"></script><!-- dashboard -->

@@ -39,7 +39,7 @@ namespace BudgetPlanner_RG_V2
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 RefreshTokenProvider = new RefreshTokenProvider(),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                AccessTokenExpireTimeSpan = TimeSpan.FromHours(2),
                 // In production mode set AllowInsecureHttp = false
                 AllowInsecureHttp = true
             };

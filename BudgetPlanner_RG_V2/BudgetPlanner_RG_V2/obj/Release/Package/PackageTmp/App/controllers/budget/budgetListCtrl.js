@@ -3,7 +3,6 @@ angular.module('budget_planner').controller('budgetListCtrl', ['budgetItemSvc', 
     var self = this;
 
     this.display = budget;
-    console.log(budget)
     this.categories = categories;
 
     this.sidepanel = 'c';
@@ -27,7 +26,6 @@ angular.module('budget_planner').controller('budgetListCtrl', ['budgetItemSvc', 
     this.beginEdit = function (id) {
         budgetItemSvc.details(id).then(function (result) {
             self.model = result;
-            console.log(result)
             self.sidepanel = 'e';
         })
     }
@@ -43,7 +41,6 @@ angular.module('budget_planner').controller('budgetListCtrl', ['budgetItemSvc', 
     this.beginDelete = function (id) {
         budgetItemSvc.details(id).then(function (result) {
             self.model = result;
-            console.log(result)
             self.sidepanel = 'd';
         })
     }

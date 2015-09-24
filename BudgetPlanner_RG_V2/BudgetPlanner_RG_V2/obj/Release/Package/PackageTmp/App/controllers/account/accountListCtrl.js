@@ -4,7 +4,7 @@ angular.module('budget_planner').controller('accountListCtrl',['houseAccountSvc'
     var self = this;
 
     this.display = account;
-    console.log(account)
+    
 
     this.model = {};
 

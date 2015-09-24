@@ -9,17 +9,40 @@
 
                 <div class="invoice">
                     <div class="invoice-company">
-                        Current Month Spending - {{dashboard.dates.BeginMonth | date:'mediumDate'}} - {{dashboard.dates.EndMonth | date:'mediumDate'}}
+                        <span class="panel-heading-btn">
+                            <a class="btn btn-sm btn-success m-b-10" ng-click="dashboard.selectDates()" ng-show="dashboard.currentpanel == 'c'"><i class="fa fa-calendar"></i> Select Dates</a>
+                            <a class="btn btn-sm btn-success m-b-10" ng-click="dashboard.clear()" ng-show="dashboard.currentpanel == 'u'"><i class="fa fa-calendar"></i> Current Month</a>
+                        </span>
+                        <span ng-show="dashboard.currentpanel == 'c'">Current Month Spending - {{dashboard.dates.BeginMonth | date:'mediumDate'}} - {{dashboard.dates.EndMonth | date:'mediumDate'}}</span>
+                        <span ng-show="dashboard.currentpanel == 'u'">Choose a range of dates</span>
                     </div>
                     <div class="invoice-content">
                         <hr />
-                        <div class="col-md-10 col-md-offset-1">
-                            <nvd3 options="dashboard.currentOptions" data="dashboard.currentValues" style="width:100% !important"></nvd3>
+                        <div class="col-md-10 col-md-offset-1" ng-show="dashboard.currentpanel == 'c'">
+                            <nvd3 options="dashboard.currentOptions" data="dashboard.currentValues" style="width:100% !important"></nvd3><!-- /current month chart -->
+                        </div>
+
+                        <div class="input-group input-daterange" ng-show="dashboard.currentpanel == 'u'">
+                            
+                            <input type="date" class="form-control" id="start" ng-model="dashboard.model.startDate">
+                            <span class="input-group-addon">to</span>
+                            
+                            <input type="date" class="form-control" end="end" ng-model="dashboard.model.endDate">
+                        </div><!-- /date range selector -->
+
+                        <div class="m-t-20" ng-show="dashboard.currentpanel == 'u'">
+                        </div>
+
+                        <div class="col-md-10 col-md-offset-1" ng-show="dashboard.currentpanel == 'u'">
+                            <nvd3 options="dashboard.selectedOptions" data="dashboard.selectedValues" style="width:100% !important"></nvd3><!-- /user selected chart -->
                         </div>
                         <div class="clearfix"></div>
 
                         <div class="m-t-20">
                         </div>
+
+                        <button type="button" class="btn btn-success" ng-click="dashboard.createChart()" ng-show="dashboard.currentpanel == 'u'">Create Chart</button>
+
                     </div>
                 </div><!-- /current month spending -->
 

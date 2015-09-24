@@ -7,7 +7,8 @@ angular.module('budget_planner')
 
     var _authentication = {
         isAuth: false,
-        userName: ""
+        userName: "",
+        householdId: null
     };
 
     var _saveRegistration = function (registration) {
@@ -34,10 +35,14 @@ angular.module('budget_planner')
 
         $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
 
-            localStorageService.set('authorizationData', { token: response.access_token, username: username, refreshToken: response.refresh_token });
+            localStorageService.set('authorizationData', {
+                token: response.access_token, username: username, refreshToken: response.refresh_token,
+                householdId: response.householdId
+            });
 
             _authentication.isAuth = true;
             _authentication.username = username;
+            _authentication.householdId = response.householdId;
 
             deferred.resolve(response);
 
@@ -56,6 +61,7 @@ angular.module('budget_planner')
 
         _authentication.isAuth = false;
         _authentication.username = "";
+        _authentication.householdId = null
 
     };
 
@@ -65,6 +71,7 @@ angular.module('budget_planner')
         if (authData) {
             _authentication.isAuth = true;
             _authentication.username = authData.username;
+            _authentication.householdId = authData.householdId
         }
 
     };
@@ -82,7 +89,9 @@ angular.module('budget_planner')
 
             $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
 
-                localStorageService.set('authorizationData', { token: response.access_token, username: response.username, refreshToken: response.refresh_token });
+                localStorageService.set('authorizationData', {
+                    token: response.access_token, username: response.username, refreshToken: response.refresh_token,
+                householdId: response.householdId});
 
                 deferred.resolve(response);
 

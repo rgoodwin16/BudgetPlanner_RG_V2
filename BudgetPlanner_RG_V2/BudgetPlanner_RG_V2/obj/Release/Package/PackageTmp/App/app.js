@@ -1,4 +1,4 @@
-﻿var app = angular.module('budget_planner', ['ui.router', 'ui.bootstrap', 'LocalStorageModule', 'uiSwitch', 'trNgGrid']);
+﻿var app = angular.module('budget_planner', ['ui.router', 'ui.bootstrap', 'LocalStorageModule', 'uiSwitch', 'trNgGrid','nvd3']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     //
@@ -26,13 +26,13 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       .state('login.register', {
           url: "/register",
           templateUrl: "/app/templates/login/login.register.html",
-          controller: "loginCtrl as user"
+          controller: "registerCtrl as register"
       })
 
       .state('login.forgot', {
           url: "/forgot_password",
           templateUrl: "/app/templates/login/login.forgot.html",
-          controller: "loginCtrl as user"
+          controller: "forgotCtrl as forgot"
       })
 
 
@@ -52,7 +52,28 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       .state('dashboard', {
           url: "/dashboard",
           templateUrl: "/app/templates/dashboard.html",
-          controller: "dashboardCtrl as dashboard"
+          controller: "dashboardCtrl as dashboard",
+          resolve: {
+              currentMonth: function (dashboardSvc) {
+                  console.log('resolving')
+                  return dashboardSvc.dates();
+              },
+              currentValues: function (dashboardSvc) {
+                  return dashboardSvc.cValues();
+              },
+              yearlyValues: function (dashboardSvc) {
+                  return dashboardSvc.yValues();
+              },
+              account: function (houseAccountSvc) {
+                  return houseAccountSvc.list();
+              },
+              transactions: function (transactionSvc) {
+                  return transactionSvc.recent();
+              }
+          },
+          data: {
+              requiresHousehold: true
+          }
       })
 //=================================================================================//
 
@@ -70,6 +91,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
               household: function (houseSvc) {
                   return houseSvc.details();
               }
+          },
+          data: {
+              requiresHousehold : true
           },
           controller: "houseDetailsCtrl as houseDetails",
       })
@@ -101,6 +125,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
               }
           },
           controller: "accountListCtrl as accountList",
+          data: {
+              requiresHousehold : true
+          }
       })
       .state('accounts.details', {
           url: "/details/:id",
@@ -113,25 +140,13 @@ app.config(function ($stateProvider, $urlRouterProvider) {
               }],
               categories: function (categorySvc) {
                   return categorySvc.list();
+              },
+              data: {
+                  requiresHousehold: true
               }
           }
       })
-      .state('accounts.details.transactions', {
-          url: "/transactions",
-          templateUrl: "/app/templates/accounts/accounts.details.transactions.html",
-          controller: "accountTransactionsCtrl as accountTransaction"
-      })
 
-      .state('accounts.details.transactions.categories', {
-          url: "/categories",
-          templateUrl: "/app/templates/accounts/accounts.details.transactions.categories.html",
-          resolve: {
-              category: function (categorySvc) {
-                  return categorySvc.list();
-              }
-          },
-          controller: "transactionCategoryCtrl as category"
-      })
 //=================================================================================//
 
      //BUDGET STATES
@@ -153,19 +168,22 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                   return categorySvc.list();
               }
           },
+          data: {
+              requiresHousehold : true
+          },
           controller: "budgetListCtrl as budgetList"
       })
 
-      .state('budget.categories', {
-          url: "/categories",
-          templateUrl: "/app/templates/budget/budget.categories.html",
-          resolve: {
-              category: function (categorySvc) {
-                  return categorySvc.list();
-              }
-          },
-          controller: "budgetCategoryCtrl as category"
-      })
+      //.state('budget.categories', {
+      //    url: "/categories",
+      //    templateUrl: "/app/templates/budget/budget.categories.html",
+      //    resolve: {
+      //        category: function (categorySvc) {
+      //            return categorySvc.list();
+      //        }
+      //    },
+      //    controller: "budgetCategoryCtrl as category"
+      //})
      
 
 
@@ -182,6 +200,28 @@ app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorSvc');
 });
 
-app.run(['authSvc', function (authService) {
+app.run(['$rootScope','$state','$stateParams','authSvc', function ($rootScope,$state,$stateParams,authService) {
+    $rootScope.$state = $state;
+    $rootScope.$state.$stateParams = $stateParams;
     authService.fillAuthData();
+
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromParams) {
+
+        console.log('state change');
+
+        if (toState.data && toState.data.requiresHousehold === true) {
+            if (!authService.authentication.isAuth) {
+                event.preventDefault();
+                $state.go('login');
+            }
+            if (authService.authentication.householdId == null ||
+                authService.authentication.householdId == "") {
+                event.preventDefault();
+                console.log('YOU SHALL NOT PASS')
+                $state.go('household_begin');
+            }
+
+        }
+    });
+
 }]);
