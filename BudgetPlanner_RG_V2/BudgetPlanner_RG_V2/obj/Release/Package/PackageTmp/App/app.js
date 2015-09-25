@@ -36,6 +36,15 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       })
 
 
+//=================================================================================//
+
+        //USER MANAGE STATES
+        .state('user_manage', {
+            url: "/user_profile",
+            templateUrl: "/app/templates/user/user.manage.html",
+            controller: "userManageCtrl as user"
+
+        })
 
 //=================================================================================//
 
@@ -141,9 +150,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
               categories: function (categorySvc) {
                   return categorySvc.list();
               },
-              data: {
-                  requiresHousehold: true
-              }
+
           }
       })
 

@@ -36,6 +36,18 @@
             <div class="login-buttons">
                 <a class="btn btn-white btn-block btn-lg " ui-sref="login.signin"><span style="color:black">Use Existing Account</span></a>
             </div>
+            <div class="m-t-20">
+            </div>
+            <div>
+                <h5 style="color:white">Passwords must have at least one non letter <br />('~!#$' etc.)</h5>
+                <h5 style="color:white">Passwords must have at least one digit (‘0′-‘9′)</h5>
+                <h5 style="color:white">Passwords must have at least one uppercase (‘A’-‘Z’)</h5>
+            </div>
+            <div class="m-t-20">
+            </div>
+            <div ng-show="register.errors != null">
+                <h5 class="btn btn-warning btn-block">{{register.errors.data.Message}}</h5>
+            </div>
         </div>
     </div>
 </div>

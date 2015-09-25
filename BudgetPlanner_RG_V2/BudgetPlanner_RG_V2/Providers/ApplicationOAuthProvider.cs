@@ -59,7 +59,7 @@ namespace BudgetPlanner_RG_V2.Providers
 
             var newIdentity = await user.GenerateUserIdentityAsync(userManager, OAuthDefaults.AuthenticationType);
 
-            var newTicket = new AuthenticationTicket(newIdentity, context.Ticket.Properties);
+            var newTicket = new AuthenticationTicket(newIdentity, CreateProperties(user));
             context.Validated(newTicket);
         }
         

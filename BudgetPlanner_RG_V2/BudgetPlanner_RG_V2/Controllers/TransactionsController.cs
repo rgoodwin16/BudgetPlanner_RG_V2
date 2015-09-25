@@ -96,6 +96,12 @@ namespace BudgetPlanner_RG_V2.Controllers
             var account = db.HouseHoldAccounts.Find(model.HouseHoldAccountId);
 
             account.Balance += model.Amount;
+            
+            if (model.Reconcile)
+            {
+                account.ReconciledBalance += model.Amount;
+            }
+
             model.Created = DateTimeOffset.Now;
 
             model.CategoryId = model.Category.id;
@@ -159,6 +165,13 @@ namespace BudgetPlanner_RG_V2.Controllers
                 account.Balance += model.Amount;
             }
 
+            //check if transaction is Reconciled
+            if (oldTrans.Reconcile != model.Reconcile)
+            {
+                account.ReconciledBalance -= oldTrans.Amount;
+                account.ReconciledBalance += model.Amount;
+            }
+
             model.CategoryId = model.Category.id;
             model.Category = null;
 
@@ -188,6 +201,7 @@ namespace BudgetPlanner_RG_V2.Controllers
             var account = user.HouseHold.HouseHoldAccounts.FirstOrDefault(a => a.id == transaction.HouseHoldAccountId);
 
             account.Balance = account.Balance - transaction.Amount;
+            account.ReconciledBalance = account.ReconciledBalance - transaction.Amount;
             
             db.Transactions.Remove(transaction);
             await db.SaveChangesAsync();

@@ -109,6 +109,12 @@
                             </li>
                             <li class="nav-header">User</li>
                             <li class="has-sub">
+                                <a ui-sref="user_manage">
+                                    <i class="fa fa-user"></i>
+                                    <span>Profile</span>
+                                </a>
+                            </li>
+                            <li class="has-sub">
                                 <a href ng-click="layout.logout()">
                                     <i class="fa fa-sign-out"></i>
                                     <span>Log Out</span>
@@ -180,7 +186,7 @@
     <script src="~/App/controllers/layoutCtrl.js"></script><!-- layout -->
     <script src="~/App/controllers/householdBeginCtrl.js"></script><!-- home -->
     <script src="~/App/controllers/dashboardCtrl.js"></script><!-- dashboard -->
-
+    <script src="~/App/controllers/user/userManagerCtrl.js"></script>
 
     <!-- HouseHold -->
     <script src="~/App/controllers/house/houseCtrl.js"></script><!-- house -->

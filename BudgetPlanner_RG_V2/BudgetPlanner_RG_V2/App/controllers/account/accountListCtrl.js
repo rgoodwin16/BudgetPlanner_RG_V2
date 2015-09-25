@@ -4,7 +4,9 @@ angular.module('budget_planner').controller('accountListCtrl',['houseAccountSvc'
     var self = this;
 
     this.display = account;
-    
+    this.$state = $state;
+
+    console.log(account)
 
     this.model = {};
 

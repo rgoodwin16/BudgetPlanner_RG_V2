@@ -25,7 +25,7 @@ angular.module('budget_planner').controller('loginCtrl', ['authSvc', '$state', '
         authSvc.login(self.username, self.password).then(function (success) {
             $state.go('dashboard');
         }, function (error) {
-            self.errors = error.data;
+            self.errors = error;
         });
     }
 

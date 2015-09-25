@@ -59,12 +59,6 @@ namespace BudgetPlanner_RG_V2.Controllers
                 return BadRequest(ModelState);
             }
 
-            var accountNameExists = user.HouseHold.HouseHoldAccounts.Any(a => a.Name == model.Name);
-
-            if (accountNameExists)
-            {
-                return BadRequest("You already have an account called: " + model.Name + " . Please chose another name.");
-            }
 
             else
             {
@@ -72,6 +66,7 @@ namespace BudgetPlanner_RG_V2.Controllers
                 {
                     Name = model.Name,
                     Balance = model.Balance,
+                    ReconciledBalance = model.Balance,
                     HouseHoldId = (int)user.HouseHoldId
                 };
 
@@ -81,6 +76,7 @@ namespace BudgetPlanner_RG_V2.Controllers
                 {
                     Description = "New Account: " + model.Name + " created.",
                     Amount = model.Balance,
+                    Reconcile = true,
                     HouseHoldAccountId = model.HouseHoldId,
                     CategoryId = user.HouseHold.Categories.First(c=> c.Name == "New Account Created").id,
                     Created = DateTimeOffset.Now,
@@ -139,12 +135,14 @@ namespace BudgetPlanner_RG_V2.Controllers
                 {
                     Description = "User Adjusted Balance",
                     Amount = adjBal,
+                    Reconcile = true,
                     CategoryId = user.HouseHold.Categories.First(c => c.Name == "User Adjusted Balance").id,
                     Created = DateTimeOffset.Now,
                     HouseHoldAccountId = model.id
                 });
 
                 oldAccount.Balance -= adjBal;
+                oldAccount.ReconciledBalance -= adjBal;
             }
       
             await db.SaveChangesAsync();

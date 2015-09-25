@@ -15,7 +15,8 @@ namespace BudgetPlanner_RG_V2.Models
         
         public int id { get; set; }
         public string Name { get; set; }
-        public decimal Balance { get; set; }
+        public decimal Balance { get; set;}
+        public decimal ReconciledBalance { get; set; }
         public int HouseHoldId { get; set; }
         public bool isArchived { get; set; }
 

@@ -11,6 +11,8 @@ angular.module('budget_planner').controller('registerCtrl', ['authSvc', '$state'
     this.signup = function () {
         authSvc.register(self.model).then(function (success) {
             $state.go('login.signin', { isNew: true })
+        }, function (error) {
+            self.errors = error;
         })
     }
 

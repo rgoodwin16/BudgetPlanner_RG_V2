@@ -9,9 +9,11 @@ angular.module('budget_planner').controller('householdBeginCtrl', ['authSvc','$s
     //CREATE HOUSE
     this.create = function () {
         houseSvc.create(self.name).then(function (result) {
-            authSvc.refresh().then(function (success) {
-                $state.go('budget.list')
+            authSvc.refresh().then(function (response) {
+                $state.go($state.current, null, { reload: true })
+                $state.go('budget.list');
             })
+           
         })
     }
 
@@ -19,6 +21,7 @@ angular.module('budget_planner').controller('householdBeginCtrl', ['authSvc','$s
     this.join = function () {
         houseSvc.join(self.model).then(function (result) {
             authSvc.refresh().then(function (response) {
+                $state.go($state.current, null, { reload: true })
                 $state.go('household.details')
             })
             

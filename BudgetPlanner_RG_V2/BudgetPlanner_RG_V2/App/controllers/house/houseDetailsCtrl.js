@@ -35,6 +35,7 @@ angular.module('budget_planner').controller('houseDetailsCtrl', ['authSvc','hous
     this.leaveHouse = function () {
         houseSvc.leave().then(function (result) {
             authSvc.refresh().then(function (success) {
+                
                 $state.go('household_begin');
             })
         })

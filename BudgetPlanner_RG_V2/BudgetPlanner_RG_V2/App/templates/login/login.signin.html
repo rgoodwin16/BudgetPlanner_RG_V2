@@ -39,6 +39,11 @@
             <div class="login-buttons">
                 <a class="btn btn-white btn-block btn-lg " ui-sref="login.register"><span style="color:black">Create Account</span></a>
             </div>
+            <div class="m-t-20">
+            </div>
+            <div  ng-show="user.errors != null">
+                <h5 style="color:white">{{user.errors.error_description}}</h5>
+            </div>
         </div>
     </div>
 </div>

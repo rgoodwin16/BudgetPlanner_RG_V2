@@ -116,7 +116,7 @@ namespace BudgetPlanner_RG_V2.Controllers
                              select new 
                              {
                                 x = b.Category.Name,
-                                y = b.Category.Transactions.Where(t=> t.Created.Month == date.Month).Select(t=> t.Amount).DefaultIfEmpty().Sum() * -1,
+                                y = b.Category.Transactions.Where(t=> t.Created.Month == date.Month && t.isArchived == false).Select(t=> t.Amount).DefaultIfEmpty().Sum() * -1,
                              }
                 },
 
@@ -155,7 +155,7 @@ namespace BudgetPlanner_RG_V2.Controllers
                              select new 
                              {
                                 x = month.ToString("MMMM"),
-                                y = Math.Abs(household.HouseHoldAccounts.SelectMany(t => t.Transactions).Where(t=> t.Created.Month == month.Month && t.Created.Year == now.Year && t.isDebit == true).Select(t=> t.Amount).DefaultIfEmpty().Sum() ),
+                                y = Math.Abs(household.HouseHoldAccounts.SelectMany(t => t.Transactions).Where(t=> t.Created.Month == month.Month && t.Created.Year == now.Year && t.isDebit == true && t.isArchived == false).Select(t=> t.Amount).DefaultIfEmpty().Sum() ),
                              }
                 },
 

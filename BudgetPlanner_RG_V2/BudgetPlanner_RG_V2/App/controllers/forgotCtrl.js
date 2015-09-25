@@ -18,9 +18,9 @@ angular.module('budget_planner').controller('forgotCtrl', ['authSvc', '$state', 
     //}
 
     //FORGOT PASSWORD SUBMIT
-    this.sendCode = function () {
-        authSvc.
-    }
+    //this.sendCode = function () {
+    //    authSvc.
+    //}
 
 
 }])
