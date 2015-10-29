@@ -1,87 +1,157 @@
 ﻿<div class="row">
 
-    <div class="col-md-8">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
 
         <div class="invoice">
             <div class="invoice-company">
-                <span class="panel-heading-btn">
-                    <a class="btn btn-sm btn-success m-b-10" ng-click="budgetList.clear()"><i class="fa fa-plus"></i> New Income / Expense</a>
+                <span class="panel-heading-btn hidden-lg">
+                    <a class="btn btn-sm btn-inverse m-b-10" ng-click="budgetList.mainPanelList()">Item List</a>
+                    <a class="btn btn-sm btn-success m-b-10" ng-click="budgetList.mainPanelCreate()">New Income / Expense</a>
                 </span>
-                Budget Items
+                <span ng-show="budgetList.mainpanel == 'list'"><i class="fa fa-pie-chart"></i> Budget Items</span>
+                <span ng-show="budgetList.mainpanel == 'create'"><i class="fa fa-pie-chart"></i> New Budget Item</span>
+                <span ng-show="budgetList.mainpanel == 'edit'"><i class="fa fa-edit"></i> Edit - {{budgetList.model.Name}}</span>
+                <span ng-show="budgetList.mainpanel == 'delete'"><i class="fa fa-trash"></i> Delete - {{budgetList.model.Name}}</span>
             </div>
             <div class="invoice-content">
                 <hr />
-                <h5 style="color:#707478">Income</h5>
-                <div class="panl-body">
-                    <table class="table table-responsive table-striped">
-                        <thead>
-                            <tr>
-                                <th>Description</th>
-                                <th>Category</th>
-                                <th>Amount</th>
-                                <th>Frequency</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="b in budgetList.display | filter:{ isExpense:false }">
-                                <td>{{b.Name}}</td>
-                                <td>{{b.Category.Name}}</td>
-                                <td>{{b.Amount | currency}}</td>
-                                <td>{{b.Frequency}}</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <label type="button" class="btn btn-primary btn-sm" ng-click="budgetList.beginEdit(b.id)"><i class="fa fa-edit"></i></label>
-                                        <label type="button" class="btn btn-danger btn-sm" ng-click="budgetList.beginDelete(b.id)"><i class="fa fa-trash"></i></label>
+                <div ng-show="budgetList.mainpanel == 'list'">
+                    <h5 style="color:#707478">Income</h5>
+                    <div class="panl-body">
+                        <table class="table table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Frequency</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="b in budgetList.display | filter:{ isExpense:false }">
+                                    <td>{{b.Name}}</td>
+                                    <td>{{b.Category.Name}}</td>
+                                    <td>{{b.Amount | currency}}</td>
+                                    <td>{{b.Frequency}}</td>
+                                    <td>
+                                        <div class="btn-group hidden-xs hidden-sm hidden-md">
+                                            <label type="button" class="btn btn-primary btn-sm" ng-click="budgetList.beginEdit(b.id)"><i class="fa fa-edit"></i></label>
+                                            <label type="button" class="btn btn-danger btn-sm" ng-click="budgetList.beginDelete(b.id)"><i class="fa fa-trash"></i></label>
+                                        </div>
+                                        <div class="btn-group hidden-lg">
+                                            <label type="button" class="btn btn-primary btn-sm" ng-click="budgetList.mainPanelBeginEdit(b.id)"><i class="fa fa-edit"></i></label>
+                                            <label type="button" class="btn btn-danger btn-sm" ng-click="budgetList.mainPanelBeginDelete(b.id)"><i class="fa fa-trash"></i></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!-- /income body -->
+                    <hr />
+                    <h5 style="color:#707478">Expense</h5>
+                    <div class="panl-body">
+                        <table class="table table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Frequency</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="b in budgetList.display | filter:{ isExpense:true }">
+                                    <td>{{b.Name}}</td>
+                                    <td>{{b.Category.Name}}</td>
+                                    <td>-{{b.Amount | currency}}</td>
+                                    <td>{{b.Frequency}}</td>
+                                    <td>
+                                        <div class="btn-group hidden-xs hidden-sm hidden-md">
+                                            <label type="button" class="btn btn-primary btn-sm" ng-click="budgetList.beginEdit(b.id)"><i class="fa fa-edit"></i></label>
+                                            <label type="button" class="btn btn-danger btn-sm" ng-click="budgetList.beginDelete(b.id)"><i class="fa fa-trash"></i></label>
+                                        </div>
+                                        <div class="btn-group hidden-lg">
+                                            <label type="button" class="btn btn-primary btn-sm" ng-click="budgetList.mainPanelBeginEdit(b.id)"><i class="fa fa-edit"></i></label>
+                                            <label type="button" class="btn btn-danger btn-sm" ng-click="budgetList.mainPanelBeginDelete(b.id)"><i class="fa fa-trash"></i></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!-- /expense body -->
+                </div>
+
+                <div class="panel-body" ng-hide="budgetList.mainpanel == 'list'">
+                    <div class="login-content">
+                        <div class="margin-bottom-0">
+                            <div class="form-group m-b-20" ng-hide="budgetList.mainpanel == 'delete'">
+                                <input type="text" class="form-control input-lg" placeholder="Name" ng-model="budgetList.model.Name" />
+                            </div>
+                            <div class="form-group m-b-20" ng-hide="budgetList.mainpanel == 'delete'">
+                                <input type="text" class="form-control input-lg" placeholder="Amount" ng-model="budgetList.model.Amount" />
+                            </div>
+
+                            <div class="form-group" ng-hide="budgetList.mainpanel == 'delete'">
+                                <label style="color:#707478">Category</label>
+                                <tabset justified="true">
+                                    <tab heading="Existing">
+                                        <select ng-options="category as category.Name for category in budgetList.categories track by category.id" ng-model="budgetList.model.Category" class="form-control" id="cat"></select>
+                                    </tab>
+                                    <tab heading="New">
+                                        <input type="text" class="form-control" ng-model="budgetList.model.Category.Name" />
+                                    </tab>
+                                </tabset>
+
+                            </div>
+
+                            <div class="form-inline" ng-hide="budgetList.mainpanel == 'delete'">
+                                Income
+                                <div class="form-group">
+                                    <switch id="enabled" name="enabled" ng-model="budgetList.model.isExpense" class="green"></switch>
+                                </div>
+                                Expense
+                                <div class="form-inline pull-right">
+                                    <div class="form-group m-r-10">
+                                        Annual Frequency
                                     </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div><!-- /income body -->
-                <hr />
-                <h5 style="color:#707478">Expense</h5>
-                <div class="panl-body">
-                    <table class="table table-responsive table-striped">
-                        <thead>
-                            <tr>
-                                <th>Description</th>
-                                <th>Category</th>
-                                <th>Amount</th>
-                                <th>Frequency</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="b in budgetList.display | filter:{ isExpense:true }">
-                                <td>{{b.Name}}</td>
-                                <td>{{b.Category.Name}}</td>
-                                <td>-{{b.Amount | currency}}</td>
-                                <td>{{b.Frequency}}</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <label type="button" class="btn btn-primary btn-sm" ng-click="budgetList.beginEdit(b.id)"><i class="fa fa-edit"></i></label>
-                                        <label type="button" class="btn btn-danger btn-sm" ng-click="budgetList.beginDelete(b.id)"><i class="fa fa-trash"></i></label>
+                                    <div class="form-group m-r-10">
+                                        <input type="number" class="form-control" ng-model="budgetList.model.Frequency">
                                     </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div><!-- /expense body -->
-            </div>
-        </div>
+                                </div>
+                            </div>
+
+                            <div ng-show="budgetList.mainpanel == 'delete'">
+                                <span>Are you sure you want to delete this budget item?</span>
+                            </div>
+
+                            <div class="m-t-20">
+                            </div>
+                            <div class="login-buttons">
+                                <button type="button" class="btn btn-success btn-block btn-lg" ng-click="budgetList.createItem(budgetList.model)" ng-show="budgetList.mainpanel == 'create'">Create</button>
+                                <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="budgetList.editItem(budgetList.model)" ng-show="budgetList.mainpanel == 'edit'">Edit</button>
+                                <button type="button" class="btn btn-danger btn-block btn-lg" ng-click="budgetList.deleteItem(budgetList.model)" ng-show="budgetList.mainpanel == 'delete'">Delete</button>
+                                <button type="button" class="btn btn-white btn-block btn-lg" ng-click="budgetList.clear()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /invoice-content -->
+        </div><!--/invoice -->
 
     </div><!-- left column -->
 
     <br class="hidden-md hidden-lg" />
 
-    <div class="col-md-4">
+    <div class="col-lg-4 hidden-xs hidden-sm hidden-md">
 
         <div class="invoice">
             <div class="invoice-company">
-                <span ng-show="budgetList.sidepanel == 'c'">New Budget Item</span>
-                <span ng-show="budgetList.sidepanel == 'e'">Edit Budget Item</span>
-                <span ng-show="budgetList.sidepanel == 'd'">Delete Budget Item</span>
+                <span ng-show="budgetList.sidepanel == 'c'"><i class="fa fa-pie-chart"></i> New Budget Item</span>
+                <span ng-show="budgetList.sidepanel == 'e'"><i class="fa fa-edit"></i> Edit - {{budgetList.model.Name}}</span>
+                <span ng-show="budgetList.sidepanel == 'd'"><i class="fa fa-trash"></i> Delete - {{budgetList.model.Name}}</span>
             </div>
             <div class="invoice-content">
                 <hr />

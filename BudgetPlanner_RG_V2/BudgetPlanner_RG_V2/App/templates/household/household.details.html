@@ -2,19 +2,22 @@
 
 <div class="row">
 
-    <div class="col-md-8">
+    <div class="col-md-8 col-sm-12 col-xs-12">
 
         <div class="invoice">
             <div class="invoice-company">
-                <span class="pull-right hidden-print">
-                    <a class="btn btn-sm btn-success m-b-10" ng-click="houseDetails.clear()"><i class="fa fa-plus m-r-5"></i> New Invite</a>
-                    <a class="btn btn-sm btn-warning m-b-10" ng-click="houseDetails.beginLeave()"><i class="fa fa-user-times m-r-5"></i> Leave Household</a>
+                <span class="pull-right hidden-print hidden-lg hidden-md">
+                    <a class="btn btn-sm btn-inverse m-b-10" ng-click="houseDetails.mainPanelMembers()" ng-hide="houseDetails.mainpanel == 'm'"> Members</a>
+                    <a class="btn btn-sm btn-success m-b-10" ng-click="houseDetails.mainPanelInvite()" ng-hide="houseDetails.mainpanel == 'i'"> New Invite</a>
+                    <a class="btn btn-sm btn-warning m-b-10" ng-click="houseDetails.mainPanelLeave()" ng-hide="houseDetails.mainpanel == 'l'"> Leave Household</a>
                 </span>
-                {{houseDetails.display.Name}} Household - Members
+                <span ng-show="houseDetails.mainpanel == 'm'"><i class="fa fa-home"></i> {{houseDetails.display.Name}} Household - Members</span>
+                <span ng-show="houseDetails.mainpanel == 'i'"><i class="fa fa-envelope"></i> New Invite</span>
+                <span ng-show="houseDetails.mainpanel == 'l'"><i class="fa fa-user-times"></i> Leave Household</span>
             </div>
             <div class="invoice-content">
                 <hr />
-                <div class="panel-body">
+                <div class="panel-body" ng-show="houseDetails.mainpanel == 'm'">
                     <table class="table table-responsive table-striped">
                         <thead>
                             <tr>
@@ -30,19 +33,43 @@
                         </tbody>
                     </table>
                 </div>
+                <span ng-show="houseDetails.mainpanel == 'i'">Invite someone to join your household.</span>
+                <span ng-show="houseDetails.mainpanel == 'l'">By leaving this household, you will not be able to access any of the accounts, transactions, or budget items again.</span>
+                <div class="login-content">
+                    <div class="m-t-20">
+                    </div>
+                    <div class="form-group m-b-20" ng-show="houseDetails.mainpanel == 'i'">
+                        <input type="email" class="form-control input-group-lg" placeholder="Email" ng-model="houseDetails.inviteEmail" />
+                    </div>
+                    <div class="login-buttons">
+                        <button type="button" class="btn btn-success btn-block btn-lg" ng-click="houseDetails.createInvite()" ng-disabled="!houseDetails.isValidEmail()" ng-show="houseDetails.mainpanel == 'i'">Send Invite</button>
+                        <button type="button" class="btn btn-warning btn-block btn-lg" ng-click="houseDetails.leaveHouse()" ng-show="houseDetails.mainpanel == 'l'">Leave Household</button>
+                        <button type="button" class="btn btn-white btn-block btn-lg" ng-click="houseDetails.clear()" ng-hide="houseDetails.mainpanel == 'm'">Cancel</button>
+                    </div>
+                    <div class="m-t-20">
+                    </div>
+                    <div class="alert alert-info fade in m-b-15" ng-show="houseDetails.inviteToggle == 1">
+                        <strong>Invitation Sent</strong>
+                        <span class="close" ng-click="houseDetails.inviteToggle = 0">×</span>
+                    </div>
+                </div>
             </div>
-        </div>
+        </div><!-- /invoice -->
 
     </div><!-- /left column -->
 
     <br class="hidden-md hidden-lg" />
 
-    <div class="col-md-4">
+    <div class="col-md-4 hidden-sm hidden-xs">
 
         <div class="invoice">
             <div class="invoice-company">
-                <span ng-show="houseDetails.sidepanel == 'i'">New Invite</span>
-                <span ng-show="houseDetails.sidepanel == 'l'">Leave Household?</span>
+                <span class="pull-right hidden-print">
+                    <a class="btn btn-sm btn-success m-b-10" ng-click="houseDetails.clear()" ng-show="houseDetails.sidepanel == 'l'"> New Invite</a>
+                    <a class="btn btn-sm btn-warning m-b-10" ng-click="houseDetails.beginLeave()" ng-show="houseDetails.sidepanel == 'i'"> Leave Household</a>
+                </span>
+                <span ng-show="houseDetails.sidepanel == 'i'"><i class="fa fa-envelope"></i> New Invite</span>
+                <span ng-show="houseDetails.sidepanel == 'l'"><i class="fa fa-user-times"></i> Leave Household?</span>
             </div>
             <div class="invoice-content">
                 <hr />

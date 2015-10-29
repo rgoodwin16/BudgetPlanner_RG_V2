@@ -1,4 +1,4 @@
-﻿var app = angular.module('budget_planner', ['ui.router', 'ui.bootstrap', 'LocalStorageModule', 'uiSwitch', 'trNgGrid','nvd3']);
+﻿var app = angular.module('budget_planner', ['ui.router', 'ui.bootstrap', 'LocalStorageModule', 'uiSwitch', 'trNgGrid', 'nvd3', 'angular-loading-bar']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     //
@@ -180,18 +180,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
           },
           controller: "budgetListCtrl as budgetList"
       })
-
-      //.state('budget.categories', {
-      //    url: "/categories",
-      //    templateUrl: "/app/templates/budget/budget.categories.html",
-      //    resolve: {
-      //        category: function (categorySvc) {
-      //            return categorySvc.list();
-      //        }
-      //    },
-      //    controller: "budgetCategoryCtrl as category"
-      //})
-     
 
 
 });

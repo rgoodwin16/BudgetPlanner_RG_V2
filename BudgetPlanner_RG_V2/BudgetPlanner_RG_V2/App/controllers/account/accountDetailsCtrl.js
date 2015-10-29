@@ -6,7 +6,7 @@ angular.module('budget_planner').controller('accountDetailsCtrl', ['houseAccount
     this.account = account;
     this.id = $stateParams.id;
     this.categories = categories;
-
+    this.mainpanel = 'list';
     this.sidepanel = 'c';
     this.selected = '';
 
@@ -23,6 +23,33 @@ angular.module('budget_planner').controller('accountDetailsCtrl', ['houseAccount
     this.clear = function () {
         $state.go($state.current, null, { reload: true })
     }
+
+    //MAINPANEL TRANSACTION LIST
+    this.mainPanelList = function () {
+        self.mainpanel = 'list';
+    }
+
+    //MAINPANEL CREATE TRANSACTION
+    this.mainPanelCreate = function () {
+        self.mainpanel = 'create';
+    }
+
+    //MAINPANEL EDIT TRANSACTION - SEND INFO TO FORM
+    this.mainPanelBeginEdit = function (id) {
+        transactionSvc.details(id).then(function (result) {
+            self.model = result;
+            self.mainpanel = 'edit';
+        })
+    }
+
+    //MAINPANEL DELETE TRANSACTION - SEND INFO TO FORM
+    this.mainPanelBeginDelete = function (id) {
+        transactionSvc.details(id).then(function (result) {
+            self.model = result;
+            self.mainpanel = 'delete';
+        })
+    }
+
 
     //CREATE TRANSACTION
     this.createTrans = function () {

@@ -51,6 +51,8 @@ namespace BudgetPlanner_RG_V2.Models
 
         public string invitedCode { get; set; }
         public string invitedEmail { get; set; }
+        [Required]
+        [Display(Name ="Username")]
         public string DisplayName { get; set; }
     }
 

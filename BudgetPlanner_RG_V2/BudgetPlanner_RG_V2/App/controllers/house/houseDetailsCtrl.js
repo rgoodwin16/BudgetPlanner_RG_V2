@@ -6,7 +6,22 @@ angular.module('budget_planner').controller('houseDetailsCtrl', ['authSvc','hous
     this.inviteEmail = '';
     this.inviteToggle = 0;
     this.sidepanel = 'i';
+    this.mainpanel = 'm';
 
+    //MAINPANEL NEW INVITE
+    this.mainPanelInvite = function () {
+        self.mainpanel = 'i';
+    }
+
+    //MAINPANEL CONFIRM LEAVE
+    this.mainPanelLeave = function () {
+        self.mainpanel = 'l';
+    }
+
+    //MAINPANEL MEMBERS
+    this.mainPanelMembers = function () {
+        self.mainpanel = 'm';
+    }
 
     //VALIDATE EMAIL FORM
     this.isValidEmail = function () {

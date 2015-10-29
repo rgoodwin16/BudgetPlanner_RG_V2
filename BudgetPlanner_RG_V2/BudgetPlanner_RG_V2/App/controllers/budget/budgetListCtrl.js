@@ -4,7 +4,7 @@ angular.module('budget_planner').controller('budgetListCtrl', ['budgetItemSvc', 
 
     this.display = budget;
     this.categories = categories;
-
+    this.mainpanel = 'list';
     this.sidepanel = 'c';
     this.enabled = '';
     this.model = {};
@@ -14,6 +14,31 @@ angular.module('budget_planner').controller('budgetListCtrl', ['budgetItemSvc', 
         $state.go($state.current, null, { reload: true })
     }
 
+    //MAINPANEL - BUDGET ITEM LIST
+    this.mainPanelList = function () {
+        self.mainpanel = 'list';
+    }
+
+    //MAINPANEL - CREATE BUDGET ITEM
+    this.mainPanelCreate = function () {
+        self.mainpanel = 'create';
+    }
+
+    //MAINPANEL EDIT BUDGET ITEM - SEND INFO TO FORM
+    this.mainPanelBeginEdit = function (id) {
+        budgetItemSvc.details(id).then(function (result) {
+            self.model = result;
+            self.mainpanel = 'edit';
+        })
+    }
+
+    //MAINPANEL DELETE BUDGET ITEM - SEND INFO TO FORM
+    this.mainPanelBeginDelete = function (id) {
+        budgetItemSvc.details(id).then(function (result) {
+            self.model = result;
+            self.mainpanel = 'delete';
+        })
+    }
 
     //CREATE BUDGET ITEM
     this.createItem = function () {

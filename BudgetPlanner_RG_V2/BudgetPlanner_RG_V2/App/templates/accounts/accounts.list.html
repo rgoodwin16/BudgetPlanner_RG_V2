@@ -5,37 +5,18 @@
 
         <div class="invoice">
             <div class="invoice-company">
-                <span class="pull-right hidden-print">
-                    <a class="btn btn-sm btn-success m-b-10" ng-click="accountList.clear()"><i class="fa fa-plus"></i> New Account</a>
+                <span class="pull-right hidden-print hidden-md hidden-lg">
+                    <a class="btn btn-sm btn-inverse m-b-10" ng-click="accountList.mainPanelList()"> Account List</a>
+                    <a class="btn btn-sm btn-success m-b-10" ng-click="accountList.mainPanelCreate()"> New Account</a>
                 </span>
-                Accounts
+                <span ng-show="accountList.mainpanel == 'list'"><i class="fa fa-university"></i> Accounts</span>
+                <span ng-show="accountList.mainpanel == 'create'"><i class="fa fa-university"></i> New Account</span>
+                <span ng-show="accountList.mainpanel == 'edit'"><i class="fa fa-university"></i> Edit - {{accountList.model.Name}}</span>
+                <span ng-show="accountList.mainpanel == 'archive'"><i class="fa fa-university"></i> Archive - {{accountList.model.Name}}</span>
             </div>
             <div class="invoice-content">
                 <hr />
-                <div class="panel-body">
-
-                    <!--<table tr-ng-grid="" items="accountList.display.Accounts" page-items="10">
-                        <thead>
-                            <tr>
-                                <th field-name="Name" enable-sorting="true" display-name="Name" display-align="center" enable-filtering="false"></th>
-                                <th field-name="Balance | currency" enable-sorting="true" display-name="Balance" display-align="center" enable-filtering="false"></th>
-                                <th field-name="Transactions.length" enable-sorting="true" display-name="# of Transactions" display-align="center" enable-filtering="false"></th>
-                                <th enable-sorting="false" display-name="Action" display-align="center" enable-filtering="false"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="btn-group">
-                                        <div type="button" class="btn btn-white" href ui-sref="accounts.details({id: account.id})"><i class="fa fa-eye"></i> View</div>
-                                        <div type="button" class="btn btn-primary" ng-click="accountList.beginEdit(account.id)"><i class="fa fa-edit"></i> Edit</div>
-                                        <div type="button" class="btn btn-warning" ng-click="accountList.beginArchive(account.id)"><i class="fa fa-archive"></i> Archive</div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>-->
-
+                <div class="panel-body" ng-show="accountList.mainpanel == 'list'">
 
                     <table class="table table-responsive table-striped table-borderless">
                         <thead>
@@ -52,16 +33,44 @@
                                 <td>{{account.Balance | currency}}</td>
                                 <td>{{account.Transactions.length}}</td>
                                 <td>
-                                    <div class="btn-group">
-                                        <div type="button" class="btn btn-white" href ui-sref="accounts.details({id: account.id})"><i class="fa fa-eye"></i> View</div>
-                                        <div type="button" class="btn btn-primary" ng-click="accountList.beginEdit(account.id)"><i class="fa fa-edit"></i> Edit</div>
-                                        <div type="button" class="btn btn-warning" ng-click="accountList.beginArchive(account.id)"><i class="fa fa-archive"></i> Archive</div>
+                                    <div class="btn-group hidden-xs hidden-sm">
+                                        <div type="button" class="btn btn-white" href ui-sref="accounts.details({id: account.id})"><i class="fa fa-eye"></i></div>
+                                        <div type="button" class="btn btn-primary" ng-click="accountList.beginEdit(account.id)"><i class="fa fa-edit"></i></div>
+                                        <div type="button" class="btn btn-warning" ng-click="accountList.beginArchive(account.id)"><i class="fa fa-archive"></i></div>
+                                    </div>
+                                    <div class="btn-group hidden-md hidden-lg">
+                                        <div type="button" class="btn btn-white" href ui-sref="accounts.details({id: account.id})"><i class="fa fa-eye"></i></div>
+                                        <div type="button" class="btn btn-primary" ng-click="accountList.mainPanelBeginEdit(account.id)"><i class="fa fa-edit"></i></div>
+                                        <div type="button" class="btn btn-warning" ng-click="accountList.mainPanelBeginArchive(account.id)"><i class="fa fa-archive"></i></div>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                </div><!-- /mainpanel list -->
+
+                <div class="login-content">
+                    <div class="margin-bottom-0">
+                        <div class="form-group m-b-20" ng-hide="accountList.mainpanel == 'archive' || accountList.mainpanel == 'list'">
+                            <input type="text" class="form-control input-lg" placeholder="Name" ng-model="accountList.model.Name" />
+                        </div>
+                        <div class="form-group m-b-20" ng-hide="accountList.mainpanel == 'archive' || accountList.mainpanel == 'list'">
+                            <input type="text" class="form-control input-lg" placeholder="Balance" ng-model="accountList.model.Balance" />
+                        </div>
+                        <div ng-show="accountList.mainpanel == 'archive'">
+                            <p>Once you archive this account you will no longer be able to acces it, or any of the transactions associated with it.</p>
+                        </div>
+                        <div class="m-t-20">
+                        </div>
+                        <div class="login-buttons">
+                            <button type="button" class="btn btn-success btn-block btn-lg" ng-click="accountList.createAccount(accountList.model)" ng-show="accountList.mainpanel == 'create'">Create</button>
+                            <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="accountList.editAccount(accountList.model)" ng-show="accountList.mainpanel == 'edit'">Edit</button>
+                            <button type="button" class="btn btn-warning btn-block btn-lg" ng-click="accountList.archiveAccount(accountList.model)" ng-show="accountList.mainpanel == 'archive'">Archive</button>
+                            <button type="button" class="btn btn-white btn-block btn-lg" ng-click="accountList.clear()" ng-hide="accountList.mainpanel == 'list'">Cancel</button>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
 
@@ -69,13 +78,13 @@
 
     <br class="hidden-md hidden-lg" />
 
-    <div class="col-md-4">
+    <div class="col-md-4 hidden-xs hidden-sm">
 
         <div class="invoice">
             <div class="invoice-company">
-                <span ng-show="accountList.sidepanel == 'c'">New Account</span>
-                <span ng-show="accountList.sidepanel == 'e'">Edit Account</span>
-                <span ng-show="accountList.sidepanel == 'a'">Archive Account?</span>
+                <span ng-show="accountList.sidepanel == 'c'"><i class="fa fa-university"></i> New Account</span>
+                <span ng-show="accountList.sidepanel == 'e'"><i class="fa fa-edit"></i> Edit Account - {{accountList.model.Name}}</span>
+                <span ng-show="accountList.sidepanel == 'a'"><i class="fa fa-archive"></i> Archive Account - {{accountList.model.Name}}</span>
             </div>
             <div class="invoice-content">
                 <hr />

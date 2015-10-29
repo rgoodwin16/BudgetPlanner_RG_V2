@@ -1,18 +1,22 @@
 ﻿<!-- accountDetailsCtrl as accountDetails -->
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
         <div class="invoice">
             <div class="invoice-company">
-                <span class="pull-right hidden-print">
-                    <a class="btn btn-sm btn-success m-b-10" ng-click="accountDetails.clear()"><i class="fa fa-plus"></i> New Transaction</a>
+                <span class="pull-right hidden-print hidden-lg">
+                    <a class="btn btn-sm btn-inverse m-b-10" ng-click="accountDetails.mainPanelList()"> Transaction List</a>
+                    <a class="btn btn-sm btn-success m-b-10" ng-click="accountDetails.mainPanelCreate()"> New Transaction</a>
                 </span>
-                {{accountDetails.account.Name}} - Transactions
+                <span ng-show="accountDetails.mainpanel == 'list'"><i class="fa fa-university"></i> {{accountDetails.account.Name}} - Transactions</span>
+                <span ng-show="accountDetails.mainpanel == 'create'"><i class="fa fa-money"></i> New Transaction</span>
+                <span ng-show="accountDetails.mainpanel == 'edit'"><i class="fa fa-edit"></i> Edit Transaction - {{accountDetails.model.Description}}</span>
+                <span ng-show="accountDetails.mainpanel == 'delete'"><i class="fa fa-trash"></i> Delete Transaction - {{accountDetails.model.Description}}</span>
             </div><!-- account name -->
 
             <div class="invoice-content">
             <hr />
 
-            <table tr-ng-grid="" items="accountDetails.account.Transactions" page-items="10" class="table-striped">
+            <table tr-ng-grid="" items="accountDetails.account.Transactions" page-items="10" class="table-striped" ng-show="accountDetails.mainpanel == 'list'">
                 <thead>
                     <tr>
                         <th field-name="Description" enable-sorting="true" display-name="Description" display-align="center" enable-filtering="false"></th>
@@ -26,47 +30,68 @@
                 <tbody>
                     <tr>
                         <td>
-                            <div class="btn-group" ng-hide="gridItem.Category.Name == 'New Account Created' || gridItem.Category.Name == 'User Adjusted Balance'">
+                            <div class="btn-group hidden-xs hidden-sm hidden-md" ng-hide="gridItem.Category.Name == 'New Account Created' || gridItem.Category.Name == 'User Adjusted Balance'">
                                 <label type=" button" class="btn btn-primary btn-sm" ng-click="accountDetails.beginEdit(gridItem.id)"><i class="fa fa-edit m-r-5"></i></label>
                                 <label type="button" class="btn btn-danger btn-sm" ng-click="accountDetails.beginDelete(gridItem.id)"><i class="fa fa-trash m-r-5"></i></label>
+                            </div>
+                            <div class="btn-group hidden-lg" ng-hide="gridItem.Category.Name == 'New Account Created' || gridItem.Category.Name == 'User Adjusted Balance'">
+                                <label type=" button" class="btn btn-primary btn-sm" ng-click="accountDetails.mainPanelBeginEdit(gridItem.id)"><i class="fa fa-edit m-r-5"></i></label>
+                                <label type="button" class="btn btn-danger btn-sm" ng-click="accountDetails.mainPanelBeginDelete(gridItem.id)"><i class="fa fa-trash m-r-5"></i></label>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
 
-                <!--<div class="table-responsive">
-                    <table class="table-invoice table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Description</th>
-                                <th>Amount</th>
-                                <th>Category</th>
-                                <th>Created</th>
-                                <th>Updated</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="trans in accountDetails.account.Transactions">
-                                <td>{{trans.Description}}</td>
-                                <td>{{trans.Amount | currency}}</td>
-                                <td>{{trans.Category.Name}}</td>
-                                <td>{{trans.Created | date:'medium'}}</td>
-                                <td>{{trans.Updated | date:'medium'}}</td>
-                                <td>
-                                    <div class="btn-group" ng-hide="trans.Category.Name == 'New Account Created' || trans.Category.Name == 'User Adjusted Balance'">
-                                        <label type=" button" class="btn btn-primary btn-sm" ng-click="accountDetails.beginEdit(trans.id)"><i class="fa fa-edit m-r-5"></i></label>
-                                        <label type="button" class="btn btn-danger btn-sm" ng-click="accountDetails.beginDelete(trans.id)"><i class="fa fa-trash m-r-5"></i></label>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>-->
+                <div class="panel-body hidden-lg" ng-hide="accountDetails.mainpanel == 'list'">
+                    <div class="login-content">
+                        <div class="margin-bottom-0">
+                            <div class="form-group m-b-20" ng-hide="accountDetails.mainpanel == 'delete'">
+                                <input type="text" class="form-control input-lg" placeholder="Description" ng-model="accountDetails.model.Description" />
+                            </div>
+                            <div class="form-group m-b-20" ng-hide="accountDetails.mainpanel == 'delete'">
+                                <input type="text" class="form-control input-lg" placeholder="Amount" ng-model="accountDetails.model.Amount" />
+                            </div>
+
+                            <div class="form-group" ng-hide="accountDetails.mainpanel == 'delete'">
+                                <label for="cat">Category</label>
+                                <select ng-options="category as category.Name for category in accountDetails.categories track by category.id" ng-model="accountDetails.model.Category" class="form-control" id="cat"></select>
+                                {{accountDetails.model.Categories}}
+                            </div>
+
+                            <div class="form-inline" ng-hide="accountDetails.mainpanel == 'delete'">
+                                Credit
+                                <div class="form-group">
+                                    <switch id="enabled" name="enabled" ng-model="accountDetails.model.isDebit" class="green"></switch>
+                                </div>
+                                Debit
+                                <!--<br>{{ enabled }}-->
+                            </div>
+                            <div class="m-t-20">
+                            </div>
+                            <div class="form-inline" ng-hide="accountDetails.mainpanel == 'delete'">
+                                <label>
+                                    Reconcile:
+                                    <input type="checkbox" ng-model="accountDetails.model.Reconcile"
+                                           ng-true-value="true" ng-false-value="false">
+                                </label>
+
+                            </div>
+                            <div class="m-t-20">
+                            </div>
+                            <div class="login-buttons">
+                                <button type="button" class="btn btn-success btn-block btn-lg" ng-click="accountDetails.createTrans(accountDetails.model)" ng-show="accountDetails.mainpanel == 'create'">Create</button>
+                                <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="accountDetails.editTrans(accountDetails.model)" ng-show="accountDetails.mainpanel == 'edit'">Edit</button>
+                                <button type="button" class="btn btn-danger btn-block btn-lg" ng-click="accountDetails.deleteTrans(accountDetails.model)" ng-show="accountDetails.mainpanel == 'delete'">Delete</button>
+                                <button type="button" class="btn btn-white btn-block btn-lg" ng-click="accountDetails.clear()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div><!-- /transactions -->
 
-            <div class="invoice-price">
+            <div class="invoice-price" ng-show="accountDetails.mainpanel == 'list'">
                 <div class="invoice-price-left">
 
                 </div>
@@ -78,20 +103,20 @@
                     <small>Reconciled</small>
                     {{accountDetails.account.ReconciledBalance | currency}}
                 </div>
-            </div>
+            </div><!-- /invoice-price -->
 
-        </div>
+        </div><!-- /invoice -->
     </div><!-- /left column -->
 
     <br class="hidden-md hidden-lg" />
 
-    <div class="col-md-4">
+    <div class="col-lg-4 hidden-xs hidden-sm hidden-md">
 
         <div class="invoice">
             <div class="invoice-company">
-                <span ng-show="accountDetails.sidepanel == 'c'">New Transaction</span>
-                <span ng-show="accountDetails.sidepanel == 'e'">Edit Transaction</span>
-                <span ng-show="accountDetails.sidepanel == 'd'">Delete Transaction?</span>
+                <span ng-show="accountDetails.sidepanel == 'c'"><i class="fa fa-money"></i> New Transaction</span>
+                <span ng-show="accountDetails.sidepanel == 'e'"><i class="fa fa-edit"></i> Edit Transaction - {{accountDetails.model.Description}}</span>
+                <span ng-show="accountDetails.sidepanel == 'd'"><i class="fa fa-trash"></i> Delete Transaction - {{accountDetails.model.Description}}</span>
             </div>
             <div class="invoice-content">
                 <hr />

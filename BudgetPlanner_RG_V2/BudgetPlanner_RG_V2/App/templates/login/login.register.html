@@ -29,7 +29,7 @@
             <div class="m-t-20">
             </div>
             <div class="login-buttons">
-                <button type="button" class="btn btn-success btn-block btn-lg" ng-click="register.signup(register.model)">Sign me up.</button>
+                <button type="button" class="btn btn-success btn-block btn-lg" ng-click="register.signup(register.model)">Register</button>
             </div>
             <div class="m-t-20">
             </div>
@@ -38,15 +38,15 @@
             </div>
             <div class="m-t-20">
             </div>
-            <div>
-                <h5 style="color:white">Passwords must have at least one non letter <br />('~!#$' etc.)</h5>
-                <h5 style="color:white">Passwords must have at least one digit (‘0′-‘9′)</h5>
-                <h5 style="color:white">Passwords must have at least one uppercase (‘A’-‘Z’)</h5>
+            <div class="alert alert-info text-center text-white">
+                <p>Passwords must have at least one non letter ('~!#$' etc.)</p>
+                <p>Passwords must have at least one digit (‘0′-‘9′)</p>
+                <p>Passwords must have at least one uppercase (‘A’-‘Z’)</p>
             </div>
             <div class="m-t-20">
             </div>
             <div ng-show="register.errors != null">
-                <h5 class="btn btn-warning btn-block">{{register.errors.data.Message}}</h5>
+                <h5 class="alert alert-warning text-center text-white" ng-repeat="error in register.errors.data.ModelState">{{error[0]}}</h5>
             </div>
         </div>
     </div>

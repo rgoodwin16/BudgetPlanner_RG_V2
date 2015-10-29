@@ -9,12 +9,38 @@ angular.module('budget_planner').controller('accountListCtrl',['houseAccountSvc'
     console.log(account)
 
     this.model = {};
-
+    this.mainpanel = 'list';
     this.sidepanel = 'c';
 
     //CLEAR FORM
     this.clear = function () {
         $state.go($state.current, null, { reload: true })
+    }
+
+    //MAINPANEL ACCOUNT LIST
+    this.mainPanelList = function () {
+        self.mainpanel = 'list';
+    }
+
+    //MAINPANEL CREATE ACCOUNT
+    this.mainPanelCreate = function () {
+        self.mainpanel = 'create';
+    }
+
+    //MAINPANEL EDIT ACCOUNT - SEND INFO TO FORM
+    this.mainPanelBeginEdit = function (id) {
+        houseAccountSvc.details(id).then(function (result) {
+            self.model = result;
+            self.mainpanel = 'edit';
+        })
+    }
+
+    //MAINPANEL ARCHIVE ACCOUNT - SEND INFO TO FORM
+    this.mainPanelBeginArchive = function (id) {
+        houseAccountSvc.details(id).then(function (result) {
+            self.model = result;
+            self.mainpanel = 'archive';
+        })
     }
 
     //CREATE ACCOUNT / REFRESH STATE
@@ -24,7 +50,7 @@ angular.module('budget_planner').controller('accountListCtrl',['houseAccountSvc'
         })
     }
 
-    //EDIT ACCOUNT - SEND INFO TO FORM
+    //SIDEPANEL EDIT ACCOUNT - SEND INFO TO FORM
     this.beginEdit = function (id) {
         houseAccountSvc.details(id).then(function (result) {
             self.model = result;
@@ -40,7 +66,7 @@ angular.module('budget_planner').controller('accountListCtrl',['houseAccountSvc'
     }
 
 
-    //ARCHIVE ACCOUNT - SEND INFO TO FORM
+    //SIDEPANEL ARCHIVE ACCOUNT - SEND INFO TO FORM
     this.beginArchive = function (id) {
         houseAccountSvc.details(id).then(function (result) {
             self.model = result;
